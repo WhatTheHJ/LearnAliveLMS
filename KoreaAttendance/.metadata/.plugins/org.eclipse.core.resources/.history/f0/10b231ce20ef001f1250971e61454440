@@ -1,0 +1,51 @@
+package com.korea.attendance.controller;
+
+import com.korea.attendance.model.Attendance;
+import com.korea.attendance.service.AttendanceService;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
+
+@RestController
+@RequestMapping("/api/attendance")
+public class AttendanceController {
+
+    private final AttendanceService attendanceService;
+
+    public AttendanceController(AttendanceService attendanceService) {
+        this.attendanceService = attendanceService;
+    }
+
+    // 출석하기 (학생)
+    @PostMapping("/record")
+    public Map<String, String> recordAttendance(@RequestBody Attendance attendance) {
+        boolean success = attendanceService.recordAttendance(attendance);
+        return success ? Map.of("message", "출석이 기록되었습니다.") : Map.of("error", "이미 출석이 기록된 날짜입니다.");
+    }
+
+    // 교수자가 출석 수정
+    @PutMapping("/update")
+    public Map<String, String> updateAttendance(@RequestBody Map<String, Object> request) {
+        int attendanceId = (int) request.get("attendanceId");
+        String state = (String) request.get("state");
+        String reason = (String) request.get("reason");
+        attendanceService.updateAttendance(attendanceId, state, reason);
+        return Map.of("message", "출석 정보가 업데이트되었습니다.");
+    }
+
+    // 특정 강의실의 특정 날짜 출석 조회
+    @GetMapping("/{classId}/{date}")
+    public List<Attendance> getAttendanceByClassAndDate(
+            @PathVariable("classId") int classId,
+            @PathVariable("date") String date) {
+
+        // 요청 값 확인 로그 추가
+        System.out.println("📌 요청 받은 classId: " + classId + ", date: " + date);
+
+        return attendanceService.getAttendanceByClassAndDate(classId, date);
+    }
+
+
+}

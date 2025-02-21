@@ -1,0 +1,18 @@
+package com.korea.attendance.service;
+
+import org.springframework.stereotype.Service;
+
+import com.korea.attendance.model.Student;
+import com.korea.attendance.repository.StudentMapper;
+
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class StudentService {
+    private final StudentMapper studentMapper;
+
+    public void registerStudent(Student newStudent) {
+        studentMapper.insertStudent(newStudent);
+    }
+}

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.korea.attendance.repository.AttendanceMapper">
+
+    <!-- 출석 기록 추가 -->
+    <insert id="insertAttendance">
+        INSERT INTO Attendance (student_id, class_id, date, state, reason, created_at, updated_at)
+        VALUES (#{studentId}, #{classId}, #{date}, #{state}, #{reason}, NOW(), NOW());
+    </insert>
+
+    <!-- 특정 학생의 출석 조회 -->
+    <select id="getAttendanceByStudentId" resultType="com.korea.attendance.model.Attendance">
+        SELECT * FROM Attendance WHERE student_id = #{studentId} AND class_id = #{classId}
+    </select>
+
+</mapper>
+

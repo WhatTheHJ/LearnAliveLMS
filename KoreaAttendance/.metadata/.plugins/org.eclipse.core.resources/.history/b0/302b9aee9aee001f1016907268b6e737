@@ -1,0 +1,16 @@
+package com.korea.attendance.model;
+
+import lombok.Data;
+import java.util.Date;
+
+@Data
+public class Attendance {
+    private int attendanceId;
+    private String studentId;
+    private int classId;
+    private Date date;
+    private String state;
+    private String reason;  // 추가된 필드 - 비고란
+    private Date createdAt;
+    private Date updatedAt;
+}

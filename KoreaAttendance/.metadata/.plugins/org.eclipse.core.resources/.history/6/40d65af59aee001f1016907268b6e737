@@ -1,0 +1,21 @@
+package com.korea.attendance.repository;
+
+import com.korea.attendance.model.Attendance;
+import org.apache.ibatis.annotations.*;
+
+import java.time.LocalDate;
+import java.util.Optional;
+
+@Mapper
+public interface AttendanceMapper {
+
+    // ✅ 특정 학생이 특정 날짜에 출석했는지 확인
+    @Select("SELECT * FROM Attendance WHERE student_id = #{studentId} AND class_id = #{classId} AND date = #{date}")
+    Optional<Attendance> findAttendance(@Param("studentId") String studentId, 
+                                        @Param("classId") int classId, 
+                                        @Param("date") LocalDate date);
+
+    // ✅ 출석 기록 추가
+    @Insert("INSERT INTO Attendance (student_id, class_id, date, state) VALUES (#{studentId}, #{classId}, #{date}, #{state})")
+    void insertAttendance(Attendance attendance);
+}

@@ -1,0 +1,17 @@
+package com.korea.attendance.model;
+
+import lombok.Data;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+
+@Data
+public class Attendance {
+    private int attendanceId;
+    private String studentId;
+    private int classId;
+    private LocalDate date;
+    private String state; // present, absent, late, excused
+    private String reason;
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
+}

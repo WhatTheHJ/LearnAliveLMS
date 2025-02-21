@@ -1,0 +1,11 @@
+package com.korea.attendance.service;
+
+@Service
+@RequiredArgsConstructor
+public class StudentService {
+    private final StudentMapper studentMapper;
+
+    public void registerStudent(Student newStudent) {
+        studentMapper.insertStudent(newStudent);
+    }
+}

@@ -1,0 +1,32 @@
+package com.korea.attendance.controller;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import com.korea.attendance.model.Student;
+import com.korea.attendance.service.StudentService;
+
+import lombok.RequiredArgsConstructor;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/students")
+@RequiredArgsConstructor
+public class StudentController {
+    private final StudentService studentService;
+
+    // ✅ 수강생 등록
+    @PostMapping("/register")
+    public ResponseEntity<?> registerStudent(@RequestBody Student newStudent) {
+        studentService.registerStudent(newStudent);
+        return ResponseEntity.ok("수강생 등록 완료");
+    }
+
+    // ✅ 특정 강의실의 모든 학생 조회
+    @GetMapping("/class/{classId}")  // 🔥 `{}` 중괄호로 감싸서 명확하게 지정
+    public ResponseEntity<List<Student>> getStudentsByClass(@PathVariable("classId") int classId) {
+        List<Student> students = studentService.getStudentsByClass(classId);
+        return ResponseEntity.ok(students);
+    }
+}

@@ -1,0 +1,40 @@
+package com.korea.attendance.controller;
+
+import com.korea.attendance.model.Attendance;
+import com.korea.attendance.service.AttendanceService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/api/attendance")
+public class AttendanceController {
+    
+    private final AttendanceService attendanceService;
+
+    public AttendanceController(AttendanceService attendanceService) {
+        this.attendanceService = attendanceService;
+    }
+
+    // ✅ 출석 기록 추가
+    @PostMapping("/record")
+    public ResponseEntity<String> recordAttendance(@RequestParam String studentId, 
+                                                   @RequestParam int classId) {
+        LocalDate today = LocalDate.now();
+
+        // ✅ 이미 출석했는지 확인
+        Optional<Attendance> existingAttendance = attendanceService.findAttendance(studentId, classId, today);
+        if (existingAttendance.isPresent()) {
+            return ResponseEntity.badRequest().body("이미 오늘 출석이 기록되었습니다.");
+        }
+
+        // ✅ 출석 기록 추가
+        Attendance attendance = new Attendance(studentId, classId, today, "present");
+        attendanceService.recordAttendance(attendance);
+        
+        return ResponseEntity.ok("출석이 기록되었습니다.");
+    }
+}
+

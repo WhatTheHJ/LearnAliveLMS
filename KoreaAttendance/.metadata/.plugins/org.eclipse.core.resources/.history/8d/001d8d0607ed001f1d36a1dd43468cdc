@@ -1,0 +1,21 @@
+package com.korea.attendance.controller;
+
+import com.korea.attendance.model.User;
+import com.korea.attendance.service.AuthService;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api/auth")
+public class AuthController {
+
+    private final AuthService authService;
+
+    public AuthController(AuthService authService) {
+        this.authService = authService;
+    }
+
+    @PostMapping("/login")
+    public User login(@RequestParam String userId) {
+        return authService.login(userId);
+    }
+}

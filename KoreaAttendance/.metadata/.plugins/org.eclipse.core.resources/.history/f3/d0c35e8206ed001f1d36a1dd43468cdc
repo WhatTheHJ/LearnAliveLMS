@@ -1,0 +1,5 @@
+package com.korea.attendance.controller;
+
+public class LoginController {
+
+}

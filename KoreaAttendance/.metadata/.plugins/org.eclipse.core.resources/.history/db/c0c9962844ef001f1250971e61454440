@@ -1,0 +1,60 @@
+package com.korea.attendance.controller;
+
+import com.korea.attendance.model.Attendance;
+import com.korea.attendance.service.AttendanceService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
+
+@RestController
+@RequestMapping("/api/attendance")
+public class AttendanceController {
+
+    private final AttendanceService attendanceService;
+
+    public AttendanceController(AttendanceService attendanceService) {
+        this.attendanceService = attendanceService;
+    }
+
+    // ✅ 학생 출석 체크
+    @PostMapping("/check-in")
+    public ResponseEntity<?> studentCheckIn(@RequestBody Attendance request) {
+        boolean success = attendanceService.studentCheckIn(request.getStudentId(), request.getClassId(), request.getDate());
+
+        if (success) {
+            return ResponseEntity.ok("출석 완료");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("이미 출석한 기록이 있습니다.");
+        }
+    }
+
+    // ✅ 출석 상태(state) 변경
+    @PutMapping("/{attendanceId}/state")
+    public ResponseEntity<?> updateAttendanceState(@PathVariable int attendanceId, @RequestBody Map<String, String> payload) {
+        attendanceService.updateAttendanceState(attendanceId, payload.get("state"));
+        return ResponseEntity.ok("출석 상태 업데이트 성공");
+    }
+
+    // ✅ 출석 사유(reason) 변경
+    @PutMapping("/{attendanceId}/reason")
+    public ResponseEntity<?> updateAttendanceReason(@PathVariable int attendanceId, @RequestBody Map<String, String> payload) {
+        attendanceService.updateAttendanceReason(attendanceId, payload.get("reason"));
+        return ResponseEntity.ok("출석 사유 업데이트 성공");
+    }
+
+    // ✅ 출석 기록 추가
+    @PostMapping("/add")
+    public ResponseEntity<?> addAttendance(@RequestBody Attendance request) {
+        attendanceService.addAttendance(request);
+        return ResponseEntity.ok("출석 기록 추가 완료");
+    }
+
+    // ✅ 출석 기록 삭제
+    @DeleteMapping("/{attendanceId}")
+    public ResponseEntity<?> deleteAttendance(@PathVariable int attendanceId) {
+        attendanceService.deleteAttendance(attendanceId);
+        return ResponseEntity.ok("출석 기록 삭제 완료");
+    }
+}

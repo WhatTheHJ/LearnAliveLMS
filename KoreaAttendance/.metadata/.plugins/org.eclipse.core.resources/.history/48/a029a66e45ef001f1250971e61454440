@@ -1,0 +1,20 @@
+package com.korea.attendance.service;
+
+import com.korea.attendance.model.Attendance;
+
+import java.util.List;
+
+public interface AttendanceService {
+
+    boolean studentCheckIn(String studentId, int classId, String date);
+
+    void updateAttendanceState(int attendanceId, String state);
+
+    void updateAttendanceReason(int attendanceId, String reason);
+
+    void addAttendance(Attendance attendance);
+
+    void deleteAttendance(int attendanceId);
+
+    List<Attendance> getAttendanceByClassAndDate(int classId, String date);
+}

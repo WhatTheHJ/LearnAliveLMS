@@ -1,0 +1,23 @@
+package com.korea.attendance.controller;
+
+import com.korea.attendance.model.Classroom;
+import com.korea.attendance.service.ClassroomService;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/classrooms")
+public class ClassroomController {
+
+    private final ClassroomService classroomService;
+
+    public ClassroomController(ClassroomService classroomService) {
+        this.classroomService = classroomService;
+    }
+
+    @GetMapping("/{userId}")
+    public List<Classroom> getUserClassrooms(@PathVariable String userId) {
+        return classroomService.getClassroomsByUserId(userId);
+    }
+}

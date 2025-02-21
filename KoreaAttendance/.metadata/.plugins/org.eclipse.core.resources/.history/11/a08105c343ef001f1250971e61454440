@@ -1,0 +1,5 @@
+package com.korea.attendance.service.impl;
+
+public class AttendanceServiceImpl {
+
+}

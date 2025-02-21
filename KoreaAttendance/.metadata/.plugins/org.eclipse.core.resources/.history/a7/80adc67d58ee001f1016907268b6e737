@@ -1,0 +1,5 @@
+package com.korea.attendance.config;
+
+public class CorsConfig {
+
+}

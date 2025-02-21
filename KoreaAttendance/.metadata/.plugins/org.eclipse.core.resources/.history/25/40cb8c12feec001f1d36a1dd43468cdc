@@ -1,0 +1,5 @@
+package com.korea.attendance.repository;
+
+public class AttendanceMapper {
+
+}

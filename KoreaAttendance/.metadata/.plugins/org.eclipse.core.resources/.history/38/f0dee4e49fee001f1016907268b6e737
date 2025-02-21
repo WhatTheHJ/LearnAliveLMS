@@ -1,0 +1,48 @@
+package com.korea.attendance.service;
+
+import com.korea.attendance.model.Attendance;
+import com.korea.attendance.repository.AttendanceMapper;
+import org.springframework.stereotype.Service;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class AttendanceService {
+
+    private final AttendanceMapper attendanceMapper;
+
+    public AttendanceService(AttendanceMapper attendanceMapper) {
+        this.attendanceMapper = attendanceMapper;
+    }
+
+    // 출석 기록 추가 (중복 방지)
+    public boolean recordAttendance(Attendance attendance) {
+        Optional<Attendance> existingAttendance = attendanceMapper.findAttendanceByStudentAndDate(attendance.getStudentId(), attendance.getClassId(), attendance.getDate().toString());
+        if (existingAttendance.isPresent()) {
+            return false; // 중복 출석 방지
+        }
+        attendanceMapper.insertAttendance(attendance);
+        return true;
+    }
+
+    // 교수자가 출석 수정
+    public void updateAttendance(int attendanceId, String state, String reason) {
+        attendanceMapper.updateAttendance(attendanceId, state, reason);
+    }
+
+    // 특정 강의실과 날짜에 해당하는 출결 데이터 조회
+    public List<Attendance> getAttendanceByClassAndDate(int classId, String date) {
+        return attendanceMapper.findAttendanceByClassAndDate(classId, date);
+    }
+
+    // 출결 상태 수정
+    public void updateAttendance(int attendanceId, Attendance updatedAttendance) {
+        attendanceMapper.updateAttendanceState(attendanceId, updatedAttendance.getState());
+    }
+
+    // 출결 데이터 삭제
+    public void deleteAttendance(int attendanceId) {
+        attendanceMapper.deleteAttendance(attendanceId);
+    }
+}
