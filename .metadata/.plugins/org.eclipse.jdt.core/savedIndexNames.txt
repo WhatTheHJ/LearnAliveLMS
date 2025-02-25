@@ -1,4 +1,0 @@
-INDEX VERSION 1.131+C:\GitRepository\LMSProject\.metadata\.plugins\org.eclipse.jdt.core
-1865797976.index
-2873327348.index
-2008107965.index
