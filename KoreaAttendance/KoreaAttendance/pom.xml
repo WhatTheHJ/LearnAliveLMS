@@ -31,6 +31,12 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
+	
+	<!-- Thymeleaf 의존성 추가 -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-thymeleaf</artifactId>
+    </dependency>
 		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

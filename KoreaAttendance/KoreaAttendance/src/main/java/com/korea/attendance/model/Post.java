@@ -2,6 +2,9 @@ package com.korea.attendance.model;
 
 import java.sql.Timestamp;
 
+import lombok.Data;
+
+@Data
 public class Post {
 	private Integer postId; // PK
 	private Integer boardId; // 게시판 ID (Foreign Key)
