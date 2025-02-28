@@ -1,0 +1,19 @@
+package com.korea.attendance.service;
+
+import com.korea.attendance.model.User;
+import com.korea.attendance.repository.AuthMapper;
+import org.springframework.stereotype.Service;
+
+@Service
+public class AuthService {
+
+    private final AuthMapper authMapper;
+
+    public AuthService(AuthMapper authMapper) {
+        this.authMapper = authMapper;
+    }
+
+    public User authenticate(String userId) {
+        return authMapper.findUserById(userId);  // MyBatis로 역할 조회
+    }
+}

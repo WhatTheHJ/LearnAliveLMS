@@ -2,6 +2,7 @@ package com.korea.attendance.service;
 
 import java.util.List;
 
+
 import org.springframework.stereotype.Service;
 
 import com.korea.attendance.model.Student;
@@ -18,12 +19,12 @@ public class StudentService {
     public void registerStudent(Student newStudent) {
         studentMapper.insertStudent(newStudent);
     }
-    
+
  // 특정 강의실의 모든 학생 조회
     public List<Student> getStudentsByClass(int classId) {
         return studentMapper.findStudentsByClass(classId);
     }
-    
+
     //학생 데이터 수정
     public void updateStudent(String studentId, Student updatedStudent) {
         studentMapper.updateStudent(

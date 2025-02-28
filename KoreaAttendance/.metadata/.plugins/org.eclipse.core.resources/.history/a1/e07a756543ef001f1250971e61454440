@@ -1,0 +1,42 @@
+package com.korea.attendance.controller;
+
+import com.korea.attendance.model.Attendance;
+import com.korea.attendance.service.AttendanceService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api/attendance")
+public class AttendanceController {
+
+    private final AttendanceService attendanceService;
+
+    public AttendanceController(AttendanceService attendanceService) {
+        this.attendanceService = attendanceService;
+    }
+
+    // ✅ 학생이 직접 출석하기
+    @PostMapping("/check-in")
+    public ResponseEntity<?> studentCheckIn(@RequestBody Attendance attendance) {
+        try {
+            attendanceService.studentCheckIn(attendance.getStudentId(), attendance.getClassId(), attendance.getDate());
+            return ResponseEntity.ok("출석 완료");
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    // ✅ 교수자가 출석 수정 (없으면 추가)
+    @PutMapping("/update")
+    public ResponseEntity<?> updateAttendance(@RequestBody Attendance attendance) {
+        attendanceService.updateAttendance(
+            attendance.getAttendanceId(),
+            attendance.getStudentId(),
+            attendance.getClassId(),
+            attendance.getDate(),
+            attendance.getState(),
+            attendance.getReason()
+        );
+        return ResponseEntity.ok("출석 정보 수정 완료");
+    }
+}

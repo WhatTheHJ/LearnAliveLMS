@@ -33,13 +33,11 @@ public class PostController {
     }
 
     // 게시글 추가 페이지
-
     @GetMapping("/{boardId}/post/new")
     public String showCreatePostForm() {
     	return "create-post.html";
     }
-
-    @PostMapping("/{boardId}/post/new")
+    @PostMapping("post/new")
     public String createPost(Post post) {
         postService.createPost(post); // 게시글 생성
         return "create-post.html"; // 게시글 목록 페이지로 리디렉션

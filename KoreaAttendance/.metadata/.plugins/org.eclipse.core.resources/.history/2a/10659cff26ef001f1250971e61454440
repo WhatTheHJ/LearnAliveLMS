@@ -1,0 +1,23 @@
+spring.application.name=KoreaAttendance
+
+# Server set
+server.port=8080
+
+# MySQL db set
+spring.datasource.url=jdbc:mysql://localhost:3306/korea_db?serverTimezone=Asia/Seoul
+spring.datasource.username=root
+spring.datasource.password=9829
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+# MyBatis set
+mybatis.mapper-locations=classpath:mapper/**/*.xml
+mybatis.configuration.map-underscore-to-camel-case=true
+mybatis.configuration.log-impl=org.apache.ibatis.logging.stdout.StdOutImpl
+logging.level.org.mybatis=DEBUG
+logging.level.org.apache.ibatis=DEBUG
+logging.level.com.korea.attendance.repository=DEBUG
+
+# Hibernate set
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.properties.hibernate.format_sql=true
+spring.jpa.show-sql=true

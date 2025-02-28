@@ -1,0 +1,12 @@
+@RestController
+@RequestMapping("/api/students")
+@RequiredArgsConstructor
+public class StudentController {
+    private final StudentService studentService;
+
+    @PostMapping("/register")
+    public ResponseEntity<?> registerStudent(@RequestBody Student newStudent) {
+        studentService.registerStudent(newStudent);
+        return ResponseEntity.ok("수강생 등록 완료");
+    }
+}

@@ -1,0 +1,17 @@
+package com.korea.attendance.repository;
+
+import com.korea.attendance.model.Attendance;
+import org.apache.ibatis.annotations.*;
+
+import java.util.List;
+
+@Mapper
+public interface AttendanceMapper {
+
+    @Insert("INSERT INTO Attendance (student_id, class_id, date, state, created_at, updated_at) " +
+            "VALUES (#{studentId}, #{classId}, #{date}, #{state}, NOW(), NOW())")
+    void insertAttendance(Attendance attendance);
+
+    @Select("SELECT * FROM Attendance WHERE student_id = #{studentId} AND class_id = #{classId}")
+    List<Attendance> getAttendanceByStudentId(@Param("studentId") String studentId, @Param("classId") int classId);
+}

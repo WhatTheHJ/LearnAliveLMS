@@ -1,0 +1,23 @@
+package com.korea.attendance.controller;
+
+import com.korea.attendance.model.Classroom;
+import com.korea.attendance.service.ClassService;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/classes")
+public class ClassController {
+
+    private final ClassService classService;
+
+    public ClassController(ClassService classService) {
+        this.classService = classService;
+    }
+
+    @GetMapping("/{userId}")
+    public List<Classroom> getUserClasses(@PathVariable("userId") String userId) {  // 👈 여기 수정!
+        return classService.getClassesByUserId(userId);
+    }
+}

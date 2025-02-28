@@ -1,0 +1,76 @@
+package com.korea.attendance.repository;
+
+import com.korea.attendance.model.Attendance;
+import org.apache.ibatis.annotations.*;
+
+import java.util.List;
+
+@Mapper
+public interface AttendanceMapper {
+
+	@Select("""
+		    SELECT 
+		        COALESCE(a.attendance_id, 0) AS attendance_id, 
+		        s.student_id AS student_id, 
+		        s.name AS name, 
+		        s.class_id AS class_id, 
+		        c.class_name AS class_name, 
+		        COALESCE(a.date, #{date}) AS date, 
+		        COALESCE(a.state, 'absent') AS state, 
+		        COALESCE(a.reason, '미등록') AS reason, 
+		        COALESCE(a.created_at, NULL) AS created_at, 
+		        COALESCE(a.updated_at, NULL) AS updated_at
+		    FROM Student s
+		    LEFT JOIN Attendance a 
+		        ON s.student_id = a.student_id 
+		        AND a.class_id = #{classId} 
+		        AND a.date = #{date}
+		    LEFT JOIN Class c 
+		        ON s.class_id = c.class_id
+		    WHERE s.class_id = #{classId}
+		""")
+		@Results(id = "AttendanceResultMap", value = {
+		    @Result(column = "attendance_id", property = "attendanceId"),
+		    @Result(column = "student_id", property = "studentId"),
+		    @Result(column = "name", property = "name"),
+		    @Result(column = "class_id", property = "classId"),
+		    @Result(column = "class_name", property = "className"),
+		    @Result(column = "date", property = "date"),
+		    @Result(column = "state", property = "state"),
+		    @Result(column = "reason", property = "reason"),
+		    @Result(column = "created_at", property = "createdAt"),
+		    @Result(column = "updated_at", property = "updatedAt")
+		})
+		List<Attendance> findAttendanceByClassAndDate(@Param("classId") int classId, @Param("date") String date);
+
+    @Insert("""
+        INSERT INTO Attendance (student_id, class_id, date, state, created_at, updated_at)
+        VALUES (#{studentId}, #{classId}, #{date}, #{state}, NOW(), NOW())
+    """)
+    void insertAttendance(@Param("studentId") String studentId, @Param("classId") int classId, @Param("date") String date, @Param("state") String state);
+
+    @Update("""
+        UPDATE Attendance 
+        SET state = #{state}, updated_at = NOW()
+        WHERE attendance_id = #{attendanceId}
+    """)
+    void updateAttendanceState(@Param("attendanceId") int attendanceId, @Param("state") String state);
+
+    @Update("""
+        UPDATE Attendance 
+        SET reason = #{reason}, updated_at = NOW()
+        WHERE attendance_id = #{attendanceId}
+    """)
+    void updateAttendanceReason(@Param("attendanceId") int attendanceId, @Param("reason") String reason);
+
+    @Delete("""
+        DELETE FROM Attendance WHERE attendance_id = #{attendanceId}
+    """)
+    void deleteAttendance(@Param("attendanceId") int attendanceId);
+
+    @Select("""
+        SELECT COUNT(*) FROM Attendance 
+        WHERE student_id = #{studentId} AND class_id = #{classId} AND date = #{date}
+    """)
+    int checkDuplicateAttendance(@Param("studentId") String studentId, @Param("classId") int classId, @Param("date") String date);
+}

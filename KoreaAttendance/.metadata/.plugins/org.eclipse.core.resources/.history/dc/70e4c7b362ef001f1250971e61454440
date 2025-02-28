@@ -1,0 +1,13 @@
+package com.korea.attendance.repository;
+
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
+
+@Mapper
+public interface StudentMapper {
+    @Insert("""
+        INSERT INTO Student (student_id, university, department, name, email, class_id)
+        VALUES (#{studentId}, #{university}, #{department}, #{name}, #{email}, #{classId})
+    """)
+    void insertStudent(Student newStudent);
+}

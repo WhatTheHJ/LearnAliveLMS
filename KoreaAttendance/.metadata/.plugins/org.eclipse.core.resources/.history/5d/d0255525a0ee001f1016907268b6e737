@@ -1,0 +1,32 @@
+package com.korea.attendance.repository;
+
+import com.korea.attendance.model.Attendance;
+import org.apache.ibatis.annotations.*;
+
+import java.util.List;
+import java.util.Optional;
+
+@Mapper
+public interface AttendanceMapper {
+
+    // 특정 학생이 특정 날짜에 출석했는지 확인 (중복 방지용)
+    @Select("SELECT * FROM Attendance WHERE student_id = #{studentId} AND class_id = #{classId} AND date = #{date}")
+    Optional<Attendance> findAttendanceByStudentAndDate(@Param("studentId") String studentId, @Param("classId") int classId, @Param("date") String date);
+
+    // 출석 기록 추가
+    @Insert("INSERT INTO Attendance (student_id, class_id, date, state, reason) VALUES (#{studentId}, #{classId}, #{date}, #{state}, #{reason})")
+    @Options(useGeneratedKeys = true, keyProperty = "attendanceId")
+    void insertAttendance(Attendance attendance);
+
+	// 특정 강의실과 날짜의 출결 데이터 조회
+    @Select("SELECT * FROM Attendance WHERE class_id = #{classId} AND date = #{date}")
+    List<Attendance> findAttendanceByClassAndDate(@Param("classId") int classId, @Param("date") String date);
+
+    // 출결 상태 업데이트
+    @Update("UPDATE Attendance SET state = #{state}, updated_at = NOW() WHERE attendance_id = #{attendanceId}")
+    void updateAttendanceState(@Param("attendanceId") int attendanceId, @Param("state") String state);
+
+    // 출결 데이터 삭제
+    @Delete("DELETE FROM Attendance WHERE attendance_id = #{attendanceId}")
+    void deleteAttendance(@Param("attendanceId") int attendanceId);
+}

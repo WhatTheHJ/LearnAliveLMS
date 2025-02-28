@@ -1,0 +1,25 @@
+package com.korea.attendance.service;
+
+import com.korea.attendance.model.Attendance;
+import com.korea.attendance.repository.AttendanceMapper;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class AttendanceService {
+
+    private final AttendanceMapper attendanceMapper;
+
+    public AttendanceService(AttendanceMapper attendanceMapper) {
+        this.attendanceMapper = attendanceMapper;
+    }
+
+    public void addAttendance(Attendance attendance) {
+        attendanceMapper.insertAttendance(attendance);
+    }
+
+    public List<Attendance> getStudentAttendance(String studentId, int classId) {
+        return attendanceMapper.getAttendanceByStudentId(studentId, classId);
+    }
+}

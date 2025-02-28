@@ -1,0 +1,46 @@
+package com.korea.attendance.service;
+
+import com.korea.attendance.model.Attendance;
+import com.korea.attendance.repository.AttendanceMapper;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class AttendanceService {
+    private final AttendanceMapper attendanceMapper;
+
+    public AttendanceService(AttendanceMapper attendanceMapper) {
+        this.attendanceMapper = attendanceMapper;
+    }
+
+    // ✅ 학생이 직접 출석하기 (중복 출석 방지)
+    public void studentCheckIn(String studentId, int classId, String date) {
+        Attendance existingAttendance = attendanceMapper.findExistingAttendance(studentId, classId, date);
+        
+        if (existingAttendance != null) {
+            throw new RuntimeException("이미 출석한 기록이 있습니다.");
+        }
+
+        // 새로운 출석 기록 추가
+        attendanceMapper.insertAttendance(new Attendance(studentId, classId, date, "present", null));
+    }
+
+    // ✅ 교수자가 출석 상태를 수정 (없으면 자동 추가)
+    public void updateAttendance(int attendanceId, String studentId, int classId, String date, String state, String reason) {
+        Attendance existingAttendance = attendanceMapper.findExistingAttendance(studentId, classId, date);
+        
+        if (existingAttendance == null) {
+            // 출석 기록이 없을 경우 새로 추가
+            attendanceMapper.insertAttendance(new Attendance(studentId, classId, date, state, reason));
+        } else {
+            // 출석 기록이 있을 경우 업데이트
+            attendanceMapper.updateAttendance(existingAttendance.getAttendanceId(), state, reason);
+        }
+    }
+
+    // ✅ 특정 날짜 출석 데이터 가져오기
+    public List<Attendance> getAttendanceByClassAndDate(int classId, String date) {
+        return attendanceMapper.findAttendanceByClassAndDate(classId, date);
+    }
+}

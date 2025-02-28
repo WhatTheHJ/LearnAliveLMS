@@ -1,0 +1,37 @@
+package com.korea.attendance.repository;
+
+import com.korea.attendance.model.Attendance;
+import org.apache.ibatis.annotations.*;
+
+
+@Mapper
+public interface AttendanceMapper {
+
+    // ✅ 기존 출석 기록 확인 (중복 방지)
+    @Select("""
+        SELECT * FROM Attendance 
+        WHERE student_id = #{studentId} 
+        AND class_id = #{classId} 
+        AND date = #{date}
+    """)
+    Attendance findExistingAttendance(@Param("studentId") String studentId, 
+                                      @Param("classId") int classId, 
+                                      @Param("date") String date);
+
+    // ✅ 출석 기록 추가 (학생 출석하기)
+    @Insert("""
+        INSERT INTO Attendance (student_id, class_id, date, state, reason, created_at, updated_at)
+        VALUES (#{studentId}, #{classId}, #{date}, #{state}, #{reason}, NOW(), NOW())
+    """)
+    void insertAttendance(Attendance attendance);
+
+    // ✅ 출석 상태 및 사유 업데이트 (교수자 수정)
+    @Update("""
+        UPDATE Attendance 
+        SET state = #{state}, reason = #{reason}, updated_at = NOW()
+        WHERE attendance_id = #{attendanceId}
+    """)
+    void updateAttendance(@Param("attendanceId") int attendanceId, 
+                          @Param("state") String state, 
+                          @Param("reason") String reason);
+}

@@ -1,0 +1,21 @@
+package com.korea.attendance.service;
+
+import com.korea.attendance.model.Class;
+import com.korea.attendance.repository.ClassMapper;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class ClassService {
+
+    private final ClassMapper classMapper;
+
+    public ClassService(ClassMapper classMapper) {
+        this.classMapper = classMapper;
+    }
+
+    public List<Class> getClassesByUserId(String userId) {
+        return classMapper.findClassesByUserId(userId);
+    }
+}

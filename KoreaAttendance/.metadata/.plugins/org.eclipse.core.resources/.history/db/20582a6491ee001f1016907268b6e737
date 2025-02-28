@@ -1,0 +1,21 @@
+package com.korea.attendance.controller;
+
+import com.korea.attendance.model.User;
+import com.korea.attendance.service.AuthService;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api/auth")
+@CrossOrigin(origins = "http://localhost:5173") // ✅ CORS 해결
+public class AuthController {
+    private final AuthService authService;
+
+    public AuthController(AuthService authService) {
+        this.authService = authService;
+    }
+
+    @GetMapping("/{userId}")
+    public User login(@PathVariable String userId) {
+        return authService.findUserById(userId);
+    }
+}

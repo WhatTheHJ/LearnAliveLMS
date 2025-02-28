@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.korea.attendance.repository.AttendanceMapper">
+
+	<!-- 출석 기록 -->
+    <insert id="insertAttendance">
+    INSERT INTO Attendance (student_id, class_id, date, state, reason, created_at)
+    VALUES (#{studentId}, #{classId}, #{date}, #{state}, #{reason}, NOW());
+	</insert>
+
+	<!-- 출석 상태(state) 및 사유(reason) 수정 -->
+    <update id="updateAttendance">
+        UPDATE Attendance
+        SET state = #{state}, reason = #{reason}, updated_at = NOW()
+        WHERE attendance_id = #{attendanceId}
+    </update>
+
+
+    <!-- 특정 강의실의 특정 날짜 출석 기록 조회 -->
+    <select id="findAttendanceByDate" resultType="com.korea.attendance.model.Attendance">
+        SELECT attendance_id, student_id, class_id, date, state, reason, created_at, updated_at
+        FROM Attendance
+        WHERE class_id = #{classId} AND date = #{date}
+    </select>
+
+</mapper>
+

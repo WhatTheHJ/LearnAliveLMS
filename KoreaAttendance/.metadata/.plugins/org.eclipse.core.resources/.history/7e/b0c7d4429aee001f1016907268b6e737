@@ -1,0 +1,36 @@
+package com.korea.attendance.controller;
+
+import com.korea.attendance.model.Attendance;
+import com.korea.attendance.service.AttendanceService;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/attendance")
+public class AttendanceController {
+
+    private final AttendanceService attendanceService;
+
+    public AttendanceController(AttendanceService attendanceService) {
+        this.attendanceService = attendanceService;
+    }
+
+    @PostMapping("/add")
+    public String addAttendance(@RequestBody Attendance attendance) {
+        attendanceService.addAttendance(attendance);
+        return "출석이 기록되었습니다.";
+    }
+    
+    @PutMapping("/update")
+    public String updateAttendance(@RequestBody Attendance attendance) {
+        attendanceService.updateAttendance(attendance);
+        return "출석 정보가 수정되었습니다.";
+    }
+
+    @GetMapping("/{studentId}/{classId}")
+    public List<Attendance> getAttendance(@PathVariable String studentId, @PathVariable int classId) {
+        return attendanceService.getStudentAttendance(studentId, classId);
+    }
+}
+

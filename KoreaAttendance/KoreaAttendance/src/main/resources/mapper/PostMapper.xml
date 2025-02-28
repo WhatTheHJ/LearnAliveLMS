@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.multi.mapper.BoardMapper">
+
+	<!-- 게시글 목록 조회 -->
+	<select id="getAllBoards" resultType="com.multi.model.Board">
+        SELECT * FROM board ORDER BY id DESC;
+    </select>
+
+	<!-- 게시글 상세 조회 -->
+	<select id="getBoardById" parameterType="int" resultType="com.multi.model.Board">
+        SELECT * FROM board WHERE id = #{id};
+    </select>
+
+	<!-- 게시글 작성 -->
+	<insert id="insertBoard" parameterType="com.multi.model.Board">
+        INSERT INTO board (title, writer, content, filename) VALUES (#{title}, #{writer}, #{content}, #{fileName});
+    </insert>
+
+	<!-- 게시글 수정 -->
+	<update id="updateBoard" parameterType="com.multi.model.Board">
+        UPDATE board SET title = #{title}, content = #{content}, filename = #{fileName} WHERE id = #{id};
+    </update>
+
+	<!-- 게시글 삭제 -->
+	<delete id="deleteBoard" parameterType="int">
+        DELETE FROM board WHERE id = #{id};
+    </delete>
+
+	<!-- 조회수 증가 -->
+	<update id="incrementViews" parameterType="int">
+        UPDATE board SET views = views + 1 WHERE id = #{id};
+    </update>	
+   <select id="searchBoards" parameterType="String" resultType="com.multi.model.Board">
+    SELECT * 
+    FROM board
+    WHERE title LIKE CONCAT('%', #{keyword}, '%')
+       OR content LIKE CONCAT('%', #{keyword}, '%')
+    ORDER BY id DESC;
+
+
+    </select>
+
+
+</mapper>
