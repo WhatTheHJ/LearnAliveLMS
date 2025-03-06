@@ -6,6 +6,10 @@
 	</section>
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
+<<<<<<< HEAD
+=======
+			<item value="C:\GitRepository\LearnAliveLMS"/>
+>>>>>>> main
 			<item value="I:\KoreaAttendanceHS\KoreaAttendanceHS"/>
 		</list>
 		<list key="projectNameTemplate">

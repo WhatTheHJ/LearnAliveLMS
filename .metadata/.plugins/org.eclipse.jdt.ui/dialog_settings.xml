@@ -33,5 +33,9 @@
 		<item key="updateTextualMatches" value="false"/>
 		<item key="updateQualifiedNames" value="false"/>
 		<item key="patterns" value="*"/>
+<<<<<<< HEAD
+=======
+		<item key="renameSubpackages" value="false"/>
+>>>>>>> main
 	</section>
 </section>
