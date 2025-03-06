@@ -1,0 +1,5 @@
+package com.korea.attendance.util;
+
+public class DatabaseUtil {
+
+}

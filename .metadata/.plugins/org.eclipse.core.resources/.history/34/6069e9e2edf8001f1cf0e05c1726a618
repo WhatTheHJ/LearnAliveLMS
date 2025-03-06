@@ -1,0 +1,24 @@
+package com.korea.attendance.model;
+
+import java.util.List;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.Singular;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Survey {
+    private int surveyId;
+    private int boardId;
+    private String title;
+    private String startTime;
+    private String endTime;
+
+    @Singular
+    private List<SurveyQuestion> questions; // ✅ JSON 배열 처리 가능하도록 명확하게 지정
+}

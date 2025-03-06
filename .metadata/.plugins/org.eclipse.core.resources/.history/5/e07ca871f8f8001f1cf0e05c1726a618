@@ -1,0 +1,23 @@
+package com.korea.attendance.model;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.Singular;
+import java.util.List;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Survey {
+    private int surveyId;
+    private int boardId;
+    private String title;
+    private String startTime;
+    private String endTime;
+
+    @Singular
+    private List<SurveyQuestion> questions; // ✅ 설문 질문을 포함하여 저장할 수 있도록 설정
+}

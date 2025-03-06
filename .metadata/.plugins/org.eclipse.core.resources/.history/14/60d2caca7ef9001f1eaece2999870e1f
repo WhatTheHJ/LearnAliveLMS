@@ -1,0 +1,40 @@
+package com.korea.attendance.controller;
+
+import com.korea.attendance.model.SurveyResponse;
+import com.korea.attendance.service.SurveyResponseService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
+
+@RestController
+@RequestMapping("/api/surveys")
+public class SurveyResponseController {
+    private final SurveyResponseService surveyResponseService;
+
+    public SurveyResponseController(SurveyResponseService surveyResponseService) {
+        this.surveyResponseService = surveyResponseService;
+    }
+
+    /** ✅ 특정 사용자의 응답 조회 */
+    @GetMapping("/{surveyId}/response/{userId}")
+    public ResponseEntity<List<SurveyResponse>> getUserResponse(
+            @PathVariable int surveyId, @PathVariable String userId) {
+        List<SurveyResponse> responses = surveyResponseService.getUserResponse(surveyId, userId);
+        if (responses.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(responses);
+    }
+
+    /** ✅ 설문 응답 제출 또는 수정 */
+    @PostMapping("/{surveyId}/response/{studentId}")
+    public ResponseEntity<String> submitOrUpdateResponse(
+            @PathVariable("surveyId") int surveyId, 
+            @PathVariable("studentId") String studentId, 
+            @RequestBody Map<Integer, Object> responses) {
+        boolean isUpdated = surveyResponseService.submitOrUpdateResponse(surveyId, studentId, responses);
+        return ResponseEntity.ok(isUpdated ? "응답이 수정되었습니다." : "응답이 제출되었습니다.");
+    }
+}

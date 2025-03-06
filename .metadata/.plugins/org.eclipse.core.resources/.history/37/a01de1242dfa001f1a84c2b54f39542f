@@ -1,0 +1,10 @@
+package com.korea.attendance.model;
+
+public class StudentSurveyStatus {
+	  private String university;
+	  private String department;
+	  private String studentId;
+	  private String name;
+	  private String remarks;
+	  private String responseStatus;
+}

@@ -1,0 +1,94 @@
+package com.korea.attendance.service;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.korea.attendance.model.Survey;
+import com.korea.attendance.model.SurveyBoard;
+import com.korea.attendance.model.SurveyQuestion;
+import com.korea.attendance.model.SurveyResponse;
+import com.korea.attendance.repository.SurveyMapper;
+
+@Service
+public class SurveyService {
+    private final SurveyMapper surveyMapper;
+
+    public SurveyService(SurveyMapper surveyMapper) {
+        this.surveyMapper = surveyMapper;
+    }
+
+    /** ✅ 특정 강의실의 설문조사 게시판 목록 조회 */
+    public List<SurveyBoard> getSurveyBoardsByClassId(int classId) {
+        List<SurveyBoard> boards = surveyMapper.findSurveyBoardsByClassId(classId);
+
+        // ✅ 만약 boards가 비어있다면 새로운 게시판 자동 생성 후 조회
+        if (boards.isEmpty()) {
+            surveyMapper.createSurveyBoard(classId);
+            boards = surveyMapper.findSurveyBoardsByClassId(classId);
+        }
+
+        return boards;
+    }
+    
+    /** ✅ 설문조사 게시판 생성 */
+    public SurveyBoard createSurveyBoard(int classId) {
+        surveyMapper.createSurveyBoard(classId);
+        return surveyMapper.getSurveyBoardByClassId(classId);
+    }
+
+    /** ✅ 특정 강의실의 단일 설문조사 게시판 조회 */
+    public SurveyBoard getSurveyBoardByClassId(int classId) {
+        return surveyMapper.getSurveyBoardByClassId(classId);
+    }
+
+    /** ✅ 특정 게시판의 설문조사 목록 조회 */
+    public List<Survey> getSurveysByBoard(int boardId) {
+        return surveyMapper.getSurveysByBoard(boardId);
+    }
+
+    /** ✅ 설문조사 + 질문을 한 번에 저장 (트랜잭션 적용) */
+    @Transactional
+    public Survey createSurveyWithQuestions(Survey survey) {
+        surveyMapper.insertSurvey(survey);
+
+        for (SurveyQuestion question : survey.getQuestions()) {
+            question.setSurveyId(survey.getSurveyId());
+            try {
+                // ✅ List<String> → JSON 문자열 변환
+                String optionsJson = objectMapper.writeValueAsString(question.getOptions());
+                surveyMapper.insertSurveyQuestion(question.getSurveyId(), question.getQuestionText(), question.getQuestionType(), optionsJson);
+            } catch (Exception e) {
+                throw new RuntimeException("❌ JSON 변환 오류", e);
+            }
+        }
+        return survey;
+    }
+
+    /** ✅ 특정 설문조사의 질문 목록 조회 */
+    public List<SurveyQuestion> getSurveyQuestions(int surveyId) {
+        return surveyMapper.getSurveyQuestions(surveyId);
+    }
+
+    /** ✅ 특정 설문조사의 응답 목록 조회 */
+    public List<SurveyResponse> getSurveyResponses(int surveyId) {
+        return surveyMapper.getSurveyResponses(surveyId);
+    }
+
+    /** ✅ 특정 학생이 특정 설문조사에 대한 응답 조회 */
+    public List<SurveyResponse> getStudentSurveyResponses(int surveyId, String studentId) {
+        return surveyMapper.getStudentSurveyResponses(surveyId, studentId);
+    }
+
+    /** ✅ 특정 학생이 응답한 모든 설문조사 목록 조회 */
+    public List<Survey> getStudentSurveys(String studentId) {
+        return surveyMapper.getStudentSurveys(studentId);
+    }
+
+    /** ✅ 설문 응답 제출 (트랜잭션 적용) */
+    @Transactional // 🚀 트랜잭션 활성화
+    public void submitSurveyResponse(SurveyResponse response) {
+        surveyMapper.insertSurveyResponse(response.getQuestionId(), response.getStudentId(), response.getResponseValue());
+    }
+}

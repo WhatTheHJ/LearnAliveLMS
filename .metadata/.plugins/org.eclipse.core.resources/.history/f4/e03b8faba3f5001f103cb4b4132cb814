@@ -1,0 +1,25 @@
+package com.korea.attendance.model;
+
+import java.util.List;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class SurveyQuestion {
+    private int questionId;
+    private int surveyId;
+    private String questionText;
+    private String questionType; // "multiple_choice", "single_choice"
+    private List<String> options; // 객관식인 경우 옵션 리스트
+    private Integer minSelect; // ✅ 최소 선택 개수 추가 (null 가능)
+
+    public void setOptions(List<String> options) {
+        this.options = (options == null || options.isEmpty()) ? List.of() : options;
+    }
+}

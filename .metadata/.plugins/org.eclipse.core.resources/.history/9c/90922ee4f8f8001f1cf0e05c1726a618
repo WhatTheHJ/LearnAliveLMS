@@ -1,0 +1,94 @@
+package com.korea.attendance.controller;
+
+import com.korea.attendance.model.Survey;
+import com.korea.attendance.model.SurveyBoard;
+import com.korea.attendance.model.SurveyQuestion;
+import com.korea.attendance.model.SurveyResponse;
+import com.korea.attendance.service.SurveyService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/surveys") // ✅ API 기본 경로
+public class SurveyController {
+
+    private final SurveyService surveyService;
+
+    public SurveyController(SurveyService surveyService) {
+        this.surveyService = surveyService;
+    }
+
+    /** ✅ 특정 강의실의 모든 설문조사 게시판 조회 */
+    @GetMapping("/boards/{classId}")
+    public ResponseEntity<List<SurveyBoard>> getSurveyBoards(@PathVariable("classId") int classId) {
+        return ResponseEntity.ok(surveyService.getSurveyBoardsByClassId(classId));
+    }
+
+    /** ✅ 설문조사 게시판 생성 */
+    @PostMapping("/board/{classId}")
+    public ResponseEntity<SurveyBoard> createSurveyBoard(@PathVariable("classId") int classId) {
+        SurveyBoard createdBoard = surveyService.createSurveyBoard(classId);
+        if (createdBoard == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(createdBoard);
+    }
+
+    /** ✅ 특정 게시판의 설문조사 목록 조회 */
+    @GetMapping("/board/{boardId}/surveys")
+    public ResponseEntity<List<Survey>> getSurveysByBoard(@PathVariable("boardId") int boardId) {
+        return ResponseEntity.ok(surveyService.getSurveysByBoard(boardId));
+    }
+
+    /** ✅ 설문조사 + 질문을 한 번에 저장 */
+    @PostMapping("/create")
+    public ResponseEntity<Survey> createSurveyWithQuestions(@RequestBody Survey survey) {
+        if (survey == null || survey.getQuestions() == null || survey.getQuestions().isEmpty()) {
+            return ResponseEntity.badRequest().body(null); // ✅ 요청 데이터가 올바르지 않을 경우 400 반환
+        }
+
+        // ✅ 요청 데이터 로깅
+        System.out.println("📌 요청된 설문조사 데이터: " + survey.toString());
+
+        Survey createdSurvey = surveyService.createSurveyWithQuestions(survey);
+        if (createdSurvey == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(createdSurvey);
+    }
+    
+    /** ✅ 특정 설문조사의 질문 목록 조회 */
+    @GetMapping("/survey/{surveyId}/questions")
+    public ResponseEntity<List<SurveyQuestion>> getSurveyQuestions(@PathVariable("surveyId") int surveyId) {
+        return ResponseEntity.ok(surveyService.getSurveyQuestions(surveyId));
+    }
+
+    /** ✅ 특정 설문조사의 응답 목록 조회 */
+    @GetMapping("/survey/{surveyId}/responses")
+    public ResponseEntity<List<SurveyResponse>> getSurveyResponses(@PathVariable("surveyId") int surveyId) {
+        return ResponseEntity.ok(surveyService.getSurveyResponses(surveyId));
+    }
+
+    /** ✅ 특정 학생이 특정 설문조사에 대한 응답 조회 */
+    @GetMapping("/survey/{surveyId}/student/{studentId}/responses")
+    public ResponseEntity<List<SurveyResponse>> getStudentSurveyResponses(
+            @PathVariable("surveyId") int surveyId, 
+            @PathVariable("studentId") String studentId) {
+        return ResponseEntity.ok(surveyService.getStudentSurveyResponses(surveyId, studentId));
+    }
+
+    /** ✅ 특정 학생이 응답한 모든 설문조사 목록 조회 */
+    @GetMapping("/student/{studentId}/surveys")
+    public ResponseEntity<List<Survey>> getStudentSurveys(@PathVariable("studentId") String studentId) {
+        return ResponseEntity.ok(surveyService.getStudentSurveys(studentId));
+    }
+
+    /** ✅ 설문 응답 제출 */
+    @PostMapping("/response")
+    public ResponseEntity<Void> submitSurveyResponse(@RequestBody SurveyResponse response) {
+        surveyService.submitSurveyResponse(response);
+        return ResponseEntity.ok().build();
+    }
+}

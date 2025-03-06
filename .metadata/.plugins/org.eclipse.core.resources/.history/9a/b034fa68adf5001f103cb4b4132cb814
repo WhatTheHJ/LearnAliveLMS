@@ -1,0 +1,30 @@
+package com.korea.attendance.model;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import java.util.List;
+
+@Getter
+@Setter
+@NoArgsConstructor
+public class SurveyQuestion {
+    private int questionId;
+    private int surveyId;
+    private String questionText;
+    private String questionType;
+    private List<String> options;
+    private Integer minSelect;
+    private Integer maxSelect;
+
+    // ✅ 설문 생성 시 사용할 생성자
+    public SurveyQuestion(int questionId, int surveyId, String questionText, String questionType, List<String> options, Integer minSelect, Integer maxSelect) {
+        this.questionId = questionId;
+        this.surveyId = surveyId;
+        this.questionText = questionText;
+        this.questionType = questionType;
+        this.options = (questionType.equals("multiple_choice") && options != null) ? options : null; // ✅ 객관식만 옵션 저장
+        this.minSelect = (questionType.equals("multiple_choice")) ? minSelect : null; // ✅ 객관식만 min/max 설정
+        this.maxSelect = (questionType.equals("multiple_choice")) ? maxSelect : null;
+    }
+}

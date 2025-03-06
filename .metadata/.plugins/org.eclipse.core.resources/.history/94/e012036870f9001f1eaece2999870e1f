@@ -1,0 +1,5 @@
+package com.korea.attendance.service;
+
+public class SurveyResponseService {
+
+}

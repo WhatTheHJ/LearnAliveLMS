@@ -1,0 +1,78 @@
+package com.korea.attendance.repository;
+
+import com.korea.attendance.model.*;
+import org.apache.ibatis.annotations.*;
+
+import java.util.List;
+
+@Mapper
+public interface SurveyMapper {
+
+    /** ✅ 특정 강의실의 모든 설문조사 게시판 목록 조회 */
+    @Select("SELECT board_id AS boardId, class_id AS classId FROM survey_board WHERE class_id = #{classId} ORDER BY board_id ASC")
+    List<SurveyBoard> findSurveyBoardsByClassId(@Param("classId") int classId);
+
+    /** ✅ 설문조사 게시판 생성 */
+    @Insert("INSERT INTO survey_board (class_id) VALUES (#{classId})")
+    void createSurveyBoard(@Param("classId") int classId);
+
+    /** ✅ 특정 강의실의 단일 설문조사 게시판 조회 */
+    @Select("SELECT board_id AS boardId, class_id AS classId FROM survey_board WHERE class_id = #{classId} LIMIT 1")
+    SurveyBoard getSurveyBoardByClassId(@Param("classId") int classId);
+
+    /** ✅ 특정 게시판의 설문조사 목록 조회 */
+    @Select("SELECT * FROM survey_post WHERE board_id = #{boardId}")
+    List<Survey> getSurveysByBoard(@Param("boardId") int boardId);
+
+    /** ✅ 설문조사 생성 */
+    @Insert("INSERT INTO survey_post (board_id, title, start_time, end_time) VALUES (#{boardId}, #{title}, #{startTime}, #{endTime})")
+    @Options(useGeneratedKeys = true, keyProperty = "surveyId")
+    void insertSurvey(Survey survey);
+
+    /** ✅ 설문 질문 생성 */
+    @Insert("""
+        INSERT INTO survey_question (survey_id, question_text, question_type, options, min_select, max_select) 
+        VALUES (#{surveyId}, #{questionText}, #{questionType}, 
+            CASE 
+                WHEN #{questionType} IN ('radio', 'checkbox') THEN CAST(#{options} AS JSON) 
+                ELSE NULL 
+            END, 
+            CASE 
+                WHEN #{questionType} = 'checkbox' THEN #{minSelect} 
+                ELSE NULL 
+            END,
+            CASE 
+                WHEN #{questionType} = 'checkbox' THEN #{maxSelect} 
+                ELSE NULL 
+            END
+        )
+    """)
+    void insertSurveyQuestion(
+        @Param("surveyId") int surveyId, 
+        @Param("questionText") String questionText, 
+        @Param("questionType") String questionType, 
+        @Param("options") String options,
+        @Param("minSelect") Integer minSelect,
+        @Param("maxSelect") Integer maxSelect
+    );
+
+    /** ✅ 특정 설문조사의 질문 목록 조회 */
+    @Select("SELECT * FROM survey_question WHERE survey_id = #{surveyId}")
+    List<SurveyQuestion> getSurveyQuestions(@Param("surveyId") int surveyId);
+
+    /** ✅ 특정 설문조사의 응답 목록 조회 */
+    @Select("SELECT * FROM survey_response WHERE question_id IN (SELECT question_id FROM survey_question WHERE survey_id = #{surveyId})")
+    List<SurveyResponse> getSurveyResponses(@Param("surveyId") int surveyId);
+
+    /** ✅ 특정 학생이 특정 설문조사에 대한 응답 조회 */
+    @Select("SELECT * FROM survey_response WHERE question_id IN (SELECT question_id FROM survey_question WHERE survey_id = #{surveyId}) AND student_id = #{studentId}")
+    List<SurveyResponse> getStudentSurveyResponses(@Param("surveyId") int surveyId, @Param("studentId") String studentId);
+
+    /** ✅ 특정 학생이 응답한 모든 설문조사 목록 조회 */
+    @Select("SELECT DISTINCT sp.* FROM survey_post sp JOIN survey_question sq ON sp.survey_id = sq.survey_id JOIN survey_response sr ON sq.question_id = sr.question_id WHERE sr.student_id = #{studentId}")
+    List<Survey> getStudentSurveys(@Param("studentId") String studentId);
+
+    /** ✅ 설문 응답 제출 */
+    @Insert("INSERT INTO survey_response (question_id, student_id, response_value) VALUES (#{questionId}, #{studentId}, #{responseValue})")
+    void insertSurveyResponse(@Param("questionId") int questionId, @Param("studentId") String studentId, @Param("responseValue") String responseValue);
+}

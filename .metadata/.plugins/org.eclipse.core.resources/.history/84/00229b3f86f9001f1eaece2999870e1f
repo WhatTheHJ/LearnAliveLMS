@@ -1,0 +1,60 @@
+package com.korea.attendance.service;
+
+import com.korea.attendance.model.SurveyResponse;
+import com.korea.attendance.repository.SurveyResponseMapper;
+import com.korea.attendance.repository.SurveyMapper;
+import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.Map;
+
+@Service
+public class SurveyResponseService {
+    private final SurveyResponseMapper surveyResponseMapper;
+    private final SurveyMapper surveyMapper;
+
+    public SurveyResponseService(SurveyResponseMapper surveyResponseMapper, SurveyMapper surveyMapper) {
+        this.surveyResponseMapper = surveyResponseMapper;
+        this.surveyMapper = surveyMapper;
+    }
+
+    /** ✅ 특정 사용자의 응답 조회 */
+    public List<SurveyResponse> getUserResponse(int surveyId, String userId) {
+        return surveyResponseMapper.getUserResponse(surveyId, userId);
+    }
+
+    /** ✅ 응답 제출 또는 수정 */
+    public boolean submitOrUpdateResponse(int surveyId, String studentId, Map<Integer, Object> responses) {
+        // ✅ 설문조사 정보 조회 (시간 체크)
+        var survey = surveyMapper.getSurveyById(surveyId);
+        if (survey == null) {
+            throw new IllegalArgumentException("설문조사가 존재하지 않습니다.");
+        }
+
+        long now = System.currentTimeMillis();
+        long startTime = survey.getStartTime().getTime();
+        long endTime = survey.getEndTime().getTime();
+
+        // ✅ 응답 가능 시간 체크
+        if (now < startTime || now > endTime) {
+            throw new IllegalStateException("설문 응답 가능 시간이 아닙니다.");
+        }
+
+        // ✅ 기존 응답 확인
+        List<SurveyResponse> existingResponses = surveyResponseMapper.getUserResponse(surveyId, studentId);
+        boolean isUpdating = !existingResponses.isEmpty();
+
+        // ✅ 응답 저장 (업데이트 또는 삽입)
+        for (Map.Entry<Integer, Object> entry : responses.entrySet()) {
+            int questionId = entry.getKey();
+            String answer = entry.getValue().toString();
+
+            if (isUpdating) {
+                surveyResponseMapper.updateResponse(surveyId, studentId, questionId, answer);
+            } else {
+                surveyResponseMapper.insertResponse(surveyId, studentId, questionId, answer);
+            }
+        }
+
+        return isUpdating;
+    }
+}
