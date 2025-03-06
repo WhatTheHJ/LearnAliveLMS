@@ -1,4 +1,4 @@
-GitRepositoriesView.GitDirectories=I\:\\KoreaAttendanceHS\\KoreaAttendanceHS\\.git;
-GitRepositoriesView.GitDirectories.relative=KoreaAttendanceHS\\.git;
+GitRepositoriesView.GitDirectories=C\:\\GitRepository\\LearnAliveLMS\\.git;C\:\\GitRepository\\LearnAliveLMS\\KoreaAttendanceHS\\.git;
+GitRepositoriesView.GitDirectories.relative=.git;KoreaAttendanceHS\\.git;
 core_autoIgnoreDerivedResources=false
 eclipse.preferences.version=1
