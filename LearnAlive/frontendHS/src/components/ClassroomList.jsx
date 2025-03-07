@@ -80,7 +80,7 @@ const ClassroomList = () => {
               {/* ✅ 변경: 모든 강의실 클릭 시 boardpage 이동 */}
               <Link to={`/classroom/${classroom.classId}/boards`} className="classroom-link">
                 {classroom.className}
-              </Link> */
+              </Link>
 
               {user.role === "professor" && (
                 <div className="button-group">

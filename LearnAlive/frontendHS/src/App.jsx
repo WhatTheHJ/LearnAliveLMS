@@ -54,13 +54,15 @@ function App() {
           {/* <Route path="/classroom/:classId" element={<ClassroomDetail />} /> */}
           <Route path="/classroom/:classId/attendance" element={<AttendancePage />} />
           <Route path="/classroom/:classId/manage-attendance" element={<ManageAttendancePage />} />
-          <Route path="/classroom/:classId/surveys" element={<SurveyList />} />
+          {/* <Route path="/classroom/:classId/surveys" element={<SurveyList />} /> */}
+          
           <Route path="/survey/create" element={<SurveyCreate />} />
           <Route path="/survey/:surveyId" element={<SurveyDetail />} />
 
           <Route path="/classroom/:classId/boards" element={<BoardPage />} />
           <Route path="/classroom/:classId/boards/addpost/:boardId" element={<AddPostPage />} /> {/* 게시글 추가 페이지 */}
-
+          <Route path="/classroom/:classId/surveys" element={<SurveyList />} />
+          
           <Route path="/classroom/:classId/settings" element={<ClassSettings />} />
         </Routes>
         </main>

@@ -117,6 +117,7 @@ function BoardPage() {
         <Link to="/AttendancePage"><button>마이페이지(미완)</button></Link>
         <Link to={`/classroom/${classId}/attendance`}><button>출석하기</button></Link>
         <Link to="/board/AttendancePage"><button>과제(미완)</button></Link>
+        <Link to="/classroom/:classId/surveys"><button>설문조사</button></Link>
         <Link to="/"><button className="btn btn-danger">메인으로</button></Link>
       
       
