@@ -11,7 +11,7 @@ import ClassSettings from "./pages/ClassSettings";
 import SurveyList from "./pages/SurveyList";
 import SurveyCreate from "./components/SurveyCreate";
 import SurveyDetail from "./components/SurveyDetail";
-import BoardPage from "./pages/BoardPage";
+//import BoardPage from "./pages/BoardPage";
 import AddPostPage from "./components/AddPostPage";
 import ClassroomDetail from "./pages/ClassroomDetail";
 
