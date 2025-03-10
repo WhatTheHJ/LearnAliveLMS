@@ -20,8 +20,10 @@ public class PostService {
         this.postMapper = postMapper;
     }
 	
-	public void createPost(Post newPost) { //게시글 작성
+	public Post createPost(int boardId, Post newPost) { //게시글 작성
+		 newPost.setBoardId(boardId); // 게시글에 boardId 설정
         postMapper.createPost(newPost); 
+        return newPost;
     }
 	
 	public void deletePostByPostId(int postid) { //게시글 삭제

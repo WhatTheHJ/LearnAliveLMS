@@ -3,10 +3,13 @@ package com.lms.attendance.repository;
 import java.util.List;
 
 
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -19,6 +22,13 @@ public interface PostMapper {
         INSERT INTO Post (post_id, board_id, author_id, author_role, author, title, content)
         VALUES (#{postId}, #{boardId}, #{authorId}, #{authorRole}, #{author}, #{title}, #{content})
     """)
+    @Results({
+        @Result(property = "postId", column = "post_id"),
+        @Result(property = "title", column = "board_id"),
+        @Result(property = "authorId", column = "author_id"),
+        @Result(property = "authorRole", column = "author_role"),
+        @Result(property = "author", column = "author")
+    })
     void createPost(Post newPost);
     
     @Delete("DELETE FROM Post WHERE post_id = #{postId}")
@@ -38,8 +48,17 @@ public interface PostMapper {
     	);
     
   //조건에 맞는 게시글 가져오기
-    @Select("SELECT title, created_at, author_role, author FROM Post WHERE board_id = #{boardId};")
+    @Select("SELECT post_id, title, DATE_FORMAT(created_at, '%Y-%m-%d %H:%i:%s') AS created_at, author_id, author_role, author FROM Post WHERE board_id = #{boardId};")
+    @Results({
+        @Result(property = "postId", column = "post_id"),
+        @Result(property = "title", column = "title"),
+        @Result(property = "createdAt", column = "created_at"),
+        @Result(property = "authorRole", column = "author_role"),
+        @Result(property = "authorId", column = "author_id"),
+        @Result(property = "author", column = "author")
+    })
     List<Post> getAllPosts(int boardId);
+
     
     // title로 게시글 검색
     @Select("SELECT * FROM Post WHERE title LIKE CONCAT('%', #{title}, '%')")

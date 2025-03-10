@@ -8,7 +8,7 @@
 .sidebar {
   width: 200px;
   height: 100%;
-  background-color: lightsteelblue;
+  background-color: lightskyblue;
   padding: 20px;
   display: flex;
   flex-direction: column; /* 버튼 세로 정렬 */
@@ -68,12 +68,12 @@
     transition: transform 0.2s ease-in-out;
   }
   
-  .post-container:hover {
+  /* .post-container:hover {
     transform: scale(1.02);
-  }
+  } */
   
   .post-title {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
     margin-bottom: 5px;
   }
