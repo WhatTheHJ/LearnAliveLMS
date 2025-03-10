@@ -23,8 +23,22 @@ export const AuthProvider = ({ children }) => {
       const response = await axios.get(`http://localhost:8080/api/auth/${userId}`);
       const userData = response.data;
 
-      setUser(userData);
-      sessionStorage.setItem("user", JSON.stringify(userData));
+      // setUser(userData); <원본>
+      // sessionStorage.setItem("user", JSON.stringify(userData)); <원본>
+
+
+      //게시글을 작성할 때 받아와서 활용할 수 있도록 로그인 시 제공받은 아이디와 역할 설정
+      setUser({
+        ...userData,
+        author_id: userData.attendance_id,  // 학생의 ID로 설정
+        author_role: "student",
+      });
+
+      sessionStorage.setItem("user", JSON.stringify({
+        ...userData,
+        author_id: userData.attendance_id,  // 학생의 ID로 설정
+        author_role: "student",
+      }));
       console.log("✅ 학생 로그인 성공:", userData);
     } catch (error) {
       console.error("📌 학생 로그인 실패:", error.response?.data || error.message);
@@ -42,8 +56,22 @@ export const AuthProvider = ({ children }) => {
       });
 
       const userData = response.data;
-      setUser(userData);
-      sessionStorage.setItem("user", JSON.stringify(userData));
+
+      // setUser(userData); <원본>
+      // sessionStorage.setItem("user", JSON.stringify(userData));  <원본>
+      setUser({
+        ...userData,
+        author_id: userData.prof_id,  // 교수의 ID로 설정
+        author_role: "professor",
+      });
+
+      sessionStorage.setItem("user", JSON.stringify({
+        ...userData,
+        author_id: userData.prof_id,  // 교수의 ID로 설정
+        author_role: "professor",
+      }));
+
+
       console.log("✅ 교수자 로그인 성공:", userData);
     } catch (error) {
       console.error("📌 교수자 로그인 실패:", error.response?.data || error.message);

@@ -11,3 +11,9 @@ export const getAllPosts = async (boardId) => {
     return response.data;
     
   };
+// 게시글 작성
+  export const createPost = async (boardId, postData) => {
+    const response = await axios.post(`${API_BASE_URL}/${boardId}/post/new`, postData);
+    return response.data;
+};
+
