@@ -5,15 +5,16 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ClassroomList from "./components/ClassroomList";
 // import ClassroomDetail from "./pages/ClassroomDetail";
-import AttendancePage from "./pages/AttendancePage";
+// import AttendancePage from "./pages/AttendancePage";
 import ManageAttendancePage from "./pages/ManageAttendancePage";
 import ClassSettings from "./pages/ClassSettings"; 
-import SurveyList from "./pages/SurveyList";
+// import SurveyList from "./pages/SurveyList";
 import SurveyCreate from "./components/SurveyCreate";
 import SurveyDetail from "./components/SurveyDetail";
-import BoardPage from "./pages/BoardPage";
+// import BoardPage from "./pages/BoardPage";
 import AddPostPage from "./components/AddPostPage";
 import ClassroomDetail from "./pages/ClassroomDetail";
+// import PostDetailPage from "./components/PostDetail";
 
 
 function TitleUpdater() {
@@ -56,14 +57,13 @@ function App() {
           {/* <Route path="/classroom/:classId" element={<ClassroomDetail />} /> */}
           {/* <Route path="/classroom/:classId/attendance" element={<AttendancePage />} /> */}
           <Route path="/classroom/:classId/manage-attendance" element={<ManageAttendancePage />} />
-          {/* <Route path="/classroom/:classId/surveys" element={<SurveyList />} /> */}
           
           <Route path="/survey/create" element={<SurveyCreate />} />
           <Route path="/survey/:surveyId" element={<SurveyDetail />} />
 
           <Route path="/classroom/:classId/boards" element={<ClassroomDetail />} /> 
           <Route path="/classroom/:classId/boards/addpost/:boardId" element={<AddPostPage />} /> {/* 게시글 추가 페이지 */}
-          {/* <Route path="/classroom/:classId/surveys" element={<SurveyList />} /> */}
+          {/* <Route path="/posts/:postId" element={<PostDetailPage />} /> ✅ 게시글 상세 페이지 추가 */}
 
           <Route path="/classroom/:classId/settings" element={<ClassSettings />} />
         </Routes>

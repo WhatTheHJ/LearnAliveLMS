@@ -42,9 +42,6 @@ public class PostService {
         public List<Post> getAllPosts(int boardId) {
             return postMapper.getAllPosts(boardId);
         }
-        public List<Post> getPostById(int postId) {
-            return postMapper.getPostById(postId);
-        }
         
         //게시글 제목으로 조회하기
         public List<Post> searchPostsByTitle(String title) {

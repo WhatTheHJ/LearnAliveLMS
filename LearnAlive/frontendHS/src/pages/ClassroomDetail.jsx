@@ -15,13 +15,15 @@ import "../styles/post.css";
 
 const ClassroomDetail = () => {
   const { classId } = useParams();
-  const [selectedBoardId, setSelectedBoardId] = useState(null);
+  // const [selectedBoardId, setSelectedBoardId] = useState(null);
   const { user } = useAuth();
   const [classDetail, setClassDetail] = useState(null);
   const [activeComponent, setActiveComponent] = useState(null);
   const [selectedMenu, setSelectedMenu] = useState(null); // "post" 또는 "survey"
   const [boards, setBoards] = useState([]); // 일반 게시판 (board) 목록
   const [boardId, setBoardId] = useState(null);
+  const [posts, setPosts] = useState([]); // 게시글 목록 상태
+  const [selectedPost, setSelectedPost] = useState(null); // 선택된 게시글 상태
 
   const [surveyBoards, setSurveyBoards] = useState([]); // 설문조사 게시판 (survey_board) 목록
   const [showBoardModal, setShowBoardModal] = useState(false);
@@ -48,9 +50,7 @@ const ClassroomDetail = () => {
       .catch((error) => console.error("❌ 설문조사 게시판 불러오기 오류:", error));
   }, [classId]);
 
-  
-
-  console.log("useParams() 결과:", { classId, boardId });
+  // console.log("useParams() 결과:", { classId, boardId });
 
   // 좌측 메뉴에서 선택한 항목에 따라 activeComponent 업데이트
   useEffect(() => {
