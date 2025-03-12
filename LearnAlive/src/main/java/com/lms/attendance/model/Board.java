@@ -9,7 +9,7 @@ public class Board {
 	private Integer classId; //fk
 	private String boardName;
 	private Integer isDefault;
-	private String boardType;
+	// private String boardType;
 
 }
 
