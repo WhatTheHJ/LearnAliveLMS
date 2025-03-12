@@ -70,7 +70,7 @@ public interface PostMapper {
         @Result(property = "authorId", column = "author_id"),
         @Result(property = "author", column = "author")
     })
-    List<Post> getPostById(int postId);
+    getPostById 
 
     
     // title로 게시글 검색

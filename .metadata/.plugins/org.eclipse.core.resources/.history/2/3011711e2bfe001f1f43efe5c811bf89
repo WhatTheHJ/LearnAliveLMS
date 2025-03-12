@@ -1,13 +1,10 @@
 package com.lms.attendance.controller;
 
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,14 +36,8 @@ public class PostController {
         List<Post> posts = postService.getAllPosts(boardId); // boardId에 맞는 게시글 목록 조회
         return ResponseEntity.ok(posts); // JSON 형식으로 응답
     }
-    
-    @GetMapping("/{postId}")
-    public ResponseEntity<List<Post>> getPostById(@PathVariable("postId") int postId) {
-        List<Post> posts = postService.getPostById(postId); // boardId에 맞는 게시글 목록 조회
-        return ResponseEntity.ok(posts); // JSON 형식으로 응답
-    }
 
-   
+    // 게시글 추가 페이지
     // 게시글 추가 (REST API 방식)
     @PostMapping("/{boardId}/post/new")
     public ResponseEntity<Post> createPost(@PathVariable("boardId") int boardId, @RequestBody Post post) {
@@ -57,26 +48,6 @@ public class PostController {
     	Post createdPost = postService.createPost(boardId, post); // 게시글 생성
         return ResponseEntity.ok(createdPost);
     }
-    
- // 게시판 삭제
-    @DeleteMapping("/{postId}/delete")
-    public ResponseEntity<String> deletePost(@PathVariable("postId") int postId) {
-        postService.deletePostByPostId(postId);
-        return ResponseEntity.ok("게시글 삭제 성공");
-    }
-    
-//    @DeleteMapping("/{postId}")
-//    public ResponseEntity<String> deletePost(@PathVariable("postId") int postId) {
-////        Logger.info("📌 [DEBUG] 게시글 삭제 요청 도착: postId={}", postId);
-//
-//        try {
-//            postService.deletePostByPostId(postId);  // 게시판 삭제 서비스 호출
-//            return new ResponseEntity<>("게시글이 성공적으로 삭제되었습니다.", HttpStatus.OK);
-//        } catch (Exception e) {
-////            logger.error("❌ 게시판 삭제 실패: {}", e.getMessage());
-//            return new ResponseEntity<>("게시글 삭제 실패", HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
 
     
 //    @PostMapping()

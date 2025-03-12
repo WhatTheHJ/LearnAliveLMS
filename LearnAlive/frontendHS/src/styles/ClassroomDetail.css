@@ -59,7 +59,7 @@
     width: 100%;
     padding: 12px;
     margin: 8px 0;
-    background: #7C0019;
+    background: lightskyblue;
     color: white;
     border: none;
     border-radius: 5px;
@@ -70,7 +70,7 @@
 }
 
 .classroom-menu .menu-button:hover {
-    background: #a10025;
+    background: darkblue;
 }
 
 /* ✅ 메인 컨텐츠 (목차 오른쪽 공간) */
@@ -122,7 +122,7 @@
   
   /* ✅ 모달 닫기 버튼 */
   .modal-close {
-    background: #ff4d4d;
+    background: darkblue;
     color: white;
     padding: 8px 12px;
     border: none;
