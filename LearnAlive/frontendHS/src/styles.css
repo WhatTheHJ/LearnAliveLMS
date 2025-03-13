@@ -19,7 +19,7 @@ body {
 
 /* 제목 스타일 */
 .title-bar {
-    background-color: #7C0019; /* ✅ 배경색 */
+    background-color: lightskyblue; /* ✅ 배경색 */
     color: white; /* ✅ 글자색 */
     padding: 10px 15px;
     text-align: center;
@@ -31,7 +31,7 @@ body {
 
 /* 기본 버튼 스타일 */
 button {
-    background-color: #7C0019; /* ✅ 버튼 색상 변경 */
+    background-color: lightskyblue; /* ✅ 버튼 색상 변경 */
     color: white;
     padding: 6px 10px;
     border: none;
@@ -43,7 +43,7 @@ button {
 }
 
 button:hover {
-    background-color: #5a0013; /* ✅ 버튼 호버 색상 */
+    background-color: darkblue; /* ✅ 버튼 호버 색상 */
 }
 
 /* 수정 버튼 (노란색) */
@@ -92,7 +92,7 @@ th, td {
 }
 
 th {
-    background-color: #7C0019;;
+    background-color: lightskyblue;;
     color: white;
 }
 

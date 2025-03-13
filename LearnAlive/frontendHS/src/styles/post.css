@@ -48,9 +48,9 @@
   /* max-width: 1000px; */
   background: white;
   padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
   border-radius: 10px;
-  width: 100%;
+  width: 95%;
   height: 400px;
   /* flex-grow: 1; 사이드바 제외한 나머지 영역 차지 */
   margin-left: 10px; /* 사이드바 너비 + 여백 */
@@ -66,18 +66,11 @@
     align-items: center;
     border-radius: 8px;
     padding: 15px;
+    margin-top: 20px;
     margin-bottom: 10px;
     background-color: #f9f9f9;
     transition: transform 0.2s ease-in-out;
   }
-  
-  /* .post-detail-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #f8f9fa;
-  } */
   
   .post-card {
     background: white;
@@ -89,10 +82,33 @@
   }
   
   .post-title {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 10px;
+    font-size: 14px;
+    border: none;   
+    /* box-shadow: none; 그림자 제거 */
+    padding: 0;  
+    /* width: 100%; */
+    /* font-weight: bold; */
+    /* margin-bottom: 10px; */
   }
+  .post-title:hover {
+    color: #ff6347;  /* 텍스트 색상을 토마토 색상으로 변경 */
+    cursor: pointer; /* 마우스를 포인터로 변경 */
+    text-decoration: underline; /* 텍스트 밑줄 추가 */
+  }
+
+      .post-button {
+        position: relative; /* 부모 요소가 기준이 되도록 설정 */
+        margin-bottom: 10px; /* 버튼과 게시글 목록 사이에 간격 설정 */
+      }
+        /* 버튼 스타일 */
+      .post-button button {
+        position: absolute; /* 버튼을 부모 요소 내에서 절대 위치로 배치 */
+        top: 0; /* 상단에 고정 */
+        left: 0; /* 왼쪽에 배치 */
+        padding: 10px 20px; /* 버튼 내부 여백 */
+        white-space: nowrap; /* 텍스트 한 줄로 표시 */
+      }
+  
   
   .post-meta {
     font-size: 14px;

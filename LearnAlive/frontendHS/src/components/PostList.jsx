@@ -76,13 +76,14 @@ function PostList({ boardId }) {
         />
       ) : (
         // 게시글 목록 화면만 보이도록 설정
-        <>
+        <> <div className="post-button">
           <button
-            className="button"
             onClick={() => setShowCreatePost(true)}
           >
             게시글 추가
           </button>
+          </div>
+          
           {selectedPost ? (
             <PostDetail
               postId={selectedPost.postId}
@@ -111,7 +112,7 @@ function PostList({ boardId }) {
                       <tr key={post.postId}>
                         <td>{post.postId}</td>
                         <td>
-                          <td onClick={() => setSelectedPost(post)}>
+                          <td className="post-title" onClick={() => setSelectedPost(post)}>
                             {post.title}
                           </td>
                         </td>
