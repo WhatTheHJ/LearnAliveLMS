@@ -53,7 +53,7 @@
   width: 95%;
   height: 400px;
   /* flex-grow: 1; 사이드바 제외한 나머지 영역 차지 */
-  margin-left: 10px; /* 사이드바 너비 + 여백 */
+  /* margin-left: 10px; 사이드바 너비 + 여백 */
   display: flex;
   justify-content: center; /* 중앙 정렬 */
   padding: 20px;
@@ -61,11 +61,11 @@
 /* post.css */
 .post-container {
     /* border: 1px solid #ddd; */
-    width: 100%;
+    width: 95%;
     justify-content: center;
     align-items: center;
     border-radius: 8px;
-    padding: 15px;
+    padding: 20px;
     margin-top: 20px;
     margin-bottom: 10px;
     background-color: #f9f9f9;
@@ -96,12 +96,12 @@
     text-decoration: underline; /* 텍스트 밑줄 추가 */
   }
 
-      .post-button {
+      .add-post-button {
         position: relative; /* 부모 요소가 기준이 되도록 설정 */
         margin-bottom: 10px; /* 버튼과 게시글 목록 사이에 간격 설정 */
       }
         /* 버튼 스타일 */
-      .post-button button {
+      .add-post-button button {
         position: absolute; /* 버튼을 부모 요소 내에서 절대 위치로 배치 */
         top: 0; /* 상단에 고정 */
         left: 0; /* 왼쪽에 배치 */

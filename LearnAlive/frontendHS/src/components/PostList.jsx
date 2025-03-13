@@ -91,7 +91,7 @@ function PostList({ boardId }) {
 
 
   return (
-    <div className="content">
+    <div className="post-container">
       {showCreatePost ? (
         // 게시글 작성 화면만 보이도록 설정
         <AddPostPage
@@ -102,7 +102,7 @@ function PostList({ boardId }) {
       ) : (
         // 게시글 목록 화면만 보이도록 설정
         <>
-            {/* 게시글 추가 버튼 로직 */}
+        <div>{/* 게시글 추가 버튼 로직 */}
             {
             // board?.is_default 값이 0이고 user?.author_role이 "professor"일 경우에만 버튼을 표시
             board?.isDefault === 0 && user?.author_role === "professor" ? (
@@ -115,7 +115,8 @@ function PostList({ boardId }) {
                 게시글 추가
               </button>
             ) : null
-          }
+          }</div>
+            
 
           {selectedPost ? (
             <PostDetail
