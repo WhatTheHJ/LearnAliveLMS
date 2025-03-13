@@ -1,0 +1,11 @@
+.footer {
+    background-color: #363A43;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    position: static;
+    bottom: 0;
+    width: 100%;
+    min-height: 60px; /* ✅ 최소 높이 지정 */
+    font-size: 14px;
+}

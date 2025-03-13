@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 import { getPostById } from "../api/postApi"; // 게시글 조회 API
+
 
 function PostDetail({ postId, boardId, onBack }) {
   const [post, setPost] = useState(null);
@@ -9,7 +10,7 @@ function PostDetail({ postId, boardId, onBack }) {
     async function fetchPost() {
       try {
         // postId를 확인하고 콘솔에 출력
-        console.log("Fetching post with ID:", postId);
+        // console.log("Fetching post with ID:", postId); --확인완
         
         const fetchedPosts = await getPostById(postId); // 게시글 가져오기
         console.log("선택된 게시글 :", fetchedPosts);

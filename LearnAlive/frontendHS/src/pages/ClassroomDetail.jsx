@@ -22,8 +22,8 @@ const ClassroomDetail = () => {
   const [selectedMenu, setSelectedMenu] = useState(null); // "post" 또는 "survey"
   const [boards, setBoards] = useState([]); // 일반 게시판 (board) 목록
   const [boardId, setBoardId] = useState(null);
-  const [posts, setPosts] = useState([]); // 게시글 목록 상태
-  const [selectedPost, setSelectedPost] = useState(null); // 선택된 게시글 상태
+  // const [posts, setPosts] = useState([]); // 게시글 목록 상태
+  // const [selectedPost, setSelectedPost] = useState(null); // 선택된 게시글 상태
 
   const [surveyBoards, setSurveyBoards] = useState([]); // 설문조사 게시판 (survey_board) 목록
   const [showBoardModal, setShowBoardModal] = useState(false);
