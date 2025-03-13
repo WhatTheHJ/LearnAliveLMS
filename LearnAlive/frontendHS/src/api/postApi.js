@@ -30,3 +30,5 @@ export const getAllPosts = async (boardId) => {
     const response = await axios.delete(`${API_BASE_URL}/${postId}/delete`);
     return response;
   }
+
+ 

@@ -33,7 +33,10 @@ public interface PostMapper {
     
     @Delete("DELETE FROM Post WHERE post_id = #{postId}")
     void deletePostByPostId(int postId);
- 
+    
+    @Update("UPDATE Post SET view = view + 1 WHERE post_id = #{postId}")
+    void increaseViewCount(@Param("postId") int postId);
+
     //---------------게시글 수정 기능
     @Update("""
     	    UPDATE Post 

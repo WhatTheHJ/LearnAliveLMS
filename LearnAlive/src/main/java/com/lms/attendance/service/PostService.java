@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.lms.attendance.model.Post;
 import com.lms.attendance.repository.PostMapper;
@@ -20,6 +21,17 @@ public class PostService {
         this.postMapper = postMapper;
     }
 	
+	@Transactional //트랜잭션 단위로 실행?
+	public List<Post> getPostById(int postId) {
+        postMapper.increaseViewCount(postId); // 조회수 증가
+        return postMapper.getPostById(postId); // 게시글 조회
+	}
+	 
+//    public List<Post> getPostById(int postId) {
+//    	  postMapper.increaseViewCount(postId);  // 조회수 증가
+//    	return postMapper.getPostById(postId);
+//    }
+        
 	public Post createPost(int boardId, Post newPost) { //게시글 작성
 		 newPost.setBoardId(boardId); // 게시글에 boardId 설정
         postMapper.createPost(newPost); 
@@ -42,9 +54,8 @@ public class PostService {
         public List<Post> getAllPosts(int boardId) {
             return postMapper.getAllPosts(boardId);
         }
-        public List<Post> getPostById(int postId) {
-            return postMapper.getPostById(postId);
-        }
+       
+       
         
         //게시글 제목으로 조회하기
         public List<Post> searchPostsByTitle(String title) {

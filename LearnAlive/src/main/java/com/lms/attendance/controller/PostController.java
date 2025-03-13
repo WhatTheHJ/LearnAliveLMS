@@ -32,7 +32,6 @@ public class PostController {
         this.postService = postService;
     }
 
-    // 게시글 목록 조회
  // 게시글 목록 조회
     @GetMapping("/{boardId}/post")
     public ResponseEntity<List<Post>> getAllPosts(@PathVariable("boardId") int boardId) {
@@ -42,7 +41,7 @@ public class PostController {
     
     @GetMapping("/{postId}")
     public ResponseEntity<List<Post>> getPostById(@PathVariable("postId") int postId) {
-        List<Post> posts = postService.getPostById(postId); // boardId에 맞는 게시글 목록 조회
+        List<Post> posts = postService.getPostById(postId); // postId에 맞는 게시글 목록 조회
         return ResponseEntity.ok(posts); // JSON 형식으로 응답
     }
 

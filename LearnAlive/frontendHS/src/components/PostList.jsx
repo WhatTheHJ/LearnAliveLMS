@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getAllPosts, deletePost } from "../api/postApi"; // 게시글 조회 API
+import { getAllPosts, deletePost, getPostById } from "../api/postApi"; // 게시글 조회 API
 import { fetchBoardsByClassId } from "../api/boardsApi";
 import PostDetail from "./PostDetail";
 import { useParams } from "react-router-dom";
@@ -22,16 +22,16 @@ function PostList({ boardId }) {
       if (!boardId) return; // boardId가 없으면 실행하지 않음
   
       try {
-        // 게시글 목록 불러오기
+        // 게시판 목록 불러오기
         setLoading(true);
         const postsData = await getAllPosts(boardId);
         setPosts(postsData);
   
         // 게시판 정보 불러오기
         const fetchedBoard = await fetchBoardsByClassId(classId);
-        console.log(fetchedBoard);
+        // console.log(fetchedBoard); <확인완>
         setBoard(fetchedBoard.isDefault);
-        console.log(fetchedBoard.isDefault);
+        // console.log(fetchedBoard.isDefault); ,확인완>
 
         const selectedBoard = fetchedBoard.find(board => board.boardId === boardId);
         if (selectedBoard) {
@@ -52,24 +52,32 @@ function PostList({ boardId }) {
   }, [boardId]); // boardId가 변경될 때마다 실행
   
  
-  // // 게시글 추가 후 목록에 반영하기
-  // const handlePostCreated = async () => {
-  //   await fetchPosts(); // 새로운 게시글을 불러오기
-  //   setShowCreatePost(false); // 게시글 작성 폼 닫기
-  // };
-
-  // 로딩 중일 때 메시지 표시
   if (loading) {
     return <div>로딩 중...</div>;
   }
 
-  // 제목 클릭 시 게시글 상세 데이터 가져오기
-  // const handleTitleClick = (postId) => {
-  //   const foundPost = posts.find((post) => post.postId === postId);
-  //   if (foundPost) {
-  //     setSelectedPost(foundPost); // 선택된 게시글 상태 업데이트
-  //   }
-  // };
+  const handleTitleClick = async (post) => {
+    try {
+      // postId를 사용하여 해당 게시글을 가져옴
+      const selectedPostData = await getPostById(post.postId);
+      console.log("가져온 게시글:", selectedPostData); // 가져온 게시글 출력
+  
+      // 상태에 가져온 게시글 설정
+      setSelectedPost(selectedPostData);
+  
+      // 클릭한 게시글의 조회수만 업데이트하여 UI에 반영
+      setPosts((prevPosts) =>
+        prevPosts.map((p) =>
+          p.postId === post.postId ? { ...p, view: p.view + 1 } : p // 해당 게시글의 조회수만 증가
+        )
+      );
+    } catch (error) {
+      console.error("게시글을 가져오는 데 실패했습니다:", error);
+      alert("게시글을 불러오는 데 실패했습니다.");
+    }
+  };
+  
+  
 
   // 게시글 삭제하기
   const handleDelete = async (postId) => {
@@ -119,11 +127,7 @@ function PostList({ boardId }) {
             
 
           {selectedPost ? (
-            <PostDetail
-              postId={selectedPost.postId}
-              boardId={boardId}
-              onBack={() => setSelectedPost(null)} // 뒤로 가기 버튼 처리
-            />
+            <PostDetail post={selectedPost} onBack={() => setSelectedPost(null)} />
           ) : (
             <div className="post-container">
               <table>
@@ -145,11 +149,11 @@ function PostList({ boardId }) {
                     posts.map((post) => (
                       <tr key={post.postId}>
                         <td>{post.postId}</td>
-                        <td>
-                          <td className="post-title" onClick={() => setSelectedPost(post)}>
+                        
+                          <td className="post-title" onClick={() => handleTitleClick(post)}>
                             {post.title}
                           </td>
-                        </td>
+                        
                         <td>{post.author}</td>
                         <td>{post.view}</td>
                         <td>{post.createdAt}</td>
