@@ -44,15 +44,14 @@ function PostList({ boardId }) {
   }
 
   // 제목 클릭 시 게시글 상세 데이터 가져오기
-  const handleTitleClick = (postId) => {
-    const foundPost = posts.find((post) => post.postId === postId);
-    if (foundPost) {
-      setSelectedPost(foundPost); // 선택된 게시글 상태 업데이트
-    }
-  };
+  // const handleTitleClick = (postId) => {
+  //   const foundPost = posts.find((post) => post.postId === postId);
+  //   if (foundPost) {
+  //     setSelectedPost(foundPost); // 선택된 게시글 상태 업데이트
+  //   }
+  // };
 
   // 게시글 삭제하기
-
   const handleDelete = async (postId) => {
     if (!window.confirm("정말 삭제하시겠습니까?")) return;
   
@@ -112,9 +111,9 @@ function PostList({ boardId }) {
                       <tr key={post.postId}>
                         <td>{post.postId}</td>
                         <td>
-                          <button onClick={() => setSelectedPost(post)}>
+                          <td onClick={() => setSelectedPost(post)}>
                             {post.title}
-                          </button>
+                          </td>
                         </td>
                         <td>{post.author}</td>
                         <td>{post.view}</td>
