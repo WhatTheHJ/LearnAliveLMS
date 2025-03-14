@@ -2765,3 +2765,7 @@ Caused by: org.eclipse.aether.transfer.ArtifactNotFoundException: org.projectlom
 2025-03-13 17:02:17,409 [Worker-38: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
 2025-03-13 17:02:17,415 [Worker-38: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src\main\resources to target\classes
 2025-03-13 17:02:17,418 [Worker-38: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\GitRepository\LearnAliveLMS\LearnAlive\src\test\resources
+2025-03-14 14:09:30,876 [Worker-0: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2025-03-14 14:09:41,057 [Worker-8: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-03-14 14:09:41,090 [Worker-8: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src\main\resources to target\classes
+2025-03-14 14:09:41,112 [Worker-8: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\GitRepository\LearnAliveLMS\LearnAlive\src\test\resources
