@@ -95,20 +95,28 @@ const StudentManagementModal = ({ onClose }) => {
     }
   };
 
+  //입력값 검증 함수
   const handleRegisterStudent = async () => {
-    if (!selectedClassId || !studentInfo.studentId.trim()) {
-      return alert("강의실과 학생 정보를 입력하세요.");
+    if (!selectedClassId) {
+      return alert("강의실을 선택하세요.");
     }
+  
+    const { studentId, university, department, name } = studentInfo;
+  
+    if (!studentId.trim() || !university.trim() || !department.trim() || !name.trim()) {
+      return alert("필수 정보를 모두 입력하세요. (단과대학, 학과, 학번, 이름)");
+    }
+  
     try {
       await registerStudent({ ...studentInfo, classId: selectedClassId });
-
+  
       const newStudent = { ...studentInfo, classId: selectedClassId };
       setStudents((prev) => [...prev, newStudent]);
       setEditingData((prev) => ({
         ...prev,
         [newStudent.studentId]: newStudent,
       }));
-
+  
       setStudentInfo({
         studentId: "",
         university: "",
@@ -117,12 +125,13 @@ const StudentManagementModal = ({ onClose }) => {
         email: "",
         remarks: "",
       });
-
+  
       alert("학생 등록이 완료되었습니다.");
     } catch (error) {
       console.error("수강생 등록 실패:", error);
     }
   };
+  
 
   return (
     <div className="modal-overlay">

@@ -8,7 +8,7 @@ import ClassroomList from "./components/ClassroomList";
 // import AttendancePage from "./pages/AttendancePage";
 import ManageAttendancePage from "./pages/ManageAttendancePage";
 import ClassSettings from "./pages/ClassSettings"; 
-// import SurveyList from "./pages/SurveyList";
+import SurveyList from "./pages/SurveyList";
 import SurveyCreate from "./components/SurveyCreate";
 import SurveyDetail from "./components/SurveyDetail";
 import AddPostPage from "./components/AddPostPage";
@@ -53,8 +53,6 @@ function App() {
         <main>
         <Routes>
           <Route path="/" element={<ClassroomList />} />
-          {/* <Route path="/classroom/:classId" element={<ClassroomDetail />} /> */}
-          {/* <Route path="/classroom/:classId/attendance" element={<AttendancePage />} /> */}
           <Route path="/classroom/:classId/manage-attendance" element={<ManageAttendancePage />} />
           
           <Route path="/survey/create" element={<SurveyCreate />} />
