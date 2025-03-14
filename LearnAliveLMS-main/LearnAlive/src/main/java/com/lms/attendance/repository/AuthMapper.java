@@ -1,5 +1,3 @@
-
-
 package com.lms.attendance.repository;
 
 import org.apache.ibatis.annotations.Mapper;
