@@ -13,44 +13,51 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
-
 @RestController
-@RequestMapping(value= "/api/professor/exams", consumes = "application/json")
+@RequestMapping("/api/exams")
 @RequiredArgsConstructor
 public class ExamController {
     private final ExamService examService;
 
-    /** 시험 생성 API */
+    // 새로운 시험 추가 (시험과 질문 포함)
     @PostMapping
     public ResponseEntity<String> createExam(@RequestBody Exam exam) {
-    	System.out.println("시험 데이터: " + exam); // 전송 데이터 확인
-        examService.createExam(exam);
+        System.out.println("시험 데이터: " + exam); // 전송 데이터 확인
+        examService.createExam(exam);  // 시험과 관련된 질문들까지 저장
         return ResponseEntity.ok("시험이 성공적으로 생성되었습니다.");
     }
-    
-    /** 시험 목록 가져오기 */
+
+    // 특정 클래스의 시험 목록 가져오기
     @GetMapping
-    public ResponseEntity<List<Exam>> getExams() {
-        List<Exam> exams = examService.getAllExams();  // 시험 목록을 가져오는 서비스 메서드
+    public ResponseEntity<List<Exam>> getExams(@RequestParam int classId) {
+        System.out.println("🔍 요청 받은 classId: " + classId);  // classId 값 확인
+        List<Exam> exams = examService.getExamsByClassId(classId);
+        System.out.println("🔍 가져온 시험 목록: " + exams);  // 가져온 데이터 확인
         return ResponseEntity.ok(exams);
     }
-    
-    @DeleteMapping("/{examId}")
-    public ResponseEntity<Void> deleteExam(@PathVariable int examId) {
-        examService.deleteExam(examId);
-        return ResponseEntity.ok().build();
-    }
 
-    @PutMapping("/{examId}")
-    public ResponseEntity<Void> updateExam(@PathVariable int examId, @RequestBody Exam exam) {
-        exam.setExamId(examId);
-        examService.updateExam(exam);
-        return ResponseEntity.ok().build();
-    }
-
+    // 특정 시험 상세 보기 (시험과 질문 포함)
     @GetMapping("/{examId}")
     public ResponseEntity<Exam> getExam(@PathVariable int examId) {
-        return ResponseEntity.ok(examService.getExamById(examId));
+        System.out.println("🔍 요청 받은 examId: " + examId);
+        Exam exam = examService.getExamById(examId);  // 시험과 관련된 질문을 함께 가져옴
+        System.out.println("🔍 가져온 시험 데이터: " + exam);
+        return ResponseEntity.ok(exam);
+    }
+
+    // 시험 삭제 (시험과 관련된 질문도 삭제)
+    @DeleteMapping("/{examId}")
+    public ResponseEntity<Void> deleteExam(@PathVariable int examId) {
+        examService.deleteExam(examId);  // 시험과 관련된 질문도 함께 삭제
+        return ResponseEntity.ok().build();
+    }
+
+    // 시험 수정 (시험과 질문 포함)
+    @PutMapping("/{examId}")
+    public ResponseEntity<Exam> updateExam(@PathVariable int examId, @RequestBody Exam exam) {
+        System.out.println("수정 요청 데이터: " + exam);  // 로그 찍어서 데이터 확인
+        exam.setExamId(examId); // examId를 exam 객체에 설정
+        examService.updateExam(exam);  // 시험과 질문 수정
+        return ResponseEntity.ok(exam); // 수정된 시험 객체 반환
     }
 }

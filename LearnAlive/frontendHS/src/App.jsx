@@ -18,8 +18,9 @@ import SurveyCreate from './components/SurveyCreate';
 import SurveyDetail from './components/SurveyDetail';
 import BoardPage from './pages/BoardPage';
 import AddPostPage from './components/AddPostPage';
-import ExamList from './components/ExamList';
-import Exam from './components/Exam';
+import ExamList from './pages/ExamList';
+import ExamCreate from './pages/ExamCreate';
+import ExamDetail from './pages/ExamDetail';
 
 function TitleUpdater() {
   const location = useLocation(); // 현재 경로 감지
@@ -82,12 +83,16 @@ function App() {
               path="/classroom/:classId/surveys"
               element={<SurveyList />}
             />
-            <Route path="/classroom/:classId/exam" element={<ExamList />} />
-            <Route path="/classroom/:classId/exam/add" element={<Exam />} />
             <Route
               path="/classroom/:classId/settings"
               element={<ClassSettings />}
             />
+            <Route path="/classroom/:classId/exam" element={<ExamList />} />
+            <Route
+              path="/classroom/:classId/exam/add"
+              element={<ExamCreate />}
+            />
+            <Route path="exam/:examId" element={<ExamDetail />} />
           </Routes>
         </main>
         <Footer />
