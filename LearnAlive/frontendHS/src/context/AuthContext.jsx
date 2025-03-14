@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
       // sessionStorage.setItem("user", JSON.stringify(userData)); <원본>
 
 
-      //게시글을 작성할 때 받아와서 활용할 수 있도록 로그인 시 제공받은 아이디와 역할 설정
+      //게시글을 작성할 때 받아와서 활용할 수 있도록 로그인 시 제공받은 아이디와 역할 설정<변경>
       setUser({
         ...userData,
         author_id: userData.attendance_id,  // 학생의 ID로 설정

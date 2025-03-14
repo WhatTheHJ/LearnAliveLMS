@@ -1,0 +1,281 @@
+/* 전체 페이지 기본 스타일 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+/* 컨테이너 스타일 */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+    background: #F2EDE7;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 제목 스타일 */
+.title-bar {
+    background-color: #7C0019; /* ✅ 배경색 */
+    color: white; /* ✅ 글자색 */
+    padding: 10px 15px;
+    text-align: center;
+    font-size: 20px; /* ✅ 제목 크기 증가 */
+    font-weight: bold;
+    border-radius: 8px 8px 0 0; /* ✅ 위쪽 둥근 테두리 */
+    margin-bottom: 15px; /* ✅ 아래쪽 여백 */
+}
+
+/* 기본 버튼 스타일 */
+button {
+    background-color: #7C0019; /* ✅ 버튼 색상 변경 */
+    color: white;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    margin: 3px;
+    white-space: nowrap;
+}
+
+button:hover {
+    background-color: #5a0013; /* ✅ 버튼 호버 색상 */
+}
+
+/* 수정 버튼 (노란색) */
+.button-edit {
+    background-color: #D9A400;
+    color: white;
+}
+
+.button-edit:hover {
+    background-color: #B8860B;
+}
+
+/* 취소 버튼 스타일 */
+.button-cancel {
+    background-color: #6c757d; /* 회색 */
+    color: white;
+}
+
+.button-cancel:hover {
+    background-color: #5a6268;
+}
+
+/* 삭제 버튼 (빨간색) */
+.button-delete {
+    background-color: #A71A2B ;
+    color: white;
+}
+
+.button-delete:hover {
+    background-color: #5a0013;
+}
+
+/* 테이블 스타일 */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background: white;
+}
+
+th, td {
+    border: 1px solid #363A43;
+    padding: 8px; /* ✅ 셀 패딩 축소 */
+    text-align: center;
+    font-size: 12px; /* ✅ 테이블 폰트 크기 감소 */
+}
+
+th {
+    background-color: #7C0019;;
+    color: white;
+}
+
+td {
+    background-color: #f9f9f9;
+}
+
+/* 입력 필드 스타일 */
+input, select {
+    padding: 5px; /* ✅ 입력 필드 크기 조정 */
+    font-size: 12px; /* ✅ 폰트 크기 감소 */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* ✅ 캘린더 전체 스타일 */
+.react-calendar {
+    margin: 10px auto;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    color: black !important; /* ✅ 기본 글자색 검정 */
+}
+
+/* ✅ 캘린더 날짜 기본 스타일 */
+.calendar-tile {
+    border: 1px solid #ddd; /* ✅ 셀마다 구분선 추가 */
+    padding: 10px;
+    text-align: center;
+    color: black; /* ✅ 일반 날짜는 검정 */
+}
+
+/* ✅ 지난달 / 다음달 날짜 회색 */
+.neighboring-month {
+    color: gray !important;
+}
+
+/* ✅ 주말(토요일, 일요일) 날짜 빨간색 */
+.weekend {
+    color: red !important;
+}
+
+/* ✅ 캘린더 메뉴(월 변경 화살표 등) 검정색 */
+.react-calendar__navigation button {
+    color: black !important;
+}
+
+
+
+
+/* 로딩 텍스트 */
+.loading-text {
+    text-align: center;
+    font-size: 14px; /* ✅ 로딩 텍스트도 살짝 줄임 */
+    font-weight: bold;
+    color: #333;
+}
+
+ /* 모달 옵션 */
+/* ✅ 모달 배경 */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* ✅ 모달 창 크기 + 내부 스크롤 가능하게 변경 */
+.modal-content {
+    background: white;
+    width: 90vw;  /* ✅ 기존보다 크기 증가 */
+    max-width: 1200px;  /* ✅ 더 큰 화면에서도 적당한 크기로 유지 */
+    max-height: 85vh;  /* ✅ 모달 자체 높이 증가 */
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto; /* ✅ 모달 전체에서 스크롤 가능 */
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: center; /* 버튼들을 가운데 정렬 */
+    gap: 10px; /* 버튼 사이 여백 */
+    margin-top: 15px; /* 위쪽 여백 추가 */
+  }
+  
+  .modal-buttons button {
+    padding: 8px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .modal-buttons button:hover {
+    opacity: 0.8;
+  }
+
+/* ✅ 닫기 버튼 */
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+/* ✅ 테이블 컨테이너 (스크롤 가능) */
+.table-container {
+    flex-grow: 1;
+    max-height: 50vh; /* ✅ 테이블 높이 제한 */
+    overflow-y: auto; /* ✅ 테이블 내부 스크롤 활성화 */
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+
+/* ✅ 입력 폼 정리 */
+.form-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.form-container input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* 등록폼 인풋 css */
+/* ✅ 인풋을 한 줄로 정렬 */
+.register-container {
+    display: flex;
+    flex-wrap: wrap; /* 화면 크기에 따라 줄 바뀜 가능 */
+    gap: 10px; /* 인풋 간 간격 추가 */
+    align-items: center;
+    margin-top: 15px;
+  }
+  
+  .register-input {
+    flex: 1;
+    min-width: 150px; /* 인풋이 너무 작아지지 않도록 설정 */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+/* ✅ 등록 버튼을 한 줄 전체 차지하도록 변경 */
+.register-button {
+    width: 100%;  /* X 버튼과 동일한 크기로 설정 */
+    padding: 5px 10px;  /* 내부 여백 조정 */
+    background-color: #7C0019;
+    color: white;
+    font-size: 14px;  /* X 버튼과 같은 크기 */
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    text-align: center;
+    display: block;
+    margin: 0 auto;  /* 버튼을 중앙 정렬 */
+  }
+  
+  .register-button:hover {
+    background-color: #5a0013;
+  }

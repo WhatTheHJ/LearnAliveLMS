@@ -74,7 +74,7 @@ function AddPostPage({ boardId, onCancel, onPostCreated }) {
             required
           />
         </div>
-        <button type="submit">게시글 추가</button>
+        <button type="submit">게시글 작성</button>
         <button onClick={() => onCancel()}>취소</button>
         {/* //<button className="btn btn-danger" onClick={() => deleteBoard(postId)}>삭제</button> */}
       </form>
