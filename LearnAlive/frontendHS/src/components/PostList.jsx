@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { getAllPosts, deletePost, getPostById } from "../api/postApi"; // 게시글 조회 API
 import { fetchBoardsByClassId } from "../api/boardsApi";
-import PostDetail from "./PostDetail";
+
 import { useParams } from "react-router-dom";
 import AddPostPage from "./AddPostPage";
+import PostDetail from "./PostDetail";
 import { useAuth } from "../context/AuthContext";
 
 
@@ -15,6 +16,7 @@ function PostList({ boardId }) {
   const [loading, setLoading] = useState(true); // 로딩 상태
   const [showCreatePost, setShowCreatePost] = useState(false); // 게시글 작성 폼을 보일지 말지에 대한 상태
   const { user } = useAuth(); // 로그인된 사용자 정보 가져오기
+  const [refresh, setRefresh] = useState(false); // ✅ 새로고침 트리거 추가
 
   useEffect(() => {
     // 게시글 목록 및 게시판 정보 불러오기
@@ -26,6 +28,10 @@ function PostList({ boardId }) {
         setLoading(true);
         const postsData = await getAllPosts(boardId);
         setPosts(postsData);
+
+           // 게시글을 createdAt 기준으로 내림차순 정렬
+      const sortedPosts = postsData.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      setPosts(sortedPosts);
   
         // 게시판 정보 불러오기
         const fetchedBoard = await fetchBoardsByClassId(classId);
@@ -49,7 +55,7 @@ function PostList({ boardId }) {
     };
   
     fetchData();
-  }, [boardId]); // boardId가 변경될 때마다 실행
+  }, [boardId, refresh]); // boardId가 변경될 때마다 실행
   
  
   if (loading) {
@@ -61,10 +67,8 @@ function PostList({ boardId }) {
       // postId를 사용하여 해당 게시글을 가져옴
       const selectedPostData = await getPostById(post.postId);
       console.log("가져온 게시글:", selectedPostData); // 가져온 게시글 출력
-  
-      // 상태에 가져온 게시글 설정
       setSelectedPost(selectedPostData);
-  
+  console.log("가져온 게시글:", selectedPostData);
       // 클릭한 게시글의 조회수만 업데이트하여 UI에 반영
       setPosts((prevPosts) =>
         prevPosts.map((p) =>
@@ -77,6 +81,26 @@ function PostList({ boardId }) {
     }
   };
   
+  //게시글 수정시 업데이트
+  const handleUpdatePost = (postId, updatedPost) => {
+    setPosts((prevPosts) =>
+      prevPosts.map((post) =>
+        post.postId === postId
+          ? { ...post, title: updatedPost.title, content: updatedPost.content }
+          : post
+      )
+    );
+  };
+
+   // 📌 새 게시글 추가 시 리스트 업데이트
+   const handlePostCreated = (newPost) => {
+    setPosts((prevPosts) => [...prevPosts, newPost]); // 새 게시글 추가
+    setRefresh((prev) => !prev); // ✅ refresh 값을 반대로 변경 (트리거 역할)
+    setShowCreatePost(false); // 게시글 작성 후 목록으로 돌아가기
+  
+    // 게시글 작성 후 선택된 게시글 초기화
+    setSelectedPost(null); // 새 게시글 작성 후에 이전에 선택된 게시글이 있으면 해제
+  };
   
 
   // 게시글 삭제하기
@@ -104,11 +128,11 @@ function PostList({ boardId }) {
         // 게시글 작성 화면만 보이도록 설정
         <AddPostPage
           boardId={boardId}
-          onCancel={() => setShowCreatePost(false)} // 취소 버튼을 누르면 목록으로 돌아가기
-          onPostCreated={handlePostCreated} // 게시글 작성 후 상태 갱신
+          onCancle={() => setShowCreatePost(false)} // 취소 버튼을 누르면 목록으로 돌아가기
+          // onPostCreated={handleUpdatePost} // 게시글 작성 후 상태 갱신
+          onPostCreated= {handlePostCreated}
         />
       ) : (
-        // 게시글 목록 화면만 보이도록 설정
         <>
         <div>{/* 게시글 추가 버튼 로직 */}
             {
@@ -127,7 +151,7 @@ function PostList({ boardId }) {
             
 
           {selectedPost ? (
-            <PostDetail post={selectedPost} onBack={() => setSelectedPost(null)} />
+            <PostDetail post={selectedPost} onBack={() => setSelectedPost(null)} onUpdate={handleUpdatePost}/>
           ) : (
             <div className="post-container">
               <table>

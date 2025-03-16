@@ -22,7 +22,7 @@ public class PostService {
     }
 	
 	@Transactional //트랜잭션 단위로 실행?
-	public List<Post> getPostById(int postId) {
+	public Post getPostById(int postId) {
         postMapper.increaseViewCount(postId); // 조회수 증가
         return postMapper.getPostById(postId); // 게시글 조회
 	}
@@ -42,13 +42,14 @@ public class PostService {
 		postMapper.deletePostByPostId(postid);
 	}
 	
-	public void updatePost(int postid, Post updatedPost) { //게시글 수정
+	public Post updatePost(int postid, Post updatedPost) { //게시글 수정
         postMapper.updatePost(
             postid,
             updatedPost.getTitle(),
-            updatedPost.getContent(),
-            updatedPost.getAuthor()
+            updatedPost.getContent()
+//            updatedPost.getAuthor()
         );
+		return updatedPost;
 	}
         //boardid에 맞는 게시글 가져오기
         public List<Post> getAllPosts(int boardId) {

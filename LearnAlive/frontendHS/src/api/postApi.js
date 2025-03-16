@@ -31,4 +31,31 @@ export const getAllPosts = async (boardId) => {
     return response;
   }
 
+   //게시글의 파일 다운로드
+   export const downloadFile = async(postId) => {
+    const response = await axios.get(`${API_BASE_URL}/${postId}/download`);
+    return response.data;
+   }
+
+  //게시글 수정
+  export const updatePost = async (postId, updatedPost) => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/${postId}/update`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedPost),
+      });
+      if (!response.ok) {
+        throw new Error("게시글 수정에 실패했습니다.");
+      }
+      return await response.json();
+    } catch (error) {
+      console.error("게시글 수정 오류:", error);
+      throw error;
+    }
+  };
+
  
+  

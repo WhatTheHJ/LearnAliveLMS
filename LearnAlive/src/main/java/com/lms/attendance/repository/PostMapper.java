@@ -19,15 +19,17 @@ import com.lms.attendance.model.Post;
 public interface PostMapper {
 
     @Insert("""
-        INSERT INTO Post (post_id, board_id, author_id, author_role, author, title, content)
-        VALUES (#{postId}, #{boardId}, #{authorId}, #{authorRole}, #{author}, #{title}, #{content})
+        INSERT INTO Post (post_id, board_id, author_id, author_role, author, title, content, file_path)
+        VALUES (#{postId}, #{boardId}, #{authorId}, #{authorRole}, #{author}, #{title}, #{content}, #{filePath})
     """)
     @Results({
-        @Result(property = "postId", column = "post_id"),
-        @Result(property = "title", column = "board_id"),
+    	@Result(property = "postId", column = "post_id"),
+        @Result(property = "boardId", column = "board_id"),
+        @Result(property = "title", column = "title"),
         @Result(property = "authorId", column = "author_id"),
         @Result(property = "authorRole", column = "author_role"),
-        @Result(property = "author", column = "author")
+        @Result(property = "author", column = "author"),
+        @Result(property = "filepath", column = "file_path")
     })
     void createPost(Post newPost);
     
@@ -40,14 +42,14 @@ public interface PostMapper {
     //---------------게시글 수정 기능
     @Update("""
     	    UPDATE Post 
-    	    SET title = #{title}, content = #{content}, author = #{author}
+    	    SET title = #{title}, content = #{content}
     	    WHERE post_id = #{postId}
     	""")
     	void updatePost(
     		@Param("postId") int postId,
     	    @Param("title") String title,
-    	    @Param("content") String content,
-    	    @Param("author") String author
+    	    @Param("content") String content
+//    	    @Param("author") String author
     	);
     
   //모든 게시글 가져오기
@@ -58,22 +60,24 @@ public interface PostMapper {
         @Result(property = "createdAt", column = "created_at"),
         @Result(property = "authorRole", column = "author_role"),
         @Result(property = "authorId", column = "author_id"),
-        @Result(property = "author", column = "author")
+        @Result(property = "author", column = "author"),
+//        @Result(property = "filePath", column = "file_path")
     })
     List<Post> getAllPosts(int boardId);
     
 // id별 게시글 가져오기    
     
-    @Select("SELECT post_id, title, DATE_FORMAT(created_at, '%Y-%m-%d %H:%i:%s') AS created_at, author_id, content, author_role, author, view FROM Post WHERE post_id = #{postId};")
+    @Select("SELECT post_id, title, DATE_FORMAT(created_at, '%Y-%m-%d %H:%i:%s') AS created_at, author_id, content, author_role, author, view, file_path FROM Post WHERE post_id = #{postId};")
     @Results({
         @Result(property = "postId", column = "post_id"),
         @Result(property = "title", column = "title"),
         @Result(property = "createdAt", column = "created_at"),
         @Result(property = "authorRole", column = "author_role"),
         @Result(property = "authorId", column = "author_id"),
-        @Result(property = "author", column = "author")
+        @Result(property = "author", column = "author"),
+        @Result(property = "filePath", column = "file_path")
     })
-    List<Post> getPostById(int postId);
+    Post getPostById(int postId);
 
     
     // title로 게시글 검색

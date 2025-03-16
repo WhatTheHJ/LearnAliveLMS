@@ -1,6 +1,6 @@
 package com.lms.attendance.model;
 
-import java.sql.Timestamp;
+
 
 import lombok.Data;
 
