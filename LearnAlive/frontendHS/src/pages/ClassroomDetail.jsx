@@ -28,6 +28,8 @@ const ClassroomDetail = () => {
   const [surveyBoards, setSurveyBoards] = useState([]); // 설문조사 게시판 (survey_board) 목록
   const [showBoardModal, setShowBoardModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  //-------------------------------------
+  
   
   const handleBoardClick = (id) => {
     setBoardId(id);

@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import AddPostPage from "./AddPostPage";
 import PostDetail from "./PostDetail";
 import { useAuth } from "../context/AuthContext";
-import Search from "./search";
+import FilteredPostList from "./FilteredPostList";
 
 
 function PostList({ boardId }) {
@@ -27,30 +27,34 @@ function PostList({ boardId }) {
   //---------------------------------------------------------------------------
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredPosts, setFilteredPosts] = useState(posts);
+  const [showFiltered, setShowFiltered] = useState(false);
+  // const navigate = useNavigate();
 
 
-  // 검색어가 변경될 때마다 게시글을 필터링
+  // 검색어 변경 시 호출
   const handleSearchChange = (e) => {
-    const query = e.target.value;
-    setSearchQuery(query);
+  setSearchQuery(e.target.value);
   };
 
-     // 검색 버튼 클릭 시 호출
+  // 검색 버튼 클릭 시 호출
   const handleSearchClick = () => {
-    // 검색어를 기준으로 게시글 필터링
-    const filtered = posts.filter(
-      (post) =>
-        post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        post.content.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-    setFilteredPosts(filtered);
+    // 검색어가 있을 경우 필터링
+    if (searchQuery) {
+      const filtered = posts.filter(
+        (post) =>
+          post.title.toLowerCase().includes(searchQuery.toLowerCase()) 
+        // ||
+          // post.content.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredPosts(filtered);
+      setShowFiltered(true);
+    } else {
+      // 검색어가 없으면 모든 게시글을 표시
+      setFilteredPosts(posts);
+      setShowFiltered(false);
+    }
   };
   
-
-
-  const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
 
   useEffect(() => {
     // 게시글 목록 및 게시판 정보 불러오기
@@ -60,20 +64,19 @@ function PostList({ boardId }) {
       try {
         // 게시판 목록 불러오기
         setLoading(true);
+        setPosts([]);  // 새 게시판을 불러오기 전에 이전 게시판의 내용을 초기화
+        // setFilteredPosts([]);  // 필터링된 게시글 목록도 초기화
+        setShowFiltered(false);
         const postsData = await getAllPosts(boardId);
-        // setPosts(postsData);
-        setPosts(postsData.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
-
-           // 게시글을 createdAt 기준으로 내림차순 정렬
-      const sortedPosts = postsData.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-      setPosts(sortedPosts);
+        // 게시글을 createdAt 기준으로 내림차순 정렬
+        const sortedPosts = postsData.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        setPosts(sortedPosts);
+        setFilteredPosts([sortedPosts]);  // 필터링된 게시글 목록 초기화
   
         // 게시판 정보 불러오기
         const fetchedBoard = await fetchBoardsByClassId(classId);
-        // console.log(fetchedBoard); <확인완>
-        setBoard(fetchedBoard.isDefault);
-        // console.log(fetchedBoard.isDefault); ,확인완>
-
+        setBoard(fetchedBoard.isDefault);  // 기본 게시판 여부 설정
+  
         const selectedBoard = fetchedBoard.find(board => board.boardId === boardId);
         if (selectedBoard) {
           setBoard(selectedBoard); // 찾은 보드를 상태에 저장
@@ -81,7 +84,6 @@ function PostList({ boardId }) {
         } else {
           console.log("해당 boardId에 대한 게시판을 찾을 수 없습니다.");
         }
-  
       } catch (error) {
         console.error("게시글이나 게시판 정보를 불러오는 데 실패했습니다:", error);
       } finally {
@@ -90,12 +92,21 @@ function PostList({ boardId }) {
     };
   
     fetchData();
-  }, [boardId, refresh]); // boardId가 변경될 때마다 실행
   
- 
+    // 게시판을 변경할 때마다 검색어와 필터링된 게시글 목록 초기화
+    setSearchQuery("");  // 검색어 초기화
+    setFilteredPosts([]);  // 필터링된 게시글 목록 초기화
+  
+  }, [boardId, refresh]);
+  
+  
   if (loading) {
     return <div>로딩 중...</div>;
   }
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   const handleTitleClick = async (post) => {
     try {
@@ -156,118 +167,131 @@ function PostList({ boardId }) {
     return <div>로딩 중...</div>;
   }
 
+  const handleLikeToggle = (updatedPost) => {
+    setPosts((prevPosts) =>
+      prevPosts.map((post) =>
+        post.postId === updatedPost.postId ? { ...post, ...updatedPost } : post
+      )
+    );
+  };
+
+  // 페이징 핸들러
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <div className="post-container">
       {showCreatePost ? (
-        // 게시글 작성 화면만 보이도록 설정
         <AddPostPage
           boardId={boardId}
-          onCancle={() => setShowCreatePost(false)} // 취소 버튼을 누르면 목록으로 돌아가기
-          // onPostCreated={handleUpdatePost} // 게시글 작성 후 상태 갱신
-          onPostCreated= {handlePostCreated}
+          onCancle={() => setShowCreatePost(false)}
+          onPostCreated={(newPost) => {
+            setPosts((prevPosts) => [...prevPosts, newPost]);
+            setRefresh((prev) => !prev); // 새로고침
+            setShowCreatePost(false);
+            setSelectedPost(null);
+          }}
         />
       ) : (
         <>
-        <div>{/* 게시글 추가 버튼 로직 */}
-          
-            {
-            // board?.is_default 값이 0이고 user?.author_role이 "professor"일 경우에만 버튼을 표시
-            board?.isDefault === 0 && user?.author_role === "professor" ? (
+          <div>
+            {/* 게시글 추가 버튼 로직 */}
+            {board?.isDefault === 0 && user?.author_role === "professor" && (
               <button className="add-post-button" onClick={() => setShowCreatePost(true)}>
                 게시글 추가
               </button>
-            ) : board?.isDefault === 1 ? (
-              // is_default가 1일 때는 누구나 버튼을 볼 수 있음
+            )}
+            {board?.isDefault === 1 && (
               <button className="add-post-button" onClick={() => setShowCreatePost(true)}>
                 게시글 추가
               </button>
-            ) : null
-          }</div>
-            
+            )}
+          </div>
 
           {selectedPost ? (
-            <PostDetail post={selectedPost} onBack={() => setSelectedPost(null)} onUpdate={handleUpdatePost}/>
+            <PostDetail post={selectedPost} onBack={() => setSelectedPost(null)}  onLikeToggle={handleLikeToggle} />
           ) : (
-            <div className="post-container">
-              <table>
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>제목</th>
-                    <th>작성자</th>
-                    <th>조회수</th>
-                    <th>좋아요</th>
-                    <th>작성일</th>
-                    {user?.author_role === "professor" && (
-                      <th>관리</th>
-                    )}
-                   
-                  </tr>
-                </thead>
-                <tbody>
-                  {currentPosts.length > 0 ? (
-                    currentPosts.map((post) => (
-                      <tr key={post.postId}>
-                        <td>{post.postId}</td>
-                        
-                          <td className="post-title" onClick={() => handleTitleClick(post)}>
-                            {post.title}
-                          </td>
-                        
-                        <td>{post.author}</td>
-                        <td>{post.view}</td>
-                        <td>{post.likes}</td>
-                        <td>{post.createdAt}</td>
-                        
-                          
-                        {user?.author_role === "professor" && (
-                        <td> <button onClick={() => handleDelete(post.postId)}>삭제</button></td>
-                        )}
-                        
+            <>
+              <div>
+                <input
+                  type="text"
+                  placeholder="검색어 입력"
+                  value={searchQuery}
+                  onChange={handleSearchChange}
+                />
+                <button onClick={handleSearchClick}>검색</button>
+              </div>
+
+              {showFiltered ? (
+                 <FilteredPostList
+                filteredPosts={filteredPosts}  // 필터링된 게시글을 전달
+                // onPostClick={handleTitleClick}  // 게시글 클릭 핸들러 전달
+                // user={user}  // 사용자 정보 전달
+                handleDelete={handleDelete}  // 삭제 함수 전달
+                // filteredPosts={currentPosts} 
+                onPostClick={handleTitleClick} 
+                paginate={paginate} 
+                currentPage={currentPage} 
+                totalPages={totalPages} 
+                
+              />
+              ) : (
+                <div>
+                  <h2>게시글 목록</h2>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>제목</th>
+                        <th>작성자</th>
+                        <th>조회수</th>
+                        <th>좋아요</th>
+                        <th>작성일</th>
+                        {user?.author_role === "professor" && <th>관리</th>}
                       </tr>
-                      
-                    ))
-                  ) : (
-                    <tr>
-                      <td colSpan="6">게시글이 없습니다.</td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-               {/* 페이지 버튼 */}
-              <div>
-                {Array.from({ length: totalPages }, (_, index) => (
-                  <button key={index + 1} onClick={() => handlePageChange(index + 1)}>
-                    {index + 1}
-                  </button>
-                ))}
-              
-              </div>
-              <div>
-                {/* Search 컴포넌트 사용 */}
-                <Search
-        searchQuery={searchQuery}
-        handleSearchChange={handleSearchChange}
-        handleSearchClick={handleSearchClick}
-      />
-                <ul>
-        {filteredPosts.length > 0 ? (
-          filteredPosts.map((post) => (
-            <li key={post.postId}>{post.title}</li>
-          ))
-        ) : (
-          <li>검색 결과가 없습니다.</li>
-        )}
-      </ul>
-              </div>
-            </div>
+                    </thead>
+                    <tbody>
+                      {currentPosts.length > 0 ? (
+                        currentPosts.map((post) => (
+                          <tr key={post.postId}>
+                            <td>{post.postId}</td>
+                            <td className="post-title" onClick={() => handleTitleClick(post)}>
+                              {post.title}
+                            </td>
+                            <td>{post.author}</td>
+                            <td>{post.view}</td>
+                            <td>{post.likes}</td>
+                            <td>{post.createdAt}</td>
+                            {user?.author_role === "professor" && (
+                              <td>
+                                <button onClick={() => handleDelete(post.postId)}>삭제</button>
+                              </td>
+                            )}
+                          </tr>
+                        ))
+                      ) : (
+                        <tr>
+                          <td colSpan="6">게시글이 없습니다.</td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+
+                  {/* 페이지 버튼 */}
+                  <div>
+                    {Array.from({ length: totalPages }, (_, index) => (
+                      <button key={index + 1} onClick={() => handlePageChange(index + 1)}>
+                        {index + 1}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </>
           )}
         </>
       )}
     </div>
   );
-  
 }
 
 export default PostList;
