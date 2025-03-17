@@ -26,7 +26,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lms.attendance.model.Post;
+import com.lms.attendance.service.LikeService;
 import com.lms.attendance.service.PostService;
+
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -35,6 +38,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
@@ -47,6 +51,9 @@ public class PostController {
     public PostController(PostService postService) {
         this.postService = postService;
     }
+    
+    @Autowired
+    private LikeService likeService;
 
  // 게시글 목록 조회
     @GetMapping("/{boardId}/post")
@@ -148,9 +155,28 @@ public class PostController {
         }
     }
 
-    
-    
-    
+    //좋아요 기능 <?>
+//    @PostMapping("/{postId}/like")
+//    public ResponseEntity<String> toggleLike(@PathVariable("postId") int postId, @RequestParam("userId") String userId) {
+//        try {
+//            likeService.toggleLike(postId, userId);
+//            return ResponseEntity.ok("좋아요 상태가 변경되었습니다.");
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("좋아요 상태 변경에 실패했습니다.");
+//        }
+//    }
+    @PostMapping("/{postId}/like")
+    public ResponseEntity<String> toggleLike(@PathVariable("postId") int postId, @RequestBody Map<String, String> request) {
+        String userId = request.get("userId");
+        try {
+            likeService.toggleLike(postId, userId);
+            return ResponseEntity.ok("좋아요 상태가 변경되었습니다.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("좋아요 상태 변경에 실패했습니다.");
+        }
+    }
+
+        
  // 게시판 삭제
     @DeleteMapping("/{postId}/delete")
     public ResponseEntity<String> deletePost(@PathVariable("postId") int postId) {

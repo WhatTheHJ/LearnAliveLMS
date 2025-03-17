@@ -57,5 +57,29 @@ export const getAllPosts = async (boardId) => {
     }
   };
 
+  //좋아요 기능
+  export const likePost = async (postId, userId) => {
+    // try {
+    //   const response = await axios.post(`${API_BASE_URL}/${postId}/like`, { userId });
+    //   return response.data;
+
+      try {
+        const response = await fetch(`${API_BASE_URL}/${postId}/like`, {
+          method: 'POST',  // 반드시 POST 메서드로 요청
+          headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userId }),
+        });
+    
+        if (!response.ok) {
+          throw new Error("좋아요 상태 변경에 실패했습니다.");
+        }
+    } catch (error) {
+      console.error("좋아요 처리 실패:", error);
+      throw error;
+    }
+  };
+
  
   

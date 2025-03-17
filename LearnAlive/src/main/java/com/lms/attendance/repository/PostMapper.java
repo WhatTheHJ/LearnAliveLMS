@@ -53,7 +53,7 @@ public interface PostMapper {
     	);
     
   //모든 게시글 가져오기
-    @Select("SELECT post_id, title, DATE_FORMAT(created_at, '%Y-%m-%d %H:%i:%s') AS created_at, author_id, author_role, author, view FROM Post WHERE board_id = #{boardId};")
+    @Select("SELECT post_id, title, DATE_FORMAT(created_at, '%Y-%m-%d %H:%i:%s') AS created_at, author_id, author_role, author, view, likes FROM Post WHERE board_id = #{boardId};")
     @Results({
         @Result(property = "postId", column = "post_id"),
         @Result(property = "title", column = "title"),
@@ -66,8 +66,7 @@ public interface PostMapper {
     List<Post> getAllPosts(int boardId);
     
 // id별 게시글 가져오기    
-    
-    @Select("SELECT post_id, title, DATE_FORMAT(created_at, '%Y-%m-%d %H:%i:%s') AS created_at, author_id, content, author_role, author, view, file_path FROM Post WHERE post_id = #{postId};")
+    @Select("SELECT post_id, title, DATE_FORMAT(created_at, '%Y-%m-%d %H:%i:%s') AS created_at, author_id, content, author_role, author, view, file_path, likes FROM Post WHERE post_id = #{postId};")
     @Results({
         @Result(property = "postId", column = "post_id"),
         @Result(property = "title", column = "title"),
@@ -83,6 +82,15 @@ public interface PostMapper {
     // title로 게시글 검색
     @Select("SELECT * FROM Post WHERE title LIKE CONCAT('%', #{title}, '%')")
     List<Post> searchPostsByTitle(String title);
+    
+    
+    //좋아요
+    @Update("UPDATE Post SET likes = likes + 1 WHERE post_id = #{postId}")
+    void incrementLikes(@Param("postId") int postId);
+    // 게시글 좋아요 수 감소
+    @Update("UPDATE Post SET likes = likes - 1 WHERE post_id = #{postId}")
+    void decrementLikes(@Param("postId") int postId);
+
 }
     
 
