@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import "../styles/Header.css"; // ✅ CSS 추가
-import koreaLogo from "../assets/koreaLogo.png"; // ✅ 고려대학교 로고 이미지 가져오기
+// import koreaLogo from "../assets/koreaLogo.png"; // ✅ 고려대학교 로고 이미지 가져오기
 import PasswordModal from "../components/PasswordModal"; // ✅ 비밀번호 입력 모달 추가
 
 const Header = () => {
