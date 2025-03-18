@@ -32,5 +32,13 @@ public class LikeService {
             postMapper.incrementLikes(postId);
         }
     }
+//    public boolean isLiked(int postId, String userId) {
+//        return likeMapper.isLiked(postId, userId);
+//    }
+
+	public boolean isLiked(int postId, String userId) {
+		// TODO Auto-generated method stub
+		return likeMapper.isLiked(postId, userId);
+	}
 }
 

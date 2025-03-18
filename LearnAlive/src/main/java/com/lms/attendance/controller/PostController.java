@@ -155,16 +155,7 @@ public class PostController {
         }
     }
 
-    //좋아요 기능 <?>
-//    @PostMapping("/{postId}/like")
-//    public ResponseEntity<String> toggleLike(@PathVariable("postId") int postId, @RequestParam("userId") String userId) {
-//        try {
-//            likeService.toggleLike(postId, userId);
-//            return ResponseEntity.ok("좋아요 상태가 변경되었습니다.");
-//        } catch (Exception e) {
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("좋아요 상태 변경에 실패했습니다.");
-//        }
-//    }
+    
     @PostMapping("/{postId}/like")
     public ResponseEntity<String> toggleLike(@PathVariable("postId") int postId, @RequestBody Map<String, String> request) {
         String userId = request.get("userId");
@@ -174,6 +165,12 @@ public class PostController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("좋아요 상태 변경에 실패했습니다.");
         }
+    }
+
+    @GetMapping("/{postId}/isLiked")
+    public ResponseEntity<Boolean> checkIfLiked(@PathVariable("postId") int postId, @RequestParam("userId") String userId) {
+        boolean isLiked = likeService.isLiked(postId, userId);
+        return ResponseEntity.ok(isLiked);
     }
 
         

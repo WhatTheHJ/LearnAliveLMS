@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { getAllPosts, deletePost, getPostById } from "../api/postApi"; // 게시글 조회 API
 import { fetchBoardsByClassId } from "../api/boardsApi";
-import { useParams } from "react-router-dom";
+import { useParams,useLocation  } from "react-router-dom";
 import AddPostPage from "./AddPostPage";
 import PostDetail from "./PostDetail";
 import { useAuth } from "../context/AuthContext";
@@ -28,7 +28,8 @@ function PostList({ boardId }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredPosts, setFilteredPosts] = useState(posts);
   const [showFiltered, setShowFiltered] = useState(false);
-  // const navigate = useNavigate();
+
+  const location = useLocation();
 
 
   // 검색어 변경 시 호출
@@ -97,7 +98,7 @@ function PostList({ boardId }) {
     setSearchQuery("");  // 검색어 초기화
     setFilteredPosts([]);  // 필터링된 게시글 목록 초기화
   
-  }, [boardId, refresh]);
+  }, [boardId, refresh, location]);
   
   
   if (loading) {
@@ -173,6 +174,7 @@ function PostList({ boardId }) {
         post.postId === updatedPost.postId ? { ...post, ...updatedPost } : post
       )
     );
+    
   };
 
   // 페이징 핸들러

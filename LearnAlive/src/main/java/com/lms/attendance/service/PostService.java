@@ -62,21 +62,7 @@ public class PostService {
             return postMapper.searchPostsByTitle(title);
         }
         
-		/*
-		 * //좋아요 기능 public Post likePost(int postId, String userId) {
-		 * 
-		 * Post post = postMapper.getPostById(postId);
-		 * 
-		 * // 이미 좋아요를 눌렀는지 확인 Set<String> likedByUser = new
-		 * HashSet<>(Arrays.asList(Optional.ofNullable(post.getLikedByUser()).orElse("")
-		 * .split(","))); if (likedByUser.contains(userId.toString())) { throw new
-		 * IllegalStateException("이미 좋아요를 눌렀습니다."); }
-		 * 
-		 * // 좋아요 추가 likedByUser.add(userId.toString()); post.setLikes(post.getLikes() +
-		 * 1); post.setLikedByUser(String.join(",", likedByUser)); // 리스트를 CSV 문자열로 변환
-		 * 
-		 * // DB 업데이트 postMapper.likePost(post); return post; }
-		 */
+		
         
     }
 	

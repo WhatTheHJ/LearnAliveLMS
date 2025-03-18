@@ -58,28 +58,43 @@ export const getAllPosts = async (boardId) => {
   };
 
   //좋아요 기능
-  export const likePost = async (postId, userId) => {
-    // try {
-    //   const response = await axios.post(`${API_BASE_URL}/${postId}/like`, { userId });
-    //   return response.data;
+  // postApi.js
+export const likePost = (postId, userId) => {
+  return axios.post(`${API_BASE_URL}/${postId}/like`, { userId });
+};
 
-      try {
-        const response = await fetch(`${API_BASE_URL}/${postId}/like`, {
-          method: 'POST',  // 반드시 POST 메서드로 요청
-          headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ userId }),
-        });
+export const checkIfLiked = async (postId, userId) => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/${postId}/isLiked`, {
+      params: { userId }
+    });console.log(response.data);
+    return response.data; // true 또는 false 반환
     
-        if (!response.ok) {
-          throw new Error("좋아요 상태 변경에 실패했습니다.");
-        }
-    } catch (error) {
-      console.error("좋아요 처리 실패:", error);
-      throw error;
-    }
-  };
+  } catch (error) {
+    console.error("좋아요 상태 확인 오류:", error);
+    return false;
+  }
+};
+
+  // export const likePost = async (postId, userId) => {
+
+  //     try {
+  //       const response = await fetch(`${API_BASE_URL}/${postId}/like`, {
+  //         method: 'POST',  // 반드시 POST 메서드로 요청
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({ userId }),
+  //       });
+    
+  //       if (!response.ok) {
+  //         throw new Error("좋아요 상태 변경에 실패했습니다.");
+  //       }
+  //   } catch (error) {
+  //     console.error("좋아요 처리 실패:", error);
+  //     throw error;
+  //   }
+  // };
 
  
   

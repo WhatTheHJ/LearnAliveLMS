@@ -1,58 +1,59 @@
 import { useEffect, useState } from "react";
-import { updatePost, downloadFile, likePost } from "../api/postApi"; // likePost 추가
+import { updatePost, downloadFile, likePost, checkIfLiked } from "../api/postApi"; // likePost 추가
 import { useAuth } from "../context/AuthContext";
+import { useLocation } from "react-router-dom";
 
 function PostDetail({ post, onBack, onUpdate, onLikeToggle }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState("");
   const [editedContent, setEditedContent] = useState("");
   const { user } = useAuth(); // 로그인된 사용자 정보 가져오기
-  const [likedPosts, setLikedPosts] = useState(new Set()); // 사용자가 좋아요 누른 게시글 저장
+  // cons t [likedPosts, setLikedPosts] = useState(new Set()); // 사용자가 좋아요 누른 게시글 저장
   const [isLiked, setIsLiked] = useState(false); // 좋아요 여부 상태
   const [postLikes, setPostLikes] = useState(post.likes || 0); // 좋아요 수 상태 관리
+  const [loading, setLoading] = useState(true); // 로딩 상태 추가
 
   useEffect(() => {
-    if (post) {
-      setEditedTitle(post.title);
-      setEditedContent(post.content);
-      checkIfUserLiked(post.postId); // 좋아요 상태 확인
-      setPostLikes(post.likes); // 초기 좋아요 수 설정
-    }
-  }, [post]);
+    if (post && user) {
+    const fetchLikedStatus = async () => {
+      setLoading(true); // 로딩 시작
+      try {
+        const liked = await checkIfLiked(post.postId, user.userId);
+        setIsLiked(liked);
+      } catch (error) {
+        console.error("좋아요 상태 확인 오류:", error);
+      } finally {
+        setLoading(false); // 로딩 종료
+      }
+    };
+    fetchLikedStatus();
+    setEditedTitle(post.title);
+    setEditedContent(post.content);
 
-  // 사용자가 해당 게시글에 좋아요를 눌렀는지 확인하는 함수
-  const checkIfUserLiked = (postId) => {
-    const storedLikedPosts = JSON.parse(localStorage.getItem("likedPosts")) || [];
-    setLikedPosts(new Set(storedLikedPosts));
-    setIsLiked(storedLikedPosts.includes(postId));
-  };
+    setPostLikes(post.likes); // 초기 좋아요 수 설정
+  }
+  }, [post, user]);
 
   // 좋아요 버튼 클릭시 실행
   const handleLikeClick = async (postId) => {
+    if (!user || !user.userId) {
+      alert("로그인 후 이용해주세요.");
+      return;
+    }
     try {
       // 백엔드에서 좋아요 추가 또는 취소
-      await likePost(postId, user.userId);
-
-      // 좋아요 상태 변경 (토글)
+      const updatedPost = await likePost(postId, user.userId);
+      // API에서 받은 새로운 좋아요 수를 상태에 즉시 반영
+      setPostLikes(updatedPost.likes); // 서버에서 받은 최신 좋아요 수로 업데이트
+      
+      // // 좋아요 상태와 좋아요 수 업데이트
       const updatedIsLiked = !isLiked;
       setIsLiked(updatedIsLiked);
 
-      // 좋아요 상태에 따른 좋아요 수 업데이트
-      const updatedLikes = updatedIsLiked ? postLikes + 1 : postLikes - 1;
-      setPostLikes(updatedLikes); // 즉시 좋아요 수 상태 업데이트
-
-       // 로컬스토리지에 좋아요 상태 저장
-    let updatedLikedPosts = Array.from(likedPosts); // Set을 배열로 변환
-    updatedLikedPosts = updatedIsLiked
-      ? [...updatedLikedPosts, postId] // 좋아요 추가
-      : updatedLikedPosts.filter((id) => id !== postId); // 좋아요 취소
-
-    // 업데이트된 likedPosts를 다시 Set으로 변환하여 상태에 저장
-    setLikedPosts(new Set(updatedLikedPosts));
-    localStorage.setItem("likedPosts", JSON.stringify(updatedLikedPosts));
-      // 부모 컴포넌트에 좋아요 상태 변경 사항 전달
-      const updatedPost = { ...post, likes: updatedLikes };
-      onLikeToggle(updatedPost); // 최신 게시글 객체 전달
+       // API에서 받은 새로운 좋아요 수를 설정
+    setIsLiked(!isLiked); // 좋아요 상태 토글
+    setPostLikes(updatedPost.likes); // 서버에서 받은 최신 좋아요 수로 업데이트
+    onLikeToggle(updatedPost);
 
       // 알림
       alert(updatedIsLiked ? "좋아요를 눌렀습니다." : "좋아요가 취소되었습니다.");
@@ -61,6 +62,7 @@ function PostDetail({ post, onBack, onUpdate, onLikeToggle }) {
       alert("좋아요 처리 중 오류가 발생했습니다.");
     }
   };
+
 
   // 수정 버튼 클릭 시 실행
   const handleEditClick = () => {
@@ -101,6 +103,7 @@ function PostDetail({ post, onBack, onUpdate, onLikeToggle }) {
     }
   };
 
+
   return (
     <div className="post-container">
       <div className="post-card">
@@ -138,6 +141,7 @@ function PostDetail({ post, onBack, onUpdate, onLikeToggle }) {
               >
                 {isLiked ? "좋아요 취소" : "👍 좋아요"}
               </button>
+
               {post.filePath && (
                 <button className="download-button" onClick={handleDownloadClick}>
                   파일 다운로드 : {post.createdAt}
