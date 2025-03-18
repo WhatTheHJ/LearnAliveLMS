@@ -17,7 +17,8 @@ function PostList({ boardId }) {
   const [showCreatePost, setShowCreatePost] = useState(false); // 게시글 작성 폼을 보일지 말지에 대한 상태
   const { user } = useAuth(); // 로그인된 사용자 정보 가져오기
   const [refresh, setRefresh] = useState(false); // ✅ 새로고침 트리거 추가
- //---------------------------------------------------------------------------
+  // const [selectedPost, setSelectedPost] = useState(null);
+ //------------------------------------------- --------------------------------
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
   const postsPerPage = 10; // 한 페이지당 게시글 개수
   const indexOfLastPost = currentPage * postsPerPage;
@@ -30,6 +31,10 @@ function PostList({ boardId }) {
   const [showFiltered, setShowFiltered] = useState(false);
 
   const location = useLocation();
+  //--------------------------------------------------------
+   // 정렬 기준과 방향 상태 추가
+   const [sortCriteria, setSortCriteria] = useState("createdAt"); // 기본 정렬 기준: 작성일
+   const [sortOrder, setSortOrder] = useState("desc"); // 기본 정렬 방향: 내림차순
 
 
   // 검색어 변경 시 호출
@@ -66,11 +71,16 @@ function PostList({ boardId }) {
         // 게시판 목록 불러오기
         setLoading(true);
         setPosts([]);  // 새 게시판을 불러오기 전에 이전 게시판의 내용을 초기화
-        // setFilteredPosts([]);  // 필터링된 게시글 목록도 초기화
         setShowFiltered(false);
         const postsData = await getAllPosts(boardId);
         // 게시글을 createdAt 기준으로 내림차순 정렬
-        const sortedPosts = postsData.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        // const sortedPosts = postsData.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        // 초기 정렬은 작성일 기준 내림차순
+        const sortedPosts = postsData.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        );
+
+
         setPosts(sortedPosts);
         setFilteredPosts([sortedPosts]);  // 필터링된 게시글 목록 초기화
   
@@ -93,17 +103,36 @@ function PostList({ boardId }) {
     };
   
     fetchData();
-  
-    // 게시판을 변경할 때마다 검색어와 필터링된 게시글 목록 초기화
     setSearchQuery("");  // 검색어 초기화
     setFilteredPosts([]);  // 필터링된 게시글 목록 초기화
-  
   }, [boardId, refresh, location]);
   
   
   if (loading) {
     return <div>로딩 중...</div>;
   }
+
+   // 정렬 함수
+   const handleSort = (criteria) => {
+    setSortCriteria(criteria);
+
+    // 클릭할 때마다 정렬 방향 토글
+    setSortOrder((prevOrder) => (prevOrder === "asc" ? "desc" : "asc"));
+  };
+
+    // 정렬된 게시글 목록
+    const sortedPosts = [...posts].sort((a, b) => {
+      let comparison = 0;
+  
+      if (sortCriteria === "likes" || sortCriteria === "view") {
+        comparison = a[sortCriteria] - b[sortCriteria]; // 숫자 비교
+      } else if (sortCriteria === "createdAt") {
+        comparison = new Date(a[sortCriteria]) - new Date(b[sortCriteria]); // 날짜 비교
+      }
+  
+      // 오름차순일 경우 그대로, 내림차순일 경우 반대로
+      return sortOrder === "asc" ? comparison : -comparison;
+    });
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -115,18 +144,20 @@ function PostList({ boardId }) {
       const selectedPostData = await getPostById(post.postId);
       console.log("가져온 게시글:", selectedPostData); // 가져온 게시글 출력
       setSelectedPost(selectedPostData);
-  console.log("가져온 게시글:", selectedPostData);
-      // 클릭한 게시글의 조회수만 업데이트하여 UI에 반영
-      setPosts((prevPosts) =>
-        prevPosts.map((p) =>
-          p.postId === post.postId ? { ...p, view: p.view + 1 } : p // 해당 게시글의 조회수만 증가
-        )
-      );
-    } catch (error) {
-      console.error("게시글을 가져오는 데 실패했습니다:", error);
-      alert("게시글을 불러오는 데 실패했습니다.");
-    }
-  };
+
+   // 클릭한 게시글의 모든 데이터를 업데이트하고, 좋아요 상태는 덮어쓰지 않음
+   setPosts((prevPosts) =>
+    prevPosts.map((p) =>
+      p.postId === post.postId
+        ? { ...p, ...selectedPostData } // 게시글 정보만 업데이트
+        : p
+    )
+  );
+  } catch (error) {
+    console.error("게시글을 가져오는 데 실패했습니다:", error);
+    alert("게시글을 불러오는 데 실패했습니다.");
+  }
+};
   
   //게시글 수정시 업데이트
   const handleUpdatePost = (postId, updatedPost) => {
@@ -168,13 +199,14 @@ function PostList({ boardId }) {
     return <div>로딩 중...</div>;
   }
 
-  const handleLikeToggle = (updatedPost) => {
+   // 좋아요 상태 업데이트를 위한 함수
+   const handleLikeToggle = (postId, updatedLikes) => {
+    // 해당 게시물을 찾아서 좋아요 수를 업데이트
     setPosts((prevPosts) =>
       prevPosts.map((post) =>
-        post.postId === updatedPost.postId ? { ...post, ...updatedPost } : post
+        post.postId === postId ? { ...post, likes: updatedLikes } : post
       )
     );
-    
   };
 
   // 페이징 핸들러
@@ -210,7 +242,7 @@ function PostList({ boardId }) {
           </div>
 
           {selectedPost ? (
-            <PostDetail post={selectedPost} onBack={() => setSelectedPost(null)}  onLikeToggle={handleLikeToggle} />
+            <PostDetail post={selectedPost} onBack={() => setSelectedPost(null)}  onLikeToggle={handleLikeToggle}   onUpdate={handleUpdatePost}  />
           ) : (
             <>
               <div>
@@ -226,8 +258,6 @@ function PostList({ boardId }) {
               {showFiltered ? (
                  <FilteredPostList
                 filteredPosts={filteredPosts}  // 필터링된 게시글을 전달
-                // onPostClick={handleTitleClick}  // 게시글 클릭 핸들러 전달
-                // user={user}  // 사용자 정보 전달
                 handleDelete={handleDelete}  // 삭제 함수 전달
                 // filteredPosts={currentPosts} 
                 onPostClick={handleTitleClick} 
@@ -245,15 +275,26 @@ function PostList({ boardId }) {
                         <th>ID</th>
                         <th>제목</th>
                         <th>작성자</th>
-                        <th>조회수</th>
-                        <th>좋아요</th>
-                        <th>작성일</th>
+                        <th>조회수
+                        <button onClick={() => handleSort("view")}>
+                        정렬 {sortCriteria === "view" && (sortOrder === "asc" ? "🔼" : "🔽")}
+                        </button>
+                        </th>
+                        <th>좋아요 <button onClick={() => handleSort("likes")}>
+                            정렬 {sortCriteria === "likes" && (sortOrder === "asc" ? "🔼" : "🔽")}
+                          </button></th>
+                        
+                        <th>작성일
+                        <button onClick={() => handleSort("createdAt")}>
+                        정렬 {sortCriteria === "createdAt" && (sortOrder === "asc" ? "🔼" : "🔽")}
+                          </button>
+                        </th>
                         {user?.author_role === "professor" && <th>관리</th>}
                       </tr>
                     </thead>
                     <tbody>
-                      {currentPosts.length > 0 ? (
-                        currentPosts.map((post) => (
+                      {sortedPosts.length > 0 ? (
+                        sortedPosts.map((post) => (
                           <tr key={post.postId}>
                             <td>{post.postId}</td>
                             <td className="post-title" onClick={() => handleTitleClick(post)}>

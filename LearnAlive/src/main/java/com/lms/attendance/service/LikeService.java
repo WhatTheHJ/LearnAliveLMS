@@ -32,12 +32,12 @@ public class LikeService {
             postMapper.incrementLikes(postId);
         }
     }
-//    public boolean isLiked(int postId, String userId) {
-//        return likeMapper.isLiked(postId, userId);
-//    }
+    // 게시글에 대한 전체 좋아요 수 가져오기
+    public int getTotalLikes(int postId) {
+        return postMapper.getTotalLikes(postId);
+    }
 
 	public boolean isLiked(int postId, String userId) {
-		// TODO Auto-generated method stub
 		return likeMapper.isLiked(postId, userId);
 	}
 }

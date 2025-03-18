@@ -11,11 +11,9 @@ public interface LikeMapper {
     @Select("SELECT COUNT(*) > 0 FROM likes WHERE post_id = #{postId} AND user_id = #{userId}")
     boolean isLiked(@Param("postId") int postId, @Param("userId") String userId);
     
-    @Select("SELECT post_id, SUM(likes) AS total_likes " +
-            "FROM post " +
-            "WHERE post_id = #{postId} " +
-            "GROUP BY post_id")
-    void totallikes(@Param("postId") int postId);
+    // 특정 게시글에 대한 총 좋아요 수 조회
+    @Select("SELECT COUNT(*) FROM likes WHERE post_id = #{postId}")
+    int getTotalLikes(@Param("postId") int postId);
 
 
     // 좋아요 추가

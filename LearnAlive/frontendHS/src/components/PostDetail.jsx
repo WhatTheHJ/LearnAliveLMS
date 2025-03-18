@@ -8,61 +8,53 @@ function PostDetail({ post, onBack, onUpdate, onLikeToggle }) {
   const [editedTitle, setEditedTitle] = useState("");
   const [editedContent, setEditedContent] = useState("");
   const { user } = useAuth(); // 로그인된 사용자 정보 가져오기
-  // cons t [likedPosts, setLikedPosts] = useState(new Set()); // 사용자가 좋아요 누른 게시글 저장
   const [isLiked, setIsLiked] = useState(false); // 좋아요 여부 상태
   const [postLikes, setPostLikes] = useState(post.likes || 0); // 좋아요 수 상태 관리
   const [loading, setLoading] = useState(true); // 로딩 상태 추가
 
   useEffect(() => {
     if (post && user) {
-    const fetchLikedStatus = async () => {
-      setLoading(true); // 로딩 시작
-      try {
-        const liked = await checkIfLiked(post.postId, user.userId);
-        setIsLiked(liked);
-      } catch (error) {
-        console.error("좋아요 상태 확인 오류:", error);
-      } finally {
-        setLoading(false); // 로딩 종료
-      }
-    };
-    fetchLikedStatus();
-    setEditedTitle(post.title);
-    setEditedContent(post.content);
-
-    setPostLikes(post.likes); // 초기 좋아요 수 설정
-  }
+      const fetchLikedStatus = async () => {
+        setLoading(true); // 로딩 시작
+        try {
+          const liked = await checkIfLiked(post.postId, user.userId);
+          console.log("API에서 받은 liked 값:", liked); // 확인용 로그 추가
+          setIsLiked(liked);
+        } catch (error) {
+          console.error("좋아요 상태 확인 오류:", error);
+        } finally {
+          setLoading(false); // 로딩 종료
+        }
+      };
+      fetchLikedStatus();
+      setEditedTitle(post.title);
+      setEditedContent(post.content);
+      setPostLikes(post.likes); // 초기 좋아요 수 설정
+    }
   }, [post, user]);
 
   // 좋아요 버튼 클릭시 실행
   const handleLikeClick = async (postId) => {
-    if (!user || !user.userId) {
-      alert("로그인 후 이용해주세요.");
-      return;
-    }
     try {
       // 백엔드에서 좋아요 추가 또는 취소
       const updatedPost = await likePost(postId, user.userId);
-      // API에서 받은 새로운 좋아요 수를 상태에 즉시 반영
-      setPostLikes(updatedPost.likes); // 서버에서 받은 최신 좋아요 수로 업데이트
-      
-      // // 좋아요 상태와 좋아요 수 업데이트
-      const updatedIsLiked = !isLiked;
-      setIsLiked(updatedIsLiked);
 
-       // API에서 받은 새로운 좋아요 수를 설정
-    setIsLiked(!isLiked); // 좋아요 상태 토글
-    setPostLikes(updatedPost.likes); // 서버에서 받은 최신 좋아요 수로 업데이트
-    onLikeToggle(updatedPost);
+      // 좋아요 상태와 좋아요 수 업데이트
+      setIsLiked((prev) => !prev); // 좋아요 상태를 반전시킴
+      setPostLikes(updatedPost.data.totalLikes); // 서버에서 받은 최신 좋아요 수로 업데이트
+
+      // 서버에서 받은 최신 좋아요 수로 업데이트
+      console.log("최신 좋아요 수:", updatedPost.data.totalLikes);
+
+      onLikeToggle(postId, updatedPost.data.totalLikes); // 부모에게 전달
 
       // 알림
-      alert(updatedIsLiked ? "좋아요를 눌렀습니다." : "좋아요가 취소되었습니다.");
+      alert(!isLiked ? "좋아요를 눌렀습니다." : "좋아요가 취소되었습니다.");
     } catch (error) {
       console.error("좋아요 처리 중 오류:", error);
       alert("좋아요 처리 중 오류가 발생했습니다.");
     }
   };
-
 
   // 수정 버튼 클릭 시 실행
   const handleEditClick = () => {
@@ -102,7 +94,6 @@ function PostDetail({ post, onBack, onUpdate, onLikeToggle }) {
       alert("파일 다운로드에 실패했습니다.");
     }
   };
-
 
   return (
     <div className="post-container">
@@ -144,7 +135,7 @@ function PostDetail({ post, onBack, onUpdate, onLikeToggle }) {
 
               {post.filePath && (
                 <button className="download-button" onClick={handleDownloadClick}>
-                  파일 다운로드 : {post.createdAt}
+                  파일 다운로드 : {post.createdAt}({postLikes})
                 </button>
               )}
             </div>

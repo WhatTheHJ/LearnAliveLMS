@@ -84,6 +84,9 @@ public interface PostMapper {
     List<Post> searchPostsByTitle(String title);
     
     
+    // 게시글의 총 좋아요 수 가져오기
+    @Select("SELECT likes FROM post WHERE post_id = #{postId}")
+    int getTotalLikes(int postId);
     //좋아요
     @Update("UPDATE Post SET likes = likes + 1 WHERE post_id = #{postId}")
     void incrementLikes(@Param("postId") int postId);

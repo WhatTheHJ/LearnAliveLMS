@@ -37,6 +37,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -46,14 +48,18 @@ import java.util.Map;
 public class PostController {
 
     private final PostService postService;
+    private final LikeService likeService;
 
     @Autowired
-    public PostController(PostService postService) {
+    public PostController(PostService postService, LikeService likeService) {
         this.postService = postService;
+		this.likeService = likeService;
     }
     
-    @Autowired
-    private LikeService likeService;
+//    @Autowired
+//    public LikeService(LikeService likeService) {
+//        this.likeService = likeService;
+//    }
 
  // 게시글 목록 조회
     @GetMapping("/{boardId}/post")
@@ -156,14 +162,23 @@ public class PostController {
     }
 
     
+    // 좋아요 토글 API
     @PostMapping("/{postId}/like")
-    public ResponseEntity<String> toggleLike(@PathVariable("postId") int postId, @RequestBody Map<String, String> request) {
-        String userId = request.get("userId");
+    public ResponseEntity<Map<String, Object>> toggleLike(@PathVariable("postId") int postId, @RequestParam("userId") String userId) {
         try {
+            // 좋아요 처리 후 최신 좋아요 수 반환
             likeService.toggleLike(postId, userId);
-            return ResponseEntity.ok("좋아요 상태가 변경되었습니다.");
+
+            // 최신 좋아요 수를 가져옴
+            int totalLikes = likeService.getTotalLikes(postId);
+
+            // 응답 구성
+            Map<String, Object> response = new HashMap<>();
+            response.put("totalLikes", totalLikes);
+            return ResponseEntity.ok(response);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("좋아요 상태 변경에 실패했습니다.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(Collections.singletonMap("error", "좋아요 처리 중 오류가 발생했습니다."));
         }
     }
 
