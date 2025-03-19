@@ -1,0 +1,33 @@
+/* 전체 화면을 차지하는 레이아웃 설정 */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 전체 레이아웃 설정 */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* 화면 전체 높이 확보 */
+}
+
+/* 본문 컨테이너: flex-grow로 남은 공간을 차지 */
+.main-container {
+  flex: 1; /* 🛠 본문이 footer를 밀어내도록 설정 */
+  padding-bottom: 80px; /* ✅ footer의 높이만큼 여백 추가 */
+}
+
+/* footer를 항상 하단에 고정 */
+.footer {
+  background-color: #363A43;
+  color: white;
+  text-align: center;
+  padding: 1px 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  min-height: 30px;
+  font-size: 14px;
+}
