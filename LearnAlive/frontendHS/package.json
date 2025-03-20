@@ -10,8 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fullcalendar/daygrid": "^6.1.15",
+    "@fullcalendar/interaction": "^6.1.15",
+    "@fullcalendar/react": "^6.1.15",
     "axios": "^1.8.2",
     "bootstrap": "^5.3.3",
+    "fullcalendar": "^6.1.15",
     "prop-types": "^15.8.1",
     "react": "^19.0.0",
     "react-calendar": "^5.1.0",

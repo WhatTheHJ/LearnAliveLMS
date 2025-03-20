@@ -13,8 +13,11 @@ function Home() {
   const userClasses = user ? classes.filter(cls => cls.students.includes(user.id)) : [];
 
   return (
+    
     <div style={{ padding: "20px" }}>
       <h2>내 강의실</h2>
+      
+     
       {!user ? (
         <p>먼저 로그인이 필요합니다.</p>
       ) : userClasses.length > 0 ? (
@@ -22,7 +25,8 @@ function Home() {
           {userClasses.map(cls => (
             <li key={cls.id}>{cls.name}</li>
           ))}
-        </ul>
+        </ul> 
+        
       ) : (
         <p>등록된 강의실이 없습니다.</p>
       )}

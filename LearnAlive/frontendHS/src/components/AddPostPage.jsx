@@ -1,5 +1,4 @@
 import { useState } from "react";
-// import { useParams, useNavigate } from "react-router-dom";
 import { createPost } from "../api/postApi"; // 게시글 추가 API
 import { useAuth } from "../context/AuthContext"; // AuthContext
 
@@ -65,11 +64,7 @@ function AddPostPage({ boardId,  onCancle, onPostCreated }) {
           console.error("요청 설정 중 오류:", error.message);
       }
   }
-  
-    
 };
-
-
   return (
     
     <div>
@@ -98,7 +93,6 @@ function AddPostPage({ boardId,  onCancle, onPostCreated }) {
           <input type="file" onChange={handleFileChange} />
         </div>
         <button type="submit">게시글 작성</button>
-        {/* <button onClick={() => onPostCreated()}>게시글 작성</button>  */}
         
         <button onClick={() => onCancle()}>취소</button>
       </form>

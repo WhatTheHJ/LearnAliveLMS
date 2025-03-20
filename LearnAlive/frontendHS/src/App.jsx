@@ -14,6 +14,7 @@ import SurveyDetail from "./components/SurveyDetail";
 import AddPostPage from "./components/AddPostPage";
 import ClassroomDetail from "./pages/ClassroomDetail";
 // import PostDetailPage from "./components/PostDetail";
+import CalendarPage from "./pages/CalendarPage";
 
 
 function TitleUpdater() {
@@ -62,7 +63,9 @@ function App() {
 
           <Route path="/classroom/:classId/boards" element={<ClassroomDetail />} /> 
           <Route path="/classroom/:classId/boards/addpost/:boardId" element={<AddPostPage />} /> {/* 게시글 추가 페이지 */}
-          {/* <Route path="/posts/:postId" element={<PostDetailPage />} /> ✅ 게시글 상세 페이지 추가 */}
+          
+
+          <Route path="/Calendar" element={<CalendarPage />} />
 
           <Route path="/classroom/:classId/settings" element={<ClassSettings />} />
         </Routes>

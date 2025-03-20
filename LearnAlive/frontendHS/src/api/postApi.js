@@ -31,7 +31,7 @@ export const getAllPosts = async (boardId) => {
     return response;
   }
 
-   //게시글의 파일 다운로드
+//게시글의 파일 다운로드
    export const downloadFile = async(postId) => {
     const response = await axios.get(`${API_BASE_URL}/${postId}/download`);
     return response.data;

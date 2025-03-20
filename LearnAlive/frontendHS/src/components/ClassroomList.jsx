@@ -57,8 +57,11 @@ const ClassroomList = () => {
   };
 
   return (
+    
     <div className="classroom-container">
+     
       {/* ✅ "내 강의실"을 배경이 있는 박스로 감싸기 */}
+      
       <div className="classroom-title">내 강의실</div>
 
       {user.role === "professor" && (
