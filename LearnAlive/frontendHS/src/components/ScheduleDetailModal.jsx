@@ -24,12 +24,13 @@ const ScheduleDetailModal = ({ isOpen, event, onClose, fetchSchedules  }) => {
   const handleUpdate = async () => {
     try {
       const updatedData = {
-        ...event,
+        // ...event,
         title: updatedTitle,
         content: updatedContent,
       };
       await updateSchedule(event.id, updatedData);  // 수정할 일정의 ID
       alert("일정이 수정되었습니다.");
+      fetchSchedules();
       onClose();  // 모달 닫기
     } catch (error) {
       console.error("일정 수정 실패:", error);

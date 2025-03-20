@@ -59,7 +59,7 @@ public class ScheduleController {
 
     // 일정 수정
     @PutMapping("/{scheduleId}")
-    public ResponseEntity<String> updateSchedule(@PathVariable int scheduleId, @RequestBody Schedule schedule) {
+    public ResponseEntity<String> updateSchedule(@PathVariable("scheduleId") int scheduleId, @RequestBody Schedule schedule) {
         try {
             schedule.setScheduleId(scheduleId);  // Update the schedule ID
             scheduleService.updateSchedule(schedule);

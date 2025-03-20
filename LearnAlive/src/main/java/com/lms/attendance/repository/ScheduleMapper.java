@@ -45,9 +45,9 @@ public interface ScheduleMapper {
     void deleteScheduleByScheduleId(int scheduleId);
 
     // 일정 수정
-    @Update("UPDATE schedule SET title = #{title}, content = #{content}, mark = #{mark}, color = #{color}, " +
-            "updated_at = CURRENT_TIMESTAMP WHERE schedule_id = #{scheduleId}")
+    @Update("UPDATE schedule SET title = #{title}, content = #{content}, updated_at = CURRENT_TIMESTAMP WHERE schedule_id = #{scheduleId}")
     void updateSchedule(Schedule schedule);
+
 
     // 날짜별 일정 조회
     @Select("SELECT * FROM schedule WHERE date = #{date}")
