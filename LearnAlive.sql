@@ -17,16 +17,7 @@ select * from Class;
 select * from board;
 SELECT * FROM post WHERE board_id = 1;
 SELECT * FROM board WHERE board_id = 1;
-SHOW CREATE TABLE Post;
-SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_NAME = 'Post';
-ALTER TABLE Post AUTO_INCREMENT = 1;
-
-SELECT AUTO_INCREMENT 
-FROM information_schema.TABLES 
-WHERE TABLE_NAME = 'Post' 
-AND TABLE_SCHEMA = 'LearnAliveDB';
-
-SELECT * FROM Post ORDER BY post_id DESC;
+select * from exam_score;
 
 
 
@@ -99,6 +90,9 @@ CREATE TABLE `Class` (
 ALTER TABLE Class
 ADD COLUMN score DECIMAL(5,2) DEFAULT NULL COMMENT '강의별 점수',
 ADD COLUMN grade VARCHAR(2) DEFAULT NULL COMMENT '등급';
+
+ALTER TABLE Class
+ADD COLUMN description TEXT;
 
 --
 -- Table structure for table `Post`

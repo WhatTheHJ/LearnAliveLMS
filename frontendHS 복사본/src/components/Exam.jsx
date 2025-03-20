@@ -69,7 +69,7 @@ const Exam = () => {
 
   return (
     <div style={{ padding: "20px", position: "relative" }}>
-      <h2>채점 게시판</h2>
+      <h2>채점</h2>
       {/* 테이블 우측 상단에 전역 저장 버튼 */}
       <button 
         onClick={handleSaveAll} 
@@ -86,8 +86,8 @@ const Exam = () => {
         <thead>
           <tr>
             <th>학번</th>
-            <th>학생 이름</th>
-            <th>점수</th>
+            <th>이름</th>
+            <th>학점</th>
             <th>등급</th>
           </tr>
         </thead>

@@ -18,10 +18,10 @@ import com.lms.attendance.model.Classroom;
 @Mapper
 public interface ClassMapper {
     
-	@Select("(SELECT c.class_id AS classId, c.class_name AS className, c.prof_id AS profId " +
+	@Select("(SELECT c.class_id AS classId, c.class_name AS className, c.prof_id AS profId, c.description AS description " +
 	        "FROM Class c JOIN Student s ON c.class_id = s.class_id WHERE s.student_id = #{userId}) " +
 	        "UNION " +
-	        "(SELECT c.class_id AS classId, c.class_name AS className, c.prof_id AS profId " +
+	        "(SELECT c.class_id AS classId, c.class_name AS className, c.prof_id AS profId, c.description AS description " +
 	        "FROM Class c WHERE c.prof_id = #{userId})")
 	List<Classroom> findClassesByUserId(String userId);
 
@@ -97,6 +97,10 @@ public interface ClassMapper {
     	    @Result(column = "professor_email", property = "professorEmail")
     	})
     	ClassDetail findClassDetailById(int classId);
+    
+    // 강의 설명 업데이트
+    @Update("UPDATE Class SET description = #{description} WHERE class_id = #{classId}")
+    void updateClassDescription(@Param("classId") int classId, @Param("description") String description);
     
     @Select("SELECT present_start, present_end, late_end FROM Class WHERE class_id = #{classId}")
 	ClassSettings getClassSettings(@Param("classId") int classId);

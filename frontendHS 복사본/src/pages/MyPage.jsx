@@ -36,7 +36,7 @@ const MyPage = () => {
   return (
     <div>
       <div className="class-choice">
-        <h3> 강의실 선택 </h3>
+        <h3> 강의실 이동 </h3>
         {/* 강의실 선택 dropdown */}
         <select onChange={handleClassroomChange} defaultValue="">
           <option value="" disabled> -- 강의실 선택 -- </option>
@@ -52,9 +52,11 @@ const MyPage = () => {
         <div style={{ marginRight: "20px" }}>
           <p> <Link to="/mypage/myprofile"> <button> 내 정보 </button> </Link> </p>
           <p> <Link to="/mypage/mypost"> <button> 내 게시물 조회 </button> </Link> </p>
-          <p> <Link to="/mypage/learning"> <button> 학습내역 확인 </button> </Link> </p>
+          <p> <Link to="/mypage/myclasses"> <button> 내 강의 조회 </button> </Link> </p>
           <p> <Link to="/mypage/myattendance"> <button> 출결내역 확인 </button> </Link> </p>
-          <p> <Link to="/mypage/mygrades"> <button> 성적 확인 </button> </Link> </p>
+          {user?.role === "student" && (
+            <p> <Link to="/mypage/mygrades"> <button> 성적 확인 </button> </Link> </p>
+          )}
           <p> <Link to="/mypage/achievements"> <button> 업적 </button> </Link> </p>
         </div>
         <Outlet /> {/* 현재 선택된 서브페이지가 여기에 표시됨 */}

@@ -20,8 +20,9 @@ import MyPost from "./components/MyPost";
 import ClassroomDetail from "./pages/ClassroomDetail";
 import MyPostDetail from "./components/MyPostDetail";
 import MyAttendance from "./components/MyAttendance";
-// import MyGrades from "./components/MyGrades";
 import Exam from "./components/Exam";
+import MyGrades from "./components/MyGrades"
+import MyClasses from "./components/MyClasses";
 
 function TitleUpdater() {
   const location = useLocation(); // 현재 경로 감지
@@ -79,7 +80,8 @@ function App() {
             <Route path="/mypage/mypost" element={<MyPost />} />
             <Route path="/mypage/post/:postId" element={<MyPostDetail />} /> {/* 🔹 상세 페이지 추가 */}
             <Route path="/mypage/myattendance" element={<MyAttendance />} />
-            {/* <Route path="/mypage/mygrades" element={<MyGrades />} /> */}
+            <Route path="/mypage/myclasses" element={<MyClasses />} />
+            <Route path="/mypage/mygrades" element={<MyGrades />} />
           </Route>
           <Route path="/exam/:classId" element={<Exam />} />
         </Routes>

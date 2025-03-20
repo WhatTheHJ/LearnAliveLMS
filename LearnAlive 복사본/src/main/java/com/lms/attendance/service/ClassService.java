@@ -67,4 +67,8 @@ public class ClassService {
         logger.info("📌 [DEBUG] updateClassGrade 호출: classId={}, score={}, grade={}", classId, score, grade);
         classMapper.updateClassGrade(classId, score, grade);
     }
+    
+    public void updateClassDescription(int classId, String description) {
+        classMapper.updateClassDescription(classId, description);
+    }
 }

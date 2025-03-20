@@ -101,7 +101,7 @@ public interface PostMapper {
     	    @Param("author") String author
     	);
     
-  //모든 게시글 가져오기
+    //모든 게시글 가져오기
     @Select("SELECT post_id, title, DATE_FORMAT(created_at, '%Y-%m-%d %H:%i:%s') AS created_at, author_id, author_role, author, view FROM Post WHERE board_id = #{boardId};")
     @Results({
         @Result(property = "postId", column = "post_id"),
@@ -152,5 +152,17 @@ public interface PostMapper {
     // title로 게시글 검색
     @Select("SELECT * FROM Post WHERE title LIKE CONCAT('%', #{title}, '%')")
     List<Post> searchPostsByTitle(String title);
+    
+    // 게시글의 총 좋아요 수 가져오기
+    @Select("SELECT likes FROM post WHERE post_id = #{postId}")
+    int getTotalLikes(int postId);
+    
+    //좋아요
+    @Update("UPDATE Post SET likes = likes + 1 WHERE post_id = #{postId}")
+    void incrementLikes(@Param("postId") int postId);
+    
+    // 게시글 좋아요 수 감소
+    @Update("UPDATE Post SET likes = likes - 1 WHERE post_id = #{postId}")
+    void decrementLikes(@Param("postId") int postId);
 }
     

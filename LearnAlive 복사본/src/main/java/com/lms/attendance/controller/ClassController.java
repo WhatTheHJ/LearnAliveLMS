@@ -106,4 +106,15 @@ public class ClassController {
         classService.updateClassGrade(classId, score, grade);
         return ResponseEntity.ok("성적 업데이트 성공");
     }
+    
+    @PutMapping("/{classId}/description")
+    public ResponseEntity<?> updateClassDescription(@PathVariable("classId") int classId,
+                                                    @RequestBody Map<String, String> payload) {
+        String description = payload.get("description");
+        if (description == null) {
+            return ResponseEntity.badRequest().body("설명 내용이 누락되었습니다.");
+        }
+        classService.updateClassDescription(classId, description);
+        return ResponseEntity.ok("강의 설명 업데이트 성공");
+    }
 }

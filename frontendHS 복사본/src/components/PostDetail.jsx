@@ -1,65 +1,223 @@
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { getPostById } from "../api/postApi"; // 게시글 조회 API
+// import { useState, useEffect } from "react";
+// import { useParams } from "react-router-dom";
+// import { getPostById } from "../api/postApi"; // 게시글 조회 API
 
-function PostDetail({ postId, boardId, onBack }) {
-  const [post, setPost] = useState(null);
+// function PostDetail({ postId, boardId, onBack }) {
+//   const [post, setPost] = useState(null);
 
-  useEffect(() => {
-    async function fetchPost() {
-      try {
-        // postId를 확인하고 콘솔에 출력
-        console.log("Fetching post with ID:", postId);
+//   useEffect(() => {
+//     async function fetchPost() {
+//       try {
+//         // postId를 확인하고 콘솔에 출력
+//         console.log("Fetching post with ID:", postId);
         
-        const fetchedPosts = await getPostById(postId); // 게시글 가져오기
-        console.log("선택된 게시글 :", fetchedPosts);
+//         const fetchedPosts = await getPostById(postId); // 게시글 가져오기
+//         console.log("선택된 게시글 :", fetchedPosts);
 
-        if (fetchedPosts && fetchedPosts.length > 0) {
-            setPost(fetchedPosts[0]); // 첫 번째 게시글만 설정
-          } else {
-            alert("게시글을 찾을 수 없습니다.");
-          }
-      } catch (error) {
-        console.error("게시글 조회 실패:", error);
-        alert("게시글을 불러오는 데 실패했습니다.");
-      }
-    }
+//         if (fetchedPosts && fetchedPosts.length > 0) {
+//             setPost(fetchedPosts[0]); // 첫 번째 게시글만 설정
+//           } else {
+//             alert("게시글을 찾을 수 없습니다.");
+//           }
+//       } catch (error) {
+//         console.error("게시글 조회 실패:", error);
+//         alert("게시글을 불러오는 데 실패했습니다.");
+//       }
+//     }
 
-    // postId가 있을 때만 실행
-    if (postId) {
-      fetchPost(); 
-    }
-  }, [postId]); // postId가 변경될 때마다 게시글을 새로 가져옴
+//     // postId가 있을 때만 실행
+//     if (postId) {
+//       fetchPost(); 
+//     }
+//   }, [postId]); // postId가 변경될 때마다 게시글을 새로 가져옴
 
-  // post 상태가 변경되었을 때 상태 확인
+//   // post 상태가 변경되었을 때 상태 확인
+//   useEffect(() => {
+//     console.log("post 상태:", post);
+//   }, [post]);
+
+//   // post가 없으면 로딩 메시지 표시
+//   if (!post) {
+//     return <div>Loading...</div>;
+//   }
+
+//   return (
+//     <div className="post-container">
+//       {/* post가 존재하는지 체크 */}
+//       {post ? (
+//         <div className="post-card">
+//         <h2 className="post-title">{post.title || "제목 없음"}</h2>
+//         <div className="post-meta">
+//           <p><strong>작성자:</strong> {post.author || "작성자 정보 없음"}</p>
+//           <p><strong>작성자 ID:</strong> {post.authorId || "ID 없음"}</p>
+//           <p><strong>작성일:</strong> {new Date(post.createdAt).toLocaleString() || "날짜 없음"}</p>
+//           <p><strong>조회수:</strong> {post.view || 0}</p>
+//         </div>
+//         <hr />
+//         <p className="post-content">{post.content || "내용 없음"}</p>
+//         <button className="back-button" onClick={onBack}>뒤로 가기</button>
+//       </div>
+//       ) : (
+//         <div className="error-message">게시글을 불러오는 데 실패했습니다.</div>
+//       )}
+//     </div>
+//   );
+// }
+
+// export default PostDetail;
+
+
+
+
+
+
+
+import { useEffect, useState } from "react";
+import { updatePost, downloadFile, likePost, checkIfLiked } from "../api/postApi"; // likePost 추가
+import { useAuth } from "../context/AuthContext";
+import { useLocation } from "react-router-dom";
+
+function PostDetail({ post, onBack, onUpdate, onLikeToggle }) {
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedTitle, setEditedTitle] = useState("");
+  const [editedContent, setEditedContent] = useState("");
+  const { user } = useAuth(); // 로그인된 사용자 정보 가져오기
+  const [isLiked, setIsLiked] = useState(false); // 좋아요 여부 상태
+  const [postLikes, setPostLikes] = useState(post.likes || 0); // 좋아요 수 상태 관리
+  const [loading, setLoading] = useState(true); // 로딩 상태 추가
+
   useEffect(() => {
-    console.log("post 상태:", post);
-  }, [post]);
+    if (post && user) {
+      const fetchLikedStatus = async () => {
+        setLoading(true); // 로딩 시작
+        try {
+          const liked = await checkIfLiked(post.postId, user.userId);
+          console.log("API에서 받은 liked 값:", liked); // 확인용 로그 추가
+          setIsLiked(liked);
+        } catch (error) {
+          console.error("좋아요 상태 확인 오류:", error);
+        } finally {
+          setLoading(false); // 로딩 종료
+        }
+      };
+      fetchLikedStatus();
+      setEditedTitle(post.title);
+      setEditedContent(post.content);
+      setPostLikes(post.likes); // 초기 좋아요 수 설정
+    }
+  }, [post, user]);
 
-  // post가 없으면 로딩 메시지 표시
-  if (!post) {
-    return <div>Loading...</div>;
-  }
+  // 좋아요 버튼 클릭시 실행
+  const handleLikeClick = async (postId) => {
+    try {
+      // 백엔드에서 좋아요 추가 또는 취소
+      const updatedPost = await likePost(postId, user.userId);
+
+      // 좋아요 상태와 좋아요 수 업데이트
+      setIsLiked((prev) => !prev); // 좋아요 상태를 반전시킴
+      setPostLikes(updatedPost.data.totalLikes); // 서버에서 받은 최신 좋아요 수로 업데이트
+
+      // 서버에서 받은 최신 좋아요 수로 업데이트
+      console.log("최신 좋아요 수:", updatedPost.data.totalLikes);
+
+      onLikeToggle(postId, updatedPost.data.totalLikes); // 부모에게 전달
+
+      // 알림
+      alert(!isLiked ? "좋아요를 눌렀습니다." : "좋아요가 취소되었습니다.");
+    } catch (error) {
+      console.error("좋아요 처리 중 오류:", error);
+      alert("좋아요 처리 중 오류가 발생했습니다.");
+    }
+  };
+
+  // 수정 버튼 클릭 시 실행
+  const handleEditClick = () => {
+    setIsEditing(true);
+  };
+
+  // 수정 완료 버튼 클릭 시
+  const handleUpdate = async () => {
+    try {
+      const updatedPost = {
+        title: editedTitle,
+        content: editedContent,
+      };
+      await updatePost(post.postId, updatedPost);
+      alert("게시글이 수정되었습니다.");
+      setIsEditing(false);
+      onUpdate(updatedPost); // 부모 컴포넌트에 수정된 내용 전달
+      onBack(); // 뒤로 가기
+    } catch (error) {
+      alert("게시글 수정에 실패했습니다.");
+      console.error("게시글 수정 오류:", error);
+    }
+  };
+
+  // 파일 다운로드 클릭 시 실행
+  const handleDownloadClick = async () => {
+    try {
+      const fileData = await downloadFile(post.postId, { responseType: 'blob' });
+      const fileBlob = new Blob([fileData], { type: fileData.type });
+      const fileName = post.filePath.split("/").pop();
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(fileBlob);
+      link.download = fileName;
+      link.click();
+    } catch (error) {
+      console.error("파일 다운로드 오류:", error);
+      alert("파일 다운로드에 실패했습니다.");
+    }
+  };
 
   return (
     <div className="post-container">
-      {/* post가 존재하는지 체크 */}
-      {post ? (
-        <div className="post-card">
-        <h2 className="post-title">{post.title || "제목 없음"}</h2>
-        <div className="post-meta">
-          <p><strong>작성자:</strong> {post.author || "작성자 정보 없음"}</p>
-          <p><strong>작성자 ID:</strong> {post.authorId || "ID 없음"}</p>
-          <p><strong>작성일:</strong> {new Date(post.createdAt).toLocaleString() || "날짜 없음"}</p>
-          <p><strong>조회수:</strong> {post.view || 0}</p>
-        </div>
-        <hr />
-        <p className="post-content">{post.content || "내용 없음"}</p>
-        <button className="back-button" onClick={onBack}>뒤로 가기</button>
+      <div className="post-card">
+        {isEditing ? (
+          <>
+            <input
+              type="text"
+              value={editedTitle}
+              onChange={(e) => setEditedTitle(e.target.value)}
+              className="edit-title"
+            />
+            <textarea
+              value={editedContent}
+              onChange={(e) => setEditedContent(e.target.value)}
+              className="edit-content"
+            />
+            <button className="save-button" onClick={handleUpdate}>수정 완료</button>
+            <button className="cancel-button" onClick={() => setIsEditing(false)}>취소</button>
+          </>
+        ) : (
+          <>
+            <h2 className="post-title">{post.title || "제목 없음"}</h2>
+            <div className="post-meta">
+              <p><strong>작성자:</strong> {post.author || "작성자 정보 없음"}</p>
+              <p><strong>작성자 ID:</strong> {post.authorId || "ID 없음"}</p>
+              <p><strong>작성일:</strong> {new Date(post.createdAt).toLocaleString() || "날짜 없음"}</p>
+              <p><strong>조회수:</strong> {post.view || 0}</p>
+              <p><strong>좋아요:</strong> {postLikes || 0}</p> {/* 즉시 업데이트된 좋아요 수 표시 */}
+            </div>
+            <hr />
+            <div>
+              <p className="post-content">{post.content || "내용 없음"}</p>
+              <button
+                onClick={() => handleLikeClick(post.postId)}
+              >
+                {isLiked ? "좋아요 취소" : "👍 좋아요"}
+              </button>
+
+              {post.filePath && (
+                <button className="download-button" onClick={handleDownloadClick}>
+                  파일 다운로드 : {post.createdAt}({postLikes})
+                </button>
+              )}
+            </div>
+            <button className="edit-button" onClick={handleEditClick}>수정</button>
+            <button className="back-button" onClick={onBack}>뒤로 가기</button>
+          </>
+        )}
       </div>
-      ) : (
-        <div className="error-message">게시글을 불러오는 데 실패했습니다.</div>
-      )}
     </div>
   );
 }

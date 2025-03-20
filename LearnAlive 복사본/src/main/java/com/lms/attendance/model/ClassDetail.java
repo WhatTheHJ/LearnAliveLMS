@@ -10,7 +10,10 @@ public class ClassDetail {
     private String professorName;
     private String professorEmail;
     
-    // 새로 추가된 필드: 강의별 점수와 등급
+    // 강의별 점수와 등급
     private Double score;    // 강의별 점수
     private String grade;    // 등급
+    
+    // 강의 설명
+    private String description;
 }
