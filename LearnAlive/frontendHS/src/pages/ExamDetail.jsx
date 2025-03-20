@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchExamDetail, updateExam, deleteExam } from '../api/examApi';
 import '../styles/ExamDetail.css';
@@ -124,7 +124,7 @@ const ExamDetail = () => {
 
       <div className="exam-info">
         <div className="exam-title-input">
-          <label>시험명:</label>
+          <label>시험명 :</label>
           {isEditing ? (
             <input
               type="text"
@@ -136,7 +136,7 @@ const ExamDetail = () => {
           ) : (
             <span>{exam.title}</span>
           )}
-          <label>담당교수:</label>
+          <label>담당교수 :</label>
           {isEditing ? (
             <input
               type="text"
@@ -151,7 +151,7 @@ const ExamDetail = () => {
         </div>
 
         <div className="exam-field">
-          <label>시험 시작 시간:</label>
+          <label>시험 시작 시간 :</label>
           {isEditing ? (
             <input
               type="datetime-local"
@@ -160,12 +160,14 @@ const ExamDetail = () => {
               onChange={handleEditChange}
             />
           ) : (
-            <span className="exam-time">{exam.startTime}</span>
+            <span className="exam-time">
+              {exam.startTime.replace('T', ' ')}
+            </span>
           )}
         </div>
 
         <div className="exam-field">
-          <label className="exam-endtime">시험 종료 시간:</label>
+          <label className="exam-endtime">시험 종료 시간 :</label>
           {isEditing ? (
             <input
               type="datetime-local"
@@ -174,32 +176,38 @@ const ExamDetail = () => {
               onChange={handleEditChange}
             />
           ) : (
-            <span className="exam-time">{exam.endTime}</span>
+            <span className="exam-time">{exam.endTime.replace('T', ' ')}</span>
           )}
         </div>
       </div>
-
-      <h3 className="question-title">시험 문제 ({questions.length}문항)</h3>
+      <br></br>
+      <h3>시험 문제 ({exam.questionCount}문항)</h3>
+      <br></br>
       <div className="question-list">
         {questions.length > 0 ? (
           questions.map((question, index) => (
-            <div key={question.questionId} className="question-card">
-              <h4 className="question-number">Q{index + 1}.</h4>
-              {isEditing ? (
-                <textarea
-                  type="title"
-                  placeholder="문제 제목 입력"
-                  name="questionTitle"
-                  className="question-title"
-                  value={question.questionTitle}
-                  onChange={(e) =>
-                    handleQuestionChange(index, 'questionTitle', e.target.value)
-                  }
-                />
-              ) : (
-                <p className="question-title">{question.questionTitle}</p>
-              )}
-
+            <div key={question.questionId}>
+              <div className="question-header">
+                <h3>Q{index + 1}.</h3>
+                {isEditing ? (
+                  <textarea
+                    type="title"
+                    placeholder="문제 제목 입력"
+                    name="questionTitle"
+                    className="question-title"
+                    value={question.questionTitle}
+                    onChange={(e) =>
+                      handleQuestionChange(
+                        index,
+                        'questionTitle',
+                        e.target.value
+                      )
+                    }
+                  />
+                ) : (
+                  <p className="question-title">{question.questionTitle}</p>
+                )}
+              </div>
               {isEditing ? (
                 <textarea
                   type="text"
@@ -247,6 +255,7 @@ const ExamDetail = () => {
                             name={`question-${index}`}
                             className="question-option-input"
                             checked={question.correctAnswer === i + 1}
+                            disabled
                             onChange={() =>
                               handleCorrectAnswerChange(index, i + 1)
                             }
@@ -259,7 +268,7 @@ const ExamDetail = () => {
                 )}
               </div>
               {isEditing ? (
-                <div className="correct-answer-input">
+                <div className="correct-answer">
                   <label> ✅ 정답 : {question.correctAnswer}</label>
                 </div>
               ) : (

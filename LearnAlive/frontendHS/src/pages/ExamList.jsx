@@ -76,17 +76,30 @@ const ExamList = () => {
                 {exams.map((exam) => (
                   <tr key={exam.examId}>
                     <td>
-                      <Link
-                        to={`/exam/${exam.examId}`}
-                        className="exam-title-link"
-                      >
-                        {exam.title}
-                      </Link>
+                      {user.role === 'professor' ? (
+                        <Link
+                          to={`/exam/${exam.examId}`}
+                          className="exam-title-link"
+                        >
+                          {exam.title}
+                        </Link>
+                      ) : (
+                        <Link
+                          to={`/exam_take/${exam.classId}/${exam.examId}`}
+                          className="exam-title-link"
+                        >
+                          {exam.title}
+                        </Link>
+                      )}
                     </td>
                     <td>{exam.profName ? exam.profName.toString() : '-'}</td>
                     <td>{exam.questionCount ? exam.questionCount : '-'}</td>
-                    <td>{exam.startTime ? exam.startTime.toString() : '-'}</td>
-                    <td>{exam.endTime ? exam.endTime.toString() : '-'}</td>
+                    <td>
+                      {exam.startTime ? exam.startTime.replace('T', ' ') : '-'}
+                    </td>
+                    <td>
+                      {exam.endTime ? exam.endTime.replace('T', ' ') : '-'}
+                    </td>
                   </tr>
                 ))}
               </tbody>

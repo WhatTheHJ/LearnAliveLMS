@@ -28,12 +28,6 @@
   margin-right: 10px;
 }
 
-.exam-info {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
 .exam-field {
   display: flex;
   justify-content: space-between;
@@ -42,49 +36,18 @@
   border-radius: 5px;
 }
 
-.question-title {
-  margin-top: 20px;
-  font-size: 18px;
-}
-
-.question-list {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.question-card {
-  background: white;
-  padding: 15px;
-  border-radius: 5px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-  margin-bottom: 10px;
-  margin-top: 10px;
-  font-size: 18px;
-}
-
-.question-number {
-  font-size: 16px;
-  font-weight: bold;
-}
-
 .correct-answer {
   color: green;
   font-weight: bold;
-  margin-top: 30px;
+  margin-top: 50px;
+  margin-left: 70px;
+  margin-bottom: 70px;
 }
 
 .buttons {
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
-}
-
-button {
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
 }
 
 .save-btn {
@@ -112,16 +75,6 @@ button {
   color: white;
 }
 
-.question-card .question-title,
-.question-card .question-text {
-  display: block; /* 위아래로 배치 */
-  width: 98%; /* 가로 전체 차지 */
-  margin-top: 20px; /* 입력 필드 사이 간격 */
-  margin-bottom: 40px;
-  font-size: 17px;
-  white-space: pre-wrap;
-}
-
 .question-options input[type='text'] {
   width: 92%; /* 가로 전체 차지 */
   margin-left: 10px; /* 왼쪽에 기존 번호 유지 */
@@ -131,7 +84,6 @@ button {
 }
 .option {
   font-size: 17px;
-
   margin-bottom: 15px;
 }
 
@@ -141,14 +93,16 @@ button {
   font-size: 17px;
 }
 
-.exam-time {
-  margin-right: 30px;
-}
-
+.exam-time,
 .exam-profname {
   margin-right: 30px;
 }
 
 .exam-starttime {
   margin-left: 30px;
+}
+
+.question-title,
+.question-text {
+  width: 90%; /* 가로 전체 차지 */
 }

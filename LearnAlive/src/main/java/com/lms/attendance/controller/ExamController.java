@@ -4,20 +4,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lms.attendance.model.Exam;
+import com.lms.attendance.model.ExamResult;
+import com.lms.attendance.model.ExamStudentAnswer;
+import com.lms.attendance.model.ExamSubmission;
 import com.lms.attendance.service.ExamService;
-
+import com.lms.attendance.service.ExamSubmissionService;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/api/exams")
 @RequiredArgsConstructor
 public class ExamController {
     private final ExamService examService;
+    private final ExamSubmissionService examSubmissionService;  // 추가
+
 
     // 새로운 시험 추가 (시험과 질문 포함)
     @PostMapping
@@ -41,6 +49,7 @@ public class ExamController {
     public ResponseEntity<Exam> getExam(@PathVariable int examId) {
         System.out.println("🔍 요청 받은 examId: " + examId);
         Exam exam = examService.getExamById(examId);  // 시험과 관련된 질문을 함께 가져옴
+        
         System.out.println("🔍 가져온 시험 데이터: " + exam);
         return ResponseEntity.ok(exam);
     }
@@ -60,4 +69,24 @@ public class ExamController {
         examService.updateExam(exam);  // 시험과 질문 수정
         return ResponseEntity.ok(exam); // 수정된 시험 객체 반환
     }
+    
+ // 학생이 시험을 제출
+    @PostMapping("/submit")
+    public ResponseEntity<String> submitExam(@RequestBody ExamStudentAnswer examStudentAnswer) {
+        System.out.println("시험 제출 데이터: " + examStudentAnswer);
+        examSubmissionService.submitExam(examStudentAnswer);
+        return ResponseEntity.ok("시험이 성공적으로 제출되었습니다.");
+    }
+    
+// 시험결과
+    @GetMapping("/examResult/{examId}")
+    public ResponseEntity<ExamResult> getExamResult(@PathVariable int examId, @RequestParam String studentId) {
+    	ExamResult result = examSubmissionService.getExamResult(examId, studentId); 
+    	System.out.println("==== >>>>");
+    	System.out.println(result.getAnswers());
+    	return ResponseEntity.ok(result);
+    }
+    
+    
+
 }

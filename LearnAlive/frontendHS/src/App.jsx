@@ -21,6 +21,8 @@ import AddPostPage from './components/AddPostPage';
 import ExamList from './pages/ExamList';
 import ExamCreate from './pages/ExamCreate';
 import ExamDetail from './pages/ExamDetail';
+import ExamTake from './pages/ExamTake';
+import ExamResult from './pages/ExamResult';
 
 function TitleUpdater() {
   const location = useLocation(); // 현재 경로 감지
@@ -93,6 +95,11 @@ function App() {
               element={<ExamCreate />}
             />
             <Route path="exam/:examId" element={<ExamDetail />} />
+            <Route path="exam_take/:classId/:examId" element={<ExamTake />} />
+            <Route
+              path="exam_result/:classId/:examId"
+              element={<ExamResult />}
+            />
           </Routes>
         </main>
         <Footer />

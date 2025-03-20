@@ -38,18 +38,31 @@ export const updateExam = async (examId, editedExam) => {
   return response.data; // 수정된 데이터 반환
 };
 
-// ✅ 시험 응시 데이터 제출
-export const submitExam = async (examId, answers) => {
-  const response = await axios.post(`${API_URL}/${examId}/submit`, answers, {
-    headers: {
-      'Content-Type': 'application/json', // 요청 헤더에 Content-Type 명시
-    },
-  });
+// ✅ 학생이 시험을 제출
+export const submitExam = async (examData) => {
+  const response = await axios.post(`${API_URL}/submit`, examData);
   return response.data;
 };
 
-// ✅ 시험 점수 가져오기
-export const fetchExamScore = async (examId) => {
-  const response = await axios.get(`${API_URL}/${examId}/score`);
-  return response.data;
+// // ✅ 시험 점수 가져오기
+// export const fetchExamScore = async (examId) => {
+//   const response = await axios.get(`${API_URL}/${examId}/score`);
+//   return response.data;
+// };
+
+export const fetchExamResult = async (examId, studentId) => {
+  console.log(
+    `📡 API 요청: ${API_URL}/examResult/${examId} (studentId: ${studentId})`
+  );
+
+  try {
+    const response = await axios.get(`${API_URL}/examResult/${examId}`, {
+      params: { studentId },
+    });
+    console.log('📥 API 응답:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('🚨 API 호출 실패:', error.response?.data || error.message);
+    throw error; // 호출 실패 시 오류 던지기
+  }
 };
