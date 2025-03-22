@@ -1,0 +1,100 @@
+/* SVG 스타일을 수정하는 CSS */
+.calendar {
+  display: flex; /* Flexbox 레이아웃 사용 */
+  padding: 10px;
+  align-items: flex-start; /* 세로 정렬 - 위쪽에 고정 */
+  
+  }
+  /* .calendar-top {
+    width: 100%;
+    padding: 10px;
+    background-color: #f4f4f4;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* 그림자 추가 
+  } */
+
+  .calendar-left {
+    width: 180px;   /* 네비게이션의 너비 */
+    height: 100vh;  /* 전체 화면 높이 */
+    padding: 20px;
+    background-color: #f4f4f4;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1); /* 약간의 그림자 */
+  }
+  
+  .fc.fc-media-screen.fc-direction-ltr.fc-theme-standard{
+    box-sizing: border-box; /* 여백까지 크기 계산 */
+  }
+
+  .fullcalendar {
+    flex-grow: 1; 
+    padding: 10px;
+  }
+
+
+  /* 풀캘린더의 최상위클래스 */
+  .fc { 
+    max-width: calc(100% - 20px); /* 20px의 여유 공간 */
+    /* overflow-x: hidden; */
+    padding: 20px;
+    /* height: 800px; */
+    transform: scale(0.98); /* 크기를 98%로 축소 */
+  transform-origin: top left; /* 좌상단 기준으로 축소 */
+  }
+
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal {
+    width: 500px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  input,
+  textarea {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  button {
+    margin-right: 10px;
+    padding: 5px 10px;
+    border: none;
+    background-color: #4caf50;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+
+  /* .custom-event {
+  height: 40px !important;  /* 일정 바 두께 조정 
+  border-width: 2px !important; 테두리 두께 조정
+} */
+
+/* 벨 아이콘 스타일 */
+.bell-icon {
+  font-size: 12px; /* 아이콘 크기 */
+  position: absolute; /* 날짜 셀에 상대적으로 위치 */
+  bottom: 5px; /* 날짜 셀의 하단에 위치 */
+  left: 5px; /* 날짜 셀의 왼쪽에 위치 */
+  color: #ffcc00; /* 아이콘 색상 */
+}
+  

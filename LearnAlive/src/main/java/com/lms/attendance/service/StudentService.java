@@ -2,6 +2,7 @@ package com.lms.attendance.service;
 
 import java.util.List;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.lms.attendance.model.Student;
@@ -15,11 +16,24 @@ import lombok.RequiredArgsConstructor;
 public class StudentService {
     private final StudentMapper studentMapper;
     private final SurveyMapper surveyMapper;
-
-    // ✅ 수강생 등록
+    private final BCryptPasswordEncoder passwordEncoder;
+    
+ // ✅ 학습자(학생) 회원가입
     public void registerStudent(Student newStudent) {
+        // 비밀번호 해싱 후 저장
+        newStudent.setPassword(passwordEncoder.encode(newStudent.getPassword()));
         studentMapper.registerStudent(newStudent);
     }
+    
+    //학습자 학번 중복확인
+    public Student findStudentById(String studentId) {
+        return studentMapper.findStudentById(studentId);
+    }
+
+    // ✅ 수강생 등록
+//    public void registerStudent(Student newStudent) {
+//        studentMapper.registerStudent(newStudent);
+//    }
 
     // ✅ 특정 강의실의 모든 학생 조회
     public List<Student> getStudentsByClass(int classId) {
@@ -33,9 +47,7 @@ public class StudentService {
             updatedStudent.getUniversity(),
             updatedStudent.getDepartment(),
             updatedStudent.getName(),
-            updatedStudent.getEmail(),
-            updatedStudent.getClassId(),
-            updatedStudent.getRemarks() // ✅ remarks 추가
+            updatedStudent.getEmail()
         );
     }
 
@@ -49,4 +61,14 @@ public class StudentService {
         int updatedRows = surveyMapper.updateSurveyTimes(surveyId, newStartTime, newEndTime);
         return updatedRows > 0;
     }
+    
+    //학생 검색
+    public List<Student> searchStudents(String keyword) {
+        return studentMapper.searchStudents(keyword);
+    }
+    
+    public void registerStudentToClass(String studentId, int classId, String remarks) {
+        studentMapper.registerStudentToClass(studentId, classId, remarks);
+    }
+
 }

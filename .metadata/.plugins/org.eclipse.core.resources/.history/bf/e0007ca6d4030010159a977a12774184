@@ -1,0 +1,42 @@
+package com.lms.attendance.repository;
+
+import java.time.LocalDate;
+import java.util.List;
+
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+
+import com.lms.attendance.model.Board;
+import com.lms.attendance.model.Schedule;
+
+public interface ScheduleMapper {
+	
+	//일정 전체 조회
+	@Select("SELECT * FROM schedule WHERE user_id = #{userId}")
+	List<Schedule> getAllBoard(@Param("userId") int userId);
+
+    // 일정 생성
+    @Insert("INSERT INTO schedule (user_id, date, title, content, mark) " +
+            "VALUES (#{userId}, #{date}, #{title}, #{content}, #{mark})")
+    void createSchedule(Schedule newSchedule);
+
+    // 일정 삭제
+    @Delete("DELETE FROM schedule WHERE schedule_id = #{scheduleId}")
+    void deleteScheduleByScheduleId(int scheduleId);
+
+    // 일정 수정
+    @Update("UPDATE schedule SET title = #{title}, content = #{content}, mark = #{mark}, " +
+            "updated_at = CURRENT_TIMESTAMP WHERE schedule_id = #{scheduleId}")
+    void updateSchedule(Schedule schedule);
+
+    // 날짜별 일정 조회
+    @Select("SELECT * FROM schedule WHERE date = #{date}")
+    List<Schedule> getScheduleByDate(LocalDate date);
+
+    // 알람이 설정된 일정 조회
+    @Select("SELECT * FROM schedule WHERE mark = 1")
+    List<Schedule> getSchedulesWithAlarm();
+}

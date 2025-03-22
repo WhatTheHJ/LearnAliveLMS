@@ -51,8 +51,8 @@ public class SurveyResponseService {
     }
     
     /** ✅ 응답 여부 조회 서비스 */
-    public List<StudentSurveyStatus> getSurveyResponseStatus(int surveyId) {
-        return surveyResponseMapper.getSurveyResponseStatus(surveyId);
+    public List<StudentSurveyStatus> getSurveyResponseStatus(int surveyId, int classId) {
+        return surveyResponseMapper.getSurveyResponseStatus(surveyId, classId);
     }
     
     /** ✅ 특정 설문조사의 모든 응답을 시각화용으로 가져오기 */

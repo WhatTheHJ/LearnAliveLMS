@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -86,5 +87,30 @@ public class SurveyController {
 
         return success ? ResponseEntity.ok("설문 시간이 업데이트되었습니다.") :
                          ResponseEntity.status(HttpStatus.BAD_REQUEST).body("업데이트 실패");
+    }
+    
+    @DeleteMapping("/{surveyId}")
+    public ResponseEntity<String> deleteSurvey(@PathVariable("surveyId") Integer surveyId) {
+        boolean deleted = surveyService.deleteSurvey(surveyId);
+
+        if (deleted) {
+            return ResponseEntity.ok("설문조사가 성공적으로 삭제되었습니다.");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("설문조사를 찾을 수 없습니다.");
+        }
+    }
+    
+    /** ✅ 설문 수정 API */
+    @PutMapping("/{surveyId}/update")
+    public ResponseEntity<String> updateSurvey(
+            @PathVariable("surveyId") int surveyId,
+            @RequestBody Survey updatedSurvey) {
+        updatedSurvey.setSurveyId(surveyId);
+        boolean isUpdated = surveyService.updateSurveyWithQuestions(updatedSurvey);
+        if (isUpdated) {
+            return ResponseEntity.ok("✅ 설문이 성공적으로 수정되었습니다.");
+        } else {
+            return ResponseEntity.badRequest().body("❌ 설문 수정 실패");
+        }
     }
 }

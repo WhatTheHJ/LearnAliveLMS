@@ -1,0 +1,42 @@
+package com.lms.attendance.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.lms.attendance.model.Schedule;
+import com.lms.attendance.repository.PostMapper;
+import com.lms.attendance.repository.ScheduleMapper;
+
+@Service
+public class ScheduleService {
+	private final ScheduleMapper scheduleMapper; 
+	@Autowired 
+	public ScheduleService(ScheduleMapper scheduleMapper) {
+        this.scheduleMapper = scheduleMapper;
+    }
+	
+	
+	 public Schedule createSchedule(Schedule newSchedule) {
+		 scheduleMapper.createSchedule(newSchedule);
+	        return newSchedule;
+	    }
+
+	    // 일정 업데이트
+	    public Schedule updateSchedule(Schedule schedule) {
+	    	scheduleMapper.updateSchedule(schedule);
+	    	return schedule;
+	    }
+
+	    // 일정 삭제
+	    public void deleteSchedule(int scheduleId) {
+	        scheduleRepository.deleteById(scheduleId);
+	    }
+
+	    // 알람이 설정된 일정 조회
+	    public List<Schedule> findAllSchedulesWithAlarm() {
+	        return scheduleRepository.findAll().stream()
+	                .filter(Schedule::isMark)  // mark가 true인 일정만 필터링
+	                .collect(Collectors.toList());
+	    }
+
+}

@@ -23,16 +23,9 @@ public class SurveyService {
 
     /** ✅ 특정 강의실의 설문조사 게시판 목록 조회 */
     public List<SurveyBoard> getSurveyBoardsByClassId(int classId) {
-        List<SurveyBoard> boards = surveyMapper.findSurveyBoardsByClassId(classId);
-
-        // ✅ 만약 boards가 비어있다면 새로운 게시판 자동 생성 후 조회
-        if (boards.isEmpty()) {
-            surveyMapper.createSurveyBoard(classId);
-            boards = surveyMapper.findSurveyBoardsByClassId(classId);
-        }
-
-        return boards;
+        return surveyMapper.findSurveyBoardsByClassId(classId);
     }
+
     
     /** ✅ 설문조사 게시판 생성 */
     public SurveyBoard createSurveyBoard(int classId) {
@@ -130,9 +123,54 @@ public class SurveyService {
         }
         return survey;
     }
-
+    
+    //설문 시간 업데이트
     public boolean updateSurveyTimes(Long surveyId, String newStartTime, String newEndTime) {
         int updatedRows = surveyMapper.updateSurveyTimes(surveyId, newStartTime, newEndTime);
         return updatedRows > 0;
+    }
+    
+    //설문 조사 삭제 (survey_post)
+    public boolean deleteSurvey(Integer surveyId) {
+        int deletedRows = surveyMapper.deleteSurvey(surveyId);
+        return deletedRows > 0;
+    }
+    
+    @Transactional
+    public boolean updateSurveyWithQuestions(Survey updatedSurvey) {
+        int surveyId = updatedSurvey.getSurveyId();
+        // 1. survey_post 테이블 업데이트
+        int updatedCount = surveyMapper.updateSurvey(surveyId,
+                updatedSurvey.getTitle(),
+                updatedSurvey.getStartTime(),
+                updatedSurvey.getEndTime());
+        if (updatedCount < 1) return false;
+        
+     // 1-1. 기존 응답 삭제 (설문이 수정된 경우 기존 응답 보존 필요 없음)
+        surveyMapper.deleteSurveyResponses(surveyId);
+        
+        // 2. 기존 질문 삭제
+        surveyMapper.deleteSurveyQuestions(surveyId);
+        
+        // 3. 새로운 질문 삽입
+        if (updatedSurvey.getQuestions() != null) {
+            for (SurveyQuestion question : updatedSurvey.getQuestions()) {
+                question.setSurveyId(surveyId);  // 설문 ID 설정
+                surveyMapper.insertSurveyQuestion(
+                    question.getSurveyId(),
+                    question.getQuestionText(),
+                    question.getQuestionType(),
+                    question.getOptions(),
+                    question.getMinSelect(),
+                    question.getMaxSelect(),
+                    question.getMinValue(),
+                    question.getMaxValue(),
+                    question.getMinLabel(),
+                    question.getMaxLabel(),
+                    question.getIsRequired()
+                );
+            }
+        }
+        return true;
     }
 }

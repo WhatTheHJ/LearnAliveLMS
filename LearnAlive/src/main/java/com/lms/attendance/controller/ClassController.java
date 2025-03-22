@@ -1,17 +1,25 @@
 package com.lms.attendance.controller;
 
-import com.lms.attendance.model.ClassDetail;
-import com.lms.attendance.model.ClassSettings;
-import com.lms.attendance.model.Classroom;
-import com.lms.attendance.service.ClassService;
+import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import com.lms.attendance.model.ClassDetail;
+import com.lms.attendance.model.ClassSettings;
+import com.lms.attendance.model.Classroom;
+import com.lms.attendance.service.ClassService;
 
 @RestController
 @RequestMapping("/api/classes")
@@ -86,5 +94,36 @@ public class ClassController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
         return ResponseEntity.ok(classDetail);
+    }
+    
+    // 성적(점수, 등급) 업데이트 API
+    @PutMapping("/{classId}/grade")
+    public ResponseEntity<?> updateClassGrade(@PathVariable("classId") int classId,
+                                              @RequestBody Map<String, Object> payload) {
+        Object scoreObj = payload.get("score");
+        Object gradeObj = payload.get("grade");
+        if (scoreObj == null || gradeObj == null) {
+            return ResponseEntity.badRequest().body("성적 정보(score, grade)가 누락되었습니다.");
+        }
+        Double score;
+        try {
+            score = Double.valueOf(scoreObj.toString());
+        } catch (NumberFormatException e) {
+            return ResponseEntity.badRequest().body("유효한 score 값을 입력해주세요.");
+        }
+        String grade = gradeObj.toString();
+        classService.updateClassGrade(classId, score, grade);
+        return ResponseEntity.ok("성적 업데이트 성공");
+    }
+    
+    @PutMapping("/{classId}/description")
+    public ResponseEntity<?> updateClassDescription(@PathVariable("classId") int classId,
+                                                    @RequestBody Map<String, String> payload) {
+        String description = payload.get("description");
+        if (description == null) {
+            return ResponseEntity.badRequest().body("설명 내용이 누락되었습니다.");
+        }
+        classService.updateClassDescription(classId, description);
+        return ResponseEntity.ok("강의 설명 업데이트 성공");
     }
 }
