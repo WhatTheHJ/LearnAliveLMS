@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.lms.attendance.model.Post;
 import com.lms.attendance.model.Schedule;
 import com.lms.attendance.service.ScheduleService;
 

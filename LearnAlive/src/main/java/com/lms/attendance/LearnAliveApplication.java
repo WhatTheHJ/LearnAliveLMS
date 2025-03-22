@@ -4,7 +4,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.lms.attendance")
 @MapperScan("com.lms.attendance.repository") //MyBatis 매퍼 패키지 지정
 public class LearnAliveApplication {
 

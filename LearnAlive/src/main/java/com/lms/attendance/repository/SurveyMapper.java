@@ -122,9 +122,37 @@ public interface SurveyMapper {
         @Result(property = "createdAt", column = "created_at")
     })
     List<SurveyQuestion> getQuestionsBySurveyId(@Param("surveyId") int surveyId);
-
+    
+    //설문조사 시간 변경
     @Update("UPDATE survey_post SET start_time = #{startTime}, end_time = #{endTime} WHERE survey_id = #{surveyId}")
     int updateSurveyTimes(@Param("surveyId") Long surveyId, 
                           @Param("startTime") String startTime, 
                           @Param("endTime") String endTime);
+    
+    //설문조사 삭제 (survey_post)
+    @Delete("DELETE FROM survey_post WHERE survey_id = #{surveyId}")
+    int deleteSurvey(@Param("surveyId") Integer surveyId);
+
+
+    /** 설문 기본 정보 업데이트 */
+    @Update("""
+            UPDATE survey_post
+            SET title = #{title}, start_time = #{startTime}, end_time = #{endTime}, updated_at = NOW()
+            WHERE survey_id = #{surveyId}
+        """)
+        int updateSurvey(
+            @Param("surveyId") int surveyId,
+            @Param("title") String title,
+            @Param("startTime") String startTime,
+            @Param("endTime") String endTime
+        );
+    
+    //모든 질문 삭제
+    @Delete("DELETE FROM survey_question WHERE survey_id = #{surveyId}")
+    int deleteSurveyQuestions(@Param("surveyId") int surveyId);
+    
+    //모든 응답 삭제
+    @Delete("DELETE FROM survey_response WHERE survey_id = #{surveyId}")
+    int deleteSurveyResponses(@Param("surveyId") int surveyId);
+
 }

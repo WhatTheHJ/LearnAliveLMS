@@ -41,4 +41,3 @@ public class LikeService {
 		return likeMapper.isLiked(postId, userId);
 	}
 }
-

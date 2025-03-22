@@ -49,14 +49,15 @@ public class SurveyResponseController {
     }
     
     /** ✅ 응답 제출 여부를 조회 */
-    @GetMapping("/{surveyId}/response-status")
-    public ResponseEntity<?> getSurveyResponseStatus(@PathVariable("surveyId") int surveyId) { // ✅ 명시적 지정
-        List<StudentSurveyStatus> responseList = surveyResponseService.getSurveyResponseStatus(surveyId);
+    @GetMapping("/classroom/{classId}/survey/{surveyId}/response-status")
+    public ResponseEntity<?> getSurveyResponseStatus(
+            @PathVariable("surveyId") int surveyId,
+            @PathVariable("classId") int classId) {
+        List<StudentSurveyStatus> responseList = surveyResponseService.getSurveyResponseStatus(surveyId, classId);
         
         if (responseList == null || responseList.isEmpty()) {
             return ResponseEntity.ok(Collections.emptyList()); // ✅ 빈 배열 반환
         }
-
         return ResponseEntity.ok(responseList);
     }
     

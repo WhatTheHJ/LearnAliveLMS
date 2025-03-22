@@ -27,12 +27,9 @@ public class AttendanceController {
 
         List<Attendance> attendanceList = attendanceService.getAttendanceByClassAndDate(classId, date);
 
-        if (attendanceList.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(attendanceList);
-        }
-        return ResponseEntity.ok(attendanceList);
+        return ResponseEntity.ok(attendanceList);  // 비어있어도 200으로 리턴
     }
-
+    
     // ✅ 학생이 직접 출석하는 API
     @PostMapping("/check-in")
     public ResponseEntity<Map<String, Object>> checkIn(@RequestBody Attendance request) {
@@ -90,4 +87,42 @@ public class AttendanceController {
         attendanceService.deleteAttendance(attendanceId);
         return ResponseEntity.ok("출석 기록 삭제 성공");
     }
+    
+    @GetMapping("/student/{studentId}")
+    public ResponseEntity<List<Attendance>> getAttendanceByStudent(
+    		@PathVariable int studentId, 
+            @RequestParam String date) {
+        
+        List<Attendance> attendanceList = attendanceService.getAttendanceByStudent(studentId, date);
+        
+        if (attendanceList.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(attendanceList);
+    }
+    
+    // 학생의 월별 출석 기록 조회 (예: /api/attendance/student/1/month?month=2025-03)
+    @GetMapping("/student/{studentId}/month")
+    public ResponseEntity<List<Attendance>> getMonthlyAttendance(
+            @PathVariable int studentId,
+            @RequestParam String month) {
+        List<Attendance> attendanceList = attendanceService.getMonthlyAttendance(studentId, month);
+        if (attendanceList.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(attendanceList);
+    }
+    
+	 // 지난 출석 데이터 조회 엔드포인트
+	 // 예: GET /api/attendance/student/1/past?endDate=2025-03-18
+	 @GetMapping("/student/{studentId}/past")
+	 public ResponseEntity<List<Attendance>> getPastAttendance(
+	         @PathVariable int studentId,
+	         @RequestParam String endDate) {
+	     List<Attendance> attendanceList = attendanceService.getPastAttendance(studentId, endDate);
+	     if (attendanceList.isEmpty()) {
+	         return ResponseEntity.noContent().build();
+	     }
+	     return ResponseEntity.ok(attendanceList);
+	 }
 }

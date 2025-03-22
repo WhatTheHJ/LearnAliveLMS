@@ -62,10 +62,12 @@ public class PostService {
             return postMapper.searchPostsByTitle(title);
         }
         
-		
+        //사용자의 모든 게시글
+        public List<Post> getUsersAllPosts(String userId) {
+            return postMapper.getUsersAllPosts(userId);
+        }
+
         
     }
 	
 	
-
-

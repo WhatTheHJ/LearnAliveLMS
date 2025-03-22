@@ -1,7 +1,5 @@
 package com.lms.attendance.model;
 
-
-
 import lombok.Data;
 
 @Data

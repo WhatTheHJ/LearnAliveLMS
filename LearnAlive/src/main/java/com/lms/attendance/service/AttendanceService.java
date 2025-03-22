@@ -18,4 +18,12 @@ public interface AttendanceService {
     void deleteAttendance(int attendanceId); // ✅ 출석 기록 삭제
     
     Map<String, Object> studentCheckIn(Attendance request); // 학생 출석 기록
+    
+    List<Attendance> getAttendanceByStudent(int studentId, String date);
+    
+    // 학생의 월별 출석 기록 조회
+    List<Attendance> getMonthlyAttendance(int studentId, String month);
+    
+    // 지난 출석 데이터 조회
+    List<Attendance> getPastAttendance(int studentId, String endDate);
 }
