@@ -1,0 +1,67 @@
+.normal-title {
+    font-size: 35px;
+}
+
+.survey-list {
+    list-style: none; /* 기본 리스트 스타일 제거 */
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* 항목 간격 */
+    margin-top: 30px;
+    background-color: #F2EDE7;
+    border-radius: 10px;
+    padding: 30px;
+    align-items: center;
+  }
+  
+  .survey-list li {
+    background: white; /* 배경색 */
+    border-radius: 10px; /* 모서리 둥글게 */
+    padding: 15px 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+    transition: transform 0.2s, box-shadow 0.2s;
+    width: 80%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .survey-list li:hover {
+    transform: translateY(-3px); /* 마우스를 올리면 약간 올라가는 효과 */
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.15); /* 마우스 올릴 때 더 강조된 그림자 */
+  }
+  
+  .survey-list span {
+    font-size: 25px;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+  }
+  
+  .survey-list span:hover {
+    color: #007bff; /* 마우스 올리면 색 변경 */
+  }
+
+  .normal-title {
+    font-size: 37px;
+    color: black;
+    text-align: center;
+    padding: 20px;
+    font-weight: bold;
+  }
+
+  .past-survey-label {
+    font-size: 20px !important;
+    font-weight: bold; /* ✅ 폰트 굵기 설정 */
+    color: #363A43; /* ✅ 폰트 색상 */
+    cursor: pointer; /* ✅ 클릭 가능하도록 변경 */
+  }
+
+  .past-survey-checkbox {
+    width: 20px;  /* ✅ 체크박스 너비 */
+  height: 20px; /* ✅ 체크박스 높이 */
+  cursor: pointer; /* ✅ 마우스 올렸을 때 커서 변경 */
+  }

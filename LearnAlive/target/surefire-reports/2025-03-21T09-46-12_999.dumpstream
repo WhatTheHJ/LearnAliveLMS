@@ -1,0 +1,5 @@
+# Created at 2025-03-21T09:46:13.347
+Boot Manifest-JAR contains absolute paths in classpath 'I:\TeamWorkspace\LearnAliveLMS-main\LearnAlive\target\test-classes'
+Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
+'other' has different root
+

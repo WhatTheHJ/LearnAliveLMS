@@ -1,0 +1,32 @@
+.survey-response-list {
+  width: 100%;
+  max-width: 900px;
+  margin: 20px auto;
+  background-color:#F2EDE7 ;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.response-header {
+  display: flex;
+  justify-content: space-between; /* 왼쪽: h2 / 오른쪽: 버튼 */
+  align-items: center; /* 세로 중앙 정렬 */
+  width: 100%;
+}
+
+.left-title {
+  margin: 0; /* 기본 마진 제거 */
+  text-align: left; /* 명시적으로 왼쪽 정렬 */
+  font-size: 37px;
+}
+
+.back-button {
+  margin-left: auto; /* 버튼을 오른쪽으로 밀기 */
+}
+
+.normal-button {
+font-size: 20px;
+margin-right: 15px;
+margin-bottom: 15px;
+margin-top: 15px;
+}
