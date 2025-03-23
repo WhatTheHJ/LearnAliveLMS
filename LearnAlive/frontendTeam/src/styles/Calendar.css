@@ -98,3 +98,33 @@
   color: #ffcc00; /* 아이콘 색상 */
 }
   
+
+.todo-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* 체크박스와 텍스트 간격 조정 */
+}
+
+.todo-item input[type="checkbox"] {
+  width: 10%;
+  cursor: pointer;
+}
+
+.todo-item span {
+  font-size: 16px;
+}
+
+.todo-item.completed span {
+  text-decoration: line-through; /* 완료된 항목 줄 긋기 */
+  color: gray;
+}
+
+.todo-item input[type="checkbox"]:checked + span {
+  text-decoration: line-through;
+  color: gray;
+}

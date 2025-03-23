@@ -91,7 +91,7 @@ const Alams = ({ events }) => {
   return (
     <div>
 
-<div>
+<div >
       <h2>📌 투두리스트</h2>
       <input
         type="text"
@@ -100,11 +100,12 @@ const Alams = ({ events }) => {
         placeholder="할 일을 입력하세요"
       />
       <button onClick={addTodo}>추가</button>
-      <ul>
+      <ul className='todo-list'>
         {todoList.map((todo, index) => (
-          <li key={index} style={{ textDecoration: todo.completed ? "line-through" : "none" }}>
+          <li key={index} className="todo-item">
             <input type="checkbox" checked={todo.completed} onChange={() => toggleTodo(index)} />
-            {todo.text}
+            
+            <span>{todo.text}</span>
           </li>
         ))}
       </ul>
