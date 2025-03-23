@@ -14,6 +14,7 @@
 
 1. (수정) components → AdminUniversityDepartmentManagement.jsx
 2. (수정) components → CreateProfessor.jsx  (UI 개선, 교수자 생성시 자동렌더링, 백엔드 무한루프 해결)
+3. (수정) conponents → RegisterStudent.jsx (학생 회원가입 시 관리자가 생성한 단과대학/학과 만 선택 가능하도록 수정)
 3. (수정) pages → ProfessorStatus (UI 개선, 교수자 생성시 자동렌더링, 백엔드 무한루프 해결)
 4. (생성) styles → CreateProfessor.module.css
 5. (수정) App.jsx (import와 route에 코드 한줄씩 추가)
