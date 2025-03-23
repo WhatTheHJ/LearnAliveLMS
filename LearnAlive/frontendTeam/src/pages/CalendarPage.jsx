@@ -58,9 +58,10 @@ const fetchSchedules = async () => {
 
    // 페이지 로드 시 일정 가져오기& 알람 권한 받기
    useEffect(() => {
-    
-    requestNotificationPermission();
-    fetchSchedules();
+    setTimeout(() => {
+      requestNotificationPermission();
+      fetchSchedules();
+    }, 500); // 0.5초 후 실행
   }, []);
 
 

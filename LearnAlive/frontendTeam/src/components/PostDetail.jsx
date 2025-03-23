@@ -159,7 +159,9 @@ function PostDetail({ post, onBack, onUpdate, onLikeToggle, fetchData }) {
                 </button>
               )}
             </div>
+            {updatedPost.authorId === user.userId && (
             <button className="edit-button" onClick={handleEditClick}>수정</button>
+          )}
             <button className="back-button" onClick={handleBackClick}>뒤로 가기</button>
           </>
         )}

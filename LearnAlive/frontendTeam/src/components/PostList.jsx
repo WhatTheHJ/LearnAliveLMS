@@ -223,7 +223,7 @@ function PostList({ boardId }) {
         <>
           <div>
             {/* 게시글 추가 버튼 로직 */}
-            {board?.isDefault === 0 && user?.author_role === "professor" && (
+            {board?.isDefault === 0 && user?.role === "professor" && (
               <button className="add-post-button" onClick={() => setShowCreatePost(true)}>
                 게시글 추가
               </button>
@@ -294,7 +294,7 @@ function PostList({ boardId }) {
                             <td className="post-title" onClick={() => handleTitleClick(post)}>
                               {post.title}
                             </td>
-                            <td>{post.author}</td>
+                            <td>{post.authorId}</td>
                             <td>{post.view}</td>
                             <td>{post.likes}</td>
                             <td>{post.createdAt}</td>
