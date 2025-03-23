@@ -27,6 +27,8 @@ import MyPostDetail from "./components/MyPostDetail";
 import MyAttendance from "./components/MyAttendance";
 import MyGrades from "./components/MyGrades"
 import MyClasses from "./components/MyClasses";
+import Achievements from "./components/Achievements";
+import AchievementsDetail from "./components/AchievementsDetail";
 
   
 function App() {
@@ -65,6 +67,8 @@ function App() {
             <Route path="/mypage/myattendance" element={<MyAttendance />} />
             <Route path="/mypage/myclasses" element={<MyClasses />} />
             <Route path="/mypage/mygrades" element={<MyGrades />} />
+            <Route path="/mypage/achievements" element={<Achievements />} />
+            <Route path="/mypage/achievements/detail" element={<AchievementsDetail />} />
           </Route>
         </Routes>
         </main>

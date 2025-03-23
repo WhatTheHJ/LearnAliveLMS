@@ -222,15 +222,13 @@ function PostList({ boardId }) {
       ) : (
         <>
           <div>
-            {/* 게시글 추가 버튼 로직 */}
-            {board?.isDefault === 0 && user?.author_role === "professor" && (
-              <button className="add-post-button" onClick={() => setShowCreatePost(true)}>
-                게시글 추가
-              </button>
-            )}
-            {board?.isDefault === 1 && (
-              <button className="add-post-button" onClick={() => setShowCreatePost(true)}>
-                게시글 추가
+            {(board?.isDefault === 1 ||
+              (board?.isDefault === 0 && user?.role === "professor")) && (
+              <button
+                className="add-post-button"
+                onClick={() => setShowCreatePost(true)}
+              >
+                게시글 작성
               </button>
             )}
           </div>
@@ -283,7 +281,7 @@ function PostList({ boardId }) {
                         정렬 {sortCriteria === "createdAt" && (sortOrder === "asc" ? "🔼" : "🔽")}
                           </button>
                         </th>
-                        {user?.author_role === "professor" && <th>관리</th>}
+                        {user?.role === "professor" && <th>관리</th>}
                       </tr>
                     </thead>
                     <tbody>
@@ -298,7 +296,7 @@ function PostList({ boardId }) {
                             <td>{post.view}</td>
                             <td>{post.likes}</td>
                             <td>{post.createdAt}</td>
-                            {user?.author_role === "professor" && (
+                            {user?.role === "professor" && (
                               <td>
                                 <button onClick={() => handleDelete(post.postId)}>삭제</button>
                               </td>
