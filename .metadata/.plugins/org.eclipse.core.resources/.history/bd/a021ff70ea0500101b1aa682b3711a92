@@ -1,5 +1,0 @@
-package com.lms.attendance.service;
-
-public interface NoticeService {
-
-}
