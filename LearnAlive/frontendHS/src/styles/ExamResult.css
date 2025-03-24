@@ -7,9 +7,8 @@
 }
 
 .score {
-  position: absolute;
-  top: 10px;
-  left: 530px;
+  margin-top: -20px;
+  margin-right: 50px;
   font-weight: bold;
   font-size: 20px;
   padding: 3px 8px;
@@ -50,18 +49,18 @@
 
 .result-summary {
   position: absolute;
-  top: 120px; /* ✅ 상단에서 10px 떨어짐 */
-  right: 50px; /* ✅ 우측에서 10px 떨어짐 */
+  top: 108px;
+  right: 100px;
   display: flex;
   align-items: center;
-  justify-content: center; /* ✅ 중앙 정렬 */
-  gap: 50px; /* ✅ 점수와 수료 여부 사이 간격 증가 */
+  justify-content: center;
+  gap: 50px;
   background-color: rgba(237, 239, 242, 0.5);
   padding: 10px 20px;
   border-radius: 5px;
   border: 1px solid #edeff2;
   text-align: center;
-  width: 150px; /* ✅ 가로 크기 약간 늘림 */
+  width: 150px;
 }
 
 .result-summary div {
@@ -70,7 +69,7 @@
   align-items: center;
   justify-content: center;
   gap: 5px;
-  position: relative; /* ✅ 구분선 위치 조정을 위해 추가 */
+  position: relative;
 }
 
 .result-summary span {
@@ -93,4 +92,52 @@
   height: 50px; /* ✅ 세로선 길이 조정 */
   width: 1px;
   background-color: #ccc;
+}
+
+.exam-info-field {
+  font-size: 17px;
+  padding: 30px;
+  height: 230px; /* 고정된 세로 길이 */
+  background: white;
+  display: flex;
+}
+
+.answer-container {
+  margin-top: 65px;
+  margin-left: 110px;
+  flex-direction: column;
+  width: 40%;
+  padding: 10px;
+  padding-bottom: 0px;
+  background: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  height: 170px;
+}
+
+.timer-header {
+  gap: 60px;
+  display: flex;
+  align-items: center;
+}
+
+.timer {
+  margin-left: 10px;
+  font-size: 23px;
+  padding-top: 0px;
+  color: #555;
+}
+
+.getAnsweredCount {
+  font-size: 14px;
+  color: #555;
+  background: #f9f9f9;
+}
+
+.answer-preview {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* 한 줄에 3개씩 */
+  justify-content: center; /* 중앙 정렬 */
+  gap: 10px;
 }

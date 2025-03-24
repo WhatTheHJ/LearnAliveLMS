@@ -182,7 +182,6 @@ const ExamDetail = () => {
       </div>
       <br></br>
       <h3>시험 문제 ({exam.questionCount}문항)</h3>
-      <br></br>
       <div className="question-list">
         {questions.length > 0 ? (
           questions.map((question, index) => (

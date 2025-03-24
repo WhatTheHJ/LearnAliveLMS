@@ -191,7 +191,9 @@ const ExamCreate = () => {
         {questions.map((question, qIndex) => (
           <div key={qIndex} className="question-box">
             <div className="question-header">
-              <strong>문제 {qIndex + 1}</strong>
+              <h2>
+                <strong>문제 {qIndex + 1}</strong>
+              </h2>
               <button
                 className="delete-btn"
                 onClick={() => removeQuestion(qIndex)}

@@ -76,7 +76,7 @@
 }
 
 .question-options input[type='text'] {
-  width: 92%; /* 가로 전체 차지 */
+  width: 88%; /* 가로 전체 차지 */
   margin-left: 10px; /* 왼쪽에 기존 번호 유지 */
   font-size: 17px;
   margin-top: 20px;
