@@ -4,10 +4,15 @@ import dayGridPlugin from '@fullcalendar/daygrid'; // 달력의 기본 그리드
 import interactionPlugin from '@fullcalendar/interaction'; // 이벤트 상호작용 플러그인 (드래그, 클릭 등)
 import "../styles/calendar.css"
 import ScheduleModal from '../components/ScheduleModal';
+import ScheduleReminder from '../components/ScheduleReminder';
+
 import { createSchedule, getAllSchedule } from '../api/scheduleApi';
+import { fetchClassrooms } from '../api/classroomApi';
+import { fetchSurveyBoards } from '../api/surveyApi';
 import { useAuth } from "../context/AuthContext";
 import ScheduleDetailModal from '../components/ScheduleDetailModal';
 import Alams from '../components/Alarms';
+
 
 const CalendarPage = () => {
   const [events, setEvents] = useState([]);
@@ -17,6 +22,7 @@ const CalendarPage = () => {
   const { user } = useAuth(); 
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
+
 
 //알림 권한 요청
 const requestNotificationPermission = () => {
@@ -83,7 +89,6 @@ const fetchSchedules = async () => {
   
 const handleEventClick = (info) => {
   setSelectedEvent(info.event);
-  // console.log("이벤트:", info.event);
   setIsDetailModalOpen(true);
 };
 
@@ -106,7 +111,6 @@ const handleEventClick = (info) => {
     }
   };
   
-
   const handleSubmit = async (e) => {
     e.preventDefault();
   
@@ -153,14 +157,10 @@ const handleEventClick = (info) => {
 
   return (
     <div className='calendar'>
+      <div className='calendar-left'>
+      <ScheduleReminder /> 
+      </div>
 
-      {/* <div className='calendar-left'>
-        <h3>뭔가 들어갈 자리</h3>
-        <ul>
-          <li>중요공지사항</li>
-          <li>투두리스트</li>
-        </ul>
-      </div> */}
         <div className='fullcalendar'>
           <FullCalendar
             plugins={[dayGridPlugin, interactionPlugin]} // 사용할 플러그인 등록

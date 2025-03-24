@@ -32,7 +32,6 @@ public interface BoardMapper {
 	    @Result(property = "classId", column = "class_id"),
 	    @Result(property = "boardName", column = "board_name"),
 	    @Result(property = "isDefault", column = "is_default"),
-//	    @Result(property = "boardType", column = "board_type")
 	})
 	@Select("SELECT * FROM board WHERE class_id = #{classId}")
 	List<Board> getAllBoard(@Param("classId") int classId);

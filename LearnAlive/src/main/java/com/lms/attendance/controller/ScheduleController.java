@@ -1,7 +1,11 @@
 package com.lms.attendance.controller;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.lms.attendance.model.Schedule;
+import com.lms.attendance.model.Todo;
 import com.lms.attendance.service.ScheduleService;
 
 @RestController
@@ -90,4 +95,55 @@ public class ScheduleController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    
+ //------------------------------todo
+    
+    // 특정 사용자의 투두 리스트 가져오기
+    @GetMapping("/todos")
+    public List<Todo> getTodosByUserId(@PathVariable("userId") String userId) {
+    	 System.out.println("UserId 받아온 값: " + userId);  // userId 확인
+    	 List<Todo> todos = scheduleService.getTodosByUserId(userId);
+    	 System.out.println("조회된 todos: " + todos);  // todos 내용 확인
+    	    return todos;
+    }
+
+    // 투두 추가
+    @PostMapping("/todos")
+    public Todo createTodo(@RequestBody Todo newTodo) {
+        return scheduleService.createTodo(newTodo);
+    }
+
+    // 투두 완료 상태 업데이트
+    @PutMapping("/{todoId}")
+    public Todo updateTodo(@PathVariable("todoId") int todoId, @RequestBody Todo updatedTodo) {
+        updatedTodo.setTodoId(todoId);
+        return scheduleService.updateTodo(updatedTodo);
+    }
+
+    // 투두 삭제
+    @DeleteMapping("/todos/{todoId}")
+    public void deleteTodo(@PathVariable("todoId") int todoId) {
+        scheduleService.deleteTodo(todoId);
+    }
+
+    // 완료된 투두 중 가장 오래된 항목 삭제
+    @DeleteMapping("/oldest-completed")
+    public void deleteOldestCompletedTodo() {
+        scheduleService.deleteOldestCompletedTodoIfNeeded();
+    }
+
+    // 투두 완료 상태 업데이트 및 가장 오래된 완료된 투두 삭제
+    @PutMapping("/todos/{todoId}")
+    public Todo updateTodoCompletionAndCheckOldest(@PathVariable("todoId") int todoId, @RequestBody Todo updatedTodo) {
+        updatedTodo.setTodoId(todoId);
+        scheduleService.updateTodoCompletionAndCheckOldest(updatedTodo);
+        return updatedTodo;
+    }
+    //------------------------
+    // userId에 해당하는 설문조사 제목을 조회하는 엔드포인트
+    @GetMapping("/calendar")
+    public List<Map<String, Object>> getSurveyTitles(@PathVariable("userId") String userId) {
+        return scheduleService.getSurveyTitlesByUserId(userId);
+    }
+    
 }

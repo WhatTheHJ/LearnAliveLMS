@@ -9,8 +9,7 @@ const API_BASE_URL = `http://localhost:8080/api/schedules/${userId}`;
 // 일정 목록 가져오기
 export const getAllSchedule = async () => {
     const response = await axios.get(`${API_BASE_URL}/`);
-    console.log( "일정 가져오기 실행");
-    console.log("API 응답:", response.data); // 여기서 반환된 데이터 확인
+    console.log( "일정 가져오기 실행", response.data);
     return response.data;
   };
 
@@ -42,6 +41,34 @@ export const createSchedule = async (schedule) => {
   // 알람이 설정된 일정 조회
   export const getSchedulesWithAlarm = async () => {
     const response = await axios.get(`${API_BASE_URL}/alarm`);
-   
     return response.data;
   }
+
+  //-------------------todo 일정 
+  // 가져오기
+  export const getTodo = async () => {
+    const response = await axios.get(`${API_BASE_URL}/todos`);
+    console.log( "todo 가져오기 실행", response.data);
+    return response.data;
+  };
+  // 추가
+  export const createTodo = async (todo) => {
+      const response = await axios.post(`${API_BASE_URL}/todos`, todo);
+      return response.data;
+    };
+    // 삭제
+  export const deleteTodo = async (todoId) => {
+    const response = await axios.delete(`${API_BASE_URL}/todos/${todoId}`);  // 기존 API_BASE_URL에 scheduleId 추가
+    return response;
+  }
+  // 수정
+  export const updateTodo = async (todoId, updatedData) => {
+    return axios.put(`${API_BASE_URL}/todos/${todoId}`, updatedData);
+  };
+
+  //학생의 설문조사 가져오기
+  export const getSurveyTitles = async () => {
+     console.error('Error fetching survey titles:', error); // 오류 로깅
+    return axios.get(`${API_BASE_URL}/calendar`);
+    
+  };

@@ -5,15 +5,22 @@
   align-items: flex-start; /* 세로 정렬 - 위쪽에 고정 */
   
   }
-  /* .calendar-top {
-    width: 100%;
+  .calendar-right {
+    width: 20%;
+    height:  100vh; 
     padding: 10px;
     background-color: #f4f4f4;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* 그림자 추가 
-  } */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+    margin-top: 0; /* 부모 요소의 맨 위에 정렬 */
+  }
+  
+  .fullcalendar {
+    flex-grow: 1; 
+    padding: 10px;
+  }
 
   .calendar-left {
-    width: 180px;   /* 네비게이션의 너비 */
+    width: 10%;   /* 네비게이션의 너비 */
     height: 100vh;  /* 전체 화면 높이 */
     padding: 20px;
     background-color: #f4f4f4;
@@ -24,10 +31,6 @@
     box-sizing: border-box; /* 여백까지 크기 계산 */
   }
 
-  .fullcalendar {
-    flex-grow: 1; 
-    padding: 10px;
-  }
 
 
   /* 풀캘린더의 최상위클래스 */

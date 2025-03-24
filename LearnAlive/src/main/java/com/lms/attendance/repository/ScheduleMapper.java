@@ -3,6 +3,7 @@ package com.lms.attendance.repository;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -56,4 +57,29 @@ public interface ScheduleMapper {
     // 알람이 설정된 일정 조회
     @Select("SELECT * FROM schedule WHERE mark = 1")
     List<Schedule> getSchedulesWithAlarm();
+    
+    
+    @Select("""
+    	    SELECT sp.title, sp.end_time, sp.survey_id  
+    	    FROM survey_post sp
+    	    JOIN survey_board sb ON sp.board_id = sb.board_id
+    	    WHERE sb.class_id IN (
+    	    
+    	        -- 학생의 경우
+    	        SELECT s.class_id
+    	        FROM Student_class s
+    	        JOIN Student st ON s.student_id = st.student_id
+    	        WHERE st.student_id = #{userId}
+
+    	    )
+    	""")
+    @Results({
+        @Result(column = "title", property = "title"),
+        @Result(column = "end_time", property = "endTime"),
+        @Result(column = "survey_id", property = "surveyId")
+    })
+    List<Map<String, Object>> findSurveyTitlesByUserId(String userId);
+
+    
+    
 }

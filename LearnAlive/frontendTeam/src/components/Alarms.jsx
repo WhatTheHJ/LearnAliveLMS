@@ -1,21 +1,22 @@
 import { useEffect, useState  } from 'react';
+import {createTodo,deleteTodo,updateTodo, getTodo } from '../api/scheduleApi'; 
+import { useAuth } from '../context/AuthContext';
 
 const Alams = ({ events }) => {
   const [todoList, setTodoList] = useState([]); // 투두리스트 상태
   const [newTodo, setNewTodo] = useState(""); // 새로운 투두 입력값
   const [upcomingEvents, setUpcomingEvents] = useState([]); // 2주 내 일정 상태
-
+  const { user } = useAuth();
+ 
 
 //알람 전송
   const sendNotification = (title, content) => {
     if (Notification.permission === "granted") {
       new Notification(title, {
         body: content,
-        // icon: "/path/to/icon.png", // 알림에 표시할 아이콘
       });
     }
   };
-
 
   const scheduleAlarm = () => {
     events.forEach(event => {
@@ -48,51 +49,98 @@ const Alams = ({ events }) => {
 
         setUpcomingEvents(filteredEvents);
       };
+
+  //
+
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     fetchTodo();
+  //   }, 700); // 0.5초 후 실행
+  // }, []);
+
+  const fetchTodo = async () => {
+        try {
+          console.log("Fetching todos for userId:", user.userId); // userId 확인
+          const todos = await getTodo(user.userId);
+          console.log("Retrieved todos:", todos);
+          const formattedTodo = todos.map(todo => ({
+            id: todo.todoId,
+            text: todo.text,
+            completed: todo.completed,
+          }));
+          setTodoList(formattedTodo);
+          console.log("todo 가져오기 완료:", formattedTodo);
+        } catch (error) {
+          console.error("todo 가져오기 실패:", error);
+        }
+      };
+
   // 투두 추가
-  const addTodo = () => {
+  const addTodo = async () => {
     if (newTodo.trim()) {
-      setTodoList([...todoList, { text: newTodo, completed: false, timestamp: Date.now() }]);
-      setNewTodo("");
+      try{
+        const newTask = { text: newTodo, completed: false, userId: user.userId };  // userId 포함
+        const response = await createTodo(newTask);
+        setTodoList([...todoList, response]);  // 서버 응답 데이터 반영
+        setNewTodo("");
+        
+    } catch (error) {
+      console.error("투두 추가 실패:", error);
     }
+  }
+  fetchTodo();
   };
 
-  // 투두 완료 체크
-  const toggleTodo = (index) => {
+   // 투두 완료 체크 (서버 연동)
+   const toggleTodo = async (index) => {
     const updatedTodos = [...todoList];
-    updatedTodos[index].completed = !updatedTodos[index].completed;
-    updatedTodos[index].timestamp = Date.now(); // 체크된 시간 업데이트
-    setTodoList(updatedTodos);
+    updatedTodos[index].completed = !updatedTodos[index].completed; // 상태 변경
+  
+    try {
+      // 서버에 업데이트된 상태 반영
+      await updateTodo(updatedTodos[index].id, updatedTodos[index]);
+      setTodoList(updatedTodos);  // 상태 업데이트
+    } catch (error) {
+      console.error("투두 업데이트 실패:", error);
+    }
   };
 
-  // 완료된 투두 자동 삭제 (최대 2개 유지)
-  useEffect(() => {
-    const completedTodos = todoList.filter(todo => todo.completed);
-    if (completedTodos.length > 2) {
-      const sortedTodos = [...completedTodos].sort((a, b) => a.timestamp - b.timestamp);
-      const updatedTodos = todoList.filter(todo => !todo.completed || todo !== sortedTodos[0]); // 가장 오래된 것 삭제
-      setTodoList(updatedTodos);
+    // 투두 삭제 (서버 연동)
+    const removeTodo = async (todoId) => {
+      try {
+        await deleteTodo(todoId);
+        setTodoList(todoList.filter(todo => todo.todoId !== todoId));  // 삭제된 항목 제외
+        // alert("삭제했습니다.")
+        
+      } catch (error) {
+        console.error("투두 삭제 실패:", error);
+      }
+      fetchTodo();
+    };
+    
+    useEffect(() => {
+      const completedTodos = todoList.filter(todo => todo.completed);
+      if (completedTodos.length > 2) {
+        const sortedTodos = [...completedTodos].sort((a, b) => a.timestamp - b.timestamp);
+        const oldestTodo = sortedTodos[0];  // 가장 오래된 완료된 투두
+        removeTodo(oldestTodo.id);  // 가장 오래된 투두를 삭제
+        fetchTodo();
+      }
+      if (events.length > 0) {
+        scheduleAlarm();
+        filterUpcomingEvents();
+        fetchTodo();
+      }
+    }, [events]); // todoList 또는 events가 변경될 때 실행
 
-      scheduleAlarm();
-      filterUpcomingEvents();
-    }
-    if (events.length > 0) {
-          scheduleAlarm();
-          filterUpcomingEvents();
-       }
-  }, [todoList, events]); // todoList가 변경될 때마다 실행
+  //      // 로딩 중일 때 처리
+  //  if (loading) {
+  //   return <div>로딩 중...</div>;
+  // }
   
-    // useEffect(() => {
-    //   if (events.length > 0) {
-    //     scheduleAlarm();
-    //     filterUpcomingEvents();
-    //   }
-    // }, [events]);
-
   return (
-    <div>
-
-<div >
-      <h2>📌 투두리스트</h2>
+    <div className='calendar-right'>
+    <div >
       <input
         type="text"
         value={newTodo}
@@ -100,12 +148,13 @@ const Alams = ({ events }) => {
         placeholder="할 일을 입력하세요"
       />
       <button onClick={addTodo}>추가</button>
+
       <ul className='todo-list'>
         {todoList.map((todo, index) => (
           <li key={index} className="todo-item">
             <input type="checkbox" checked={todo.completed} onChange={() => toggleTodo(index)} />
-            
             <span>{todo.text}</span>
+            <button onClick={() => removeTodo(todo.id)}>삭제</button>
           </li>
         ))}
       </ul>

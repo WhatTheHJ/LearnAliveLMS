@@ -6,6 +6,7 @@ const API_URL = "http://localhost:8080/api/surveys";
 export const fetchSurveyBoards = async (classId) => {
     try {
         const response = await axios.get(`${API_URL}/boards/${classId}`);
+        console.log("설문조사 게시판 목록", response.data); // 응답 로그 출력
         return response.data;
     } catch (error) {
         console.error("❌ 설문조사 게시판 목록 조회 오류:", error);
