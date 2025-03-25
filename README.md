@@ -1,14 +1,53 @@
-3/6
 
-미구현 : 
+목차 ~정리필요~~~~
+1. 개요
+2. 기능
+3. 1
+4. 1
 
-설문조사 기능 연결 필요, 라우터 경로 잘 연결하기, boardpage의 버튼 매핑 
 
----작동확인되면 Releases 등록하겠습니다. v0.1
 
-3/22
+# 기술 스택
 
-1. yuns의 파일에 캘린더를 추가해서 메인에 병합
+이 프로젝트에서 사용된 기술 스택은 다음과 같습니다:
+
+## 백엔드
+
+- **Spring Boot** ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-6DB33F?style=flat&logo=springboot&logoColor=white)
+- **Java** ![Java](https://img.shields.io/badge/Java-007396?style=flat&logo=java&logoColor=white)
+- **MySQL** ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=mysql&logoColor=white)
+
+## 프론트엔드
+
+- **React** ![React](https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black)
+- **JavaScript** ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
+- **VS Code** ![VSCode](https://img.shields.io/badge/VS%20Code-007ACC?style=flat&logo=visualstudiocode&logoColor=white)
+
+## 기타 도구
+
+- **GitHub** ![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white)
+- **Naver Cloud** ![Naver Cloud](https://img.shields.io/badge/Naver%20Cloud-03C75A?style=flat&logo=naver&logoColor=white)
+
+
+---
+
+![image](https://github.com/user-attachments/assets/5d62615b-8cdd-44aa-99e8-3c97e4b46ef7)
+계정과 출석
+
+
+![image](https://github.com/user-attachments/assets/9c9cd94f-9bdc-4367-b5c5-40d1e633e50e)
+기본 게시판
+
+
+![image](https://github.com/user-attachments/assets/cfc8e5d4-b65a-4390-8c2b-6556f485ddcc)
+시험 
+
+
+
+![image](https://github.com/user-attachments/assets/3a6fe327-c51c-474b-bfdb-687d214aecda)
+설문조사
+
+
 
 
 
