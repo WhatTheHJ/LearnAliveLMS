@@ -24,11 +24,12 @@ React + SpringBoot 프로젝트
 
 ![image](https://github.com/user-attachments/assets/1c6fbf2a-6b15-4d39-903e-71860dbe80dc)
 
-기능별 요구사항
+#기능별 요구사항
 - 게시판 crud
 - 게시글 curd
 - 좋아요 기능(토글)/
 
+#접근방법
 
 
 
