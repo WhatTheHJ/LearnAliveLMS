@@ -9,8 +9,6 @@
 
 # 기술 스택
 
-이 프로젝트에서 사용된 기술 스택은 다음과 같습니다:
-
 ## 백엔드
 
 - **Spring Boot** ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-6DB33F?style=flat&logo=springboot&logoColor=white)
