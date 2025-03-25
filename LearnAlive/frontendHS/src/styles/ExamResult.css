@@ -43,24 +43,7 @@
 }
 
 .exam-container {
-  position: relative;
   background: #f9f9f9;
-}
-
-.result-summary {
-  position: absolute;
-  top: 108px;
-  right: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 50px;
-  background-color: rgba(237, 239, 242, 0.5);
-  padding: 10px 20px;
-  border-radius: 5px;
-  border: 1px solid #edeff2;
-  text-align: center;
-  width: 150px;
 }
 
 .result-summary div {
@@ -95,16 +78,33 @@
 }
 
 .exam-info-field {
+  position: relative; /* 기준이 되는 부모 요소 */
   font-size: 17px;
   padding: 30px;
   height: 230px; /* 고정된 세로 길이 */
   background: white;
+}
+
+.result-summary {
+  position: absolute;
+  top: 10px; /* 부모의 위쪽에서 50px */
+  right: 100px; /* 부모의 왼쪽에서 100px */
   display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  background-color: rgba(237, 239, 242, 0.5);
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: 1px solid #edeff2;
+  text-align: center;
+  width: 150px;
 }
 
 .answer-container {
-  margin-top: 65px;
-  margin-left: 110px;
+  position: absolute;
+  top: 90px; /* 부모의 위쪽에서 50px */
+  right: 30px; /* 부모의 왼쪽에서 100px */
   flex-direction: column;
   width: 40%;
   padding: 10px;
@@ -116,7 +116,8 @@
 }
 
 .timer-header {
-  gap: 60px;
+  margin-left: 30px;
+  gap: 70px;
   display: flex;
   align-items: center;
 }

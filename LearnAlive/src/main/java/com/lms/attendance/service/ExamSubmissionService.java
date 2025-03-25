@@ -109,21 +109,8 @@ public class ExamSubmissionService {
     	// .. 학생꺼 더담기    	
     	return examResult;
     }
+
     
-    
-    
-    // 특정 시험 상세 보기
-//    public Exam getExamById(int examId) {
-//        // 시험 정보 가져오기
-//        Exam exam = examMapper.getExamById(examId);
-//        
-//        // 해당 시험에 속하는 질문들 가져오기
-//        List<ExamQuestion> questions = examQuestionMapper.getQuestionsByExamId(examId);
-//        exam.setQuestions(questions);  // 시험에 질문 목록 추가
-//        
-//        return exam;
-//    }
-    
-    
+
     
 }

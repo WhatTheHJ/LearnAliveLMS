@@ -7,6 +7,8 @@ import com.lms.attendance.model.Exam;
 import com.lms.attendance.model.ExamResult;
 import com.lms.attendance.model.ExamStudentAnswer;
 import com.lms.attendance.model.ExamSubmission;
+import com.lms.attendance.model.ExamWithScore;
+import com.lms.attendance.model.StudentExamResult;
 import com.lms.attendance.service.ExamService;
 import com.lms.attendance.service.ExamSubmissionService;
 import lombok.RequiredArgsConstructor;
@@ -37,9 +39,9 @@ public class ExamController {
 
     // 특정 클래스의 시험 목록 가져오기
     @GetMapping
-    public ResponseEntity<List<Exam>> getExams(@RequestParam int classId) {
+    public ResponseEntity<List<ExamWithScore>> getExams(@RequestParam int classId, String studentId) {
         System.out.println("🔍 요청 받은 classId: " + classId);  // classId 값 확인
-        List<Exam> exams = examService.getExamsByClassId(classId);
+        List<ExamWithScore> exams = examService.getExamsByClassIdAndStudentId(classId, studentId);
         System.out.println("🔍 가져온 시험 목록: " + exams);  // 가져온 데이터 확인
         return ResponseEntity.ok(exams);
     }
@@ -70,7 +72,7 @@ public class ExamController {
         return ResponseEntity.ok(exam); // 수정된 시험 객체 반환
     }
     
- // 학생이 시험을 제출
+    // 학생이 시험을 제출
     @PostMapping("/submit")
     public ResponseEntity<String> submitExam(@RequestBody ExamStudentAnswer examStudentAnswer) {
         System.out.println("시험 제출 데이터: " + examStudentAnswer);
@@ -78,7 +80,7 @@ public class ExamController {
         return ResponseEntity.ok("시험이 성공적으로 제출되었습니다.");
     }
     
-// 시험결과
+    // 특정 학생의 시험 결과 조회
     @GetMapping("/examResult/{examId}")
     public ResponseEntity<ExamResult> getExamResult(@PathVariable int examId, @RequestParam String studentId) {
     	ExamResult result = examSubmissionService.getExamResult(examId, studentId); 
@@ -87,6 +89,11 @@ public class ExamController {
     	return ResponseEntity.ok(result);
     }
     
-    
-
+ 
+    // 특정 examId에 대한 모든 학생의 시험 결과 조회
+    @GetMapping("/ExamResultsByExamId/{examId}")
+    public ResponseEntity<List<StudentExamResult>> getExamResultsByExamId(@PathVariable int examId) {
+        List<StudentExamResult> results = examService.getExamResultsByExamId(examId);  // ExamService의 메서드를 호출하여 결과 리스트 조회
+        return ResponseEntity.ok(results);
+    }
 }

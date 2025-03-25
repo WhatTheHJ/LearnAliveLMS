@@ -7,6 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.lms.attendance.model.Exam;
 import com.lms.attendance.model.ExamQuestion;
+import com.lms.attendance.model.ExamWithScore;
+import com.lms.attendance.model.StudentExamResult;
 import com.lms.attendance.repository.ExamMapper;
 import com.lms.attendance.repository.ExamQuestionMapper;
 
@@ -32,8 +34,8 @@ public class ExamService {
     }
     
     // 특정 클래스의 시험 목록 가져오기
-    public List<Exam> getExamsByClassId(int classId) {
-        return examMapper.findByClassId(classId);  // 예시: 클래스 ID로 시험 목록을 가져오는 메서드
+    public List<ExamWithScore> getExamsByClassIdAndStudentId(int classId, String studentId) {
+        return examMapper.findByClassIdAndStudentId(classId, studentId);  // 예시: 클래스 ID로 시험 목록을 가져오는 메서드
     }
 
     // 특정 시험 상세 보기
@@ -69,4 +71,11 @@ public class ExamService {
             examQuestionMapper.createExamQuestion(examQuestion);  // 새 질문 저장
         }
     }
+    
+    // examId 기준으로 모든 학생의 시험 결과 조회
+    public List<StudentExamResult> getExamResultsByExamId(int examId) {
+        return examMapper.findExamResultsByExamId(examId);  // examId로 시험 결과 목록을 가져오는 메서드 호출
+    }
+    
+    
 }

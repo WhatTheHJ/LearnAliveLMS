@@ -9,10 +9,10 @@ export const createExam = async (examData) => {
 };
 
 // ✅ 특정 클래스의 시험 목록 가져오기
-export const fetchExams = async (classId) => {
+export const fetchExams = async (classId, studentId) => {
   try {
     const response = await axios.get(`${API_URL}`, {
-      params: { classId }, // classId를 쿼리 파라미터로 전달
+      params: { classId, studentId }, // classId를 쿼리 파라미터로 전달
     });
     return response.data;
   } catch (error) {
@@ -44,12 +44,7 @@ export const submitExam = async (examData) => {
   return response.data;
 };
 
-// // ✅ 시험 점수 가져오기
-// export const fetchExamScore = async (examId) => {
-//   const response = await axios.get(`${API_URL}/${examId}/score`);
-//   return response.data;
-// };
-
+// ✅ 특정 학생의 시험 결과 조회
 export const fetchExamResult = async (examId, studentId) => {
   console.log(
     `📡 API 요청: ${API_URL}/examResult/${examId} (studentId: ${studentId})`
@@ -59,6 +54,22 @@ export const fetchExamResult = async (examId, studentId) => {
     const response = await axios.get(`${API_URL}/examResult/${examId}`, {
       params: { studentId },
     });
+    console.log('📥 API 응답:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('🚨 API 호출 실패:', error.response?.data || error.message);
+    throw error; // 호출 실패 시 오류 던지기
+  }
+};
+
+// ✅ 특정 시험에 대한 모든 학생의 시험 결과 조회
+export const ExamResultsByExamId = async (examId) => {
+  console.log(`📡 API 요청: ${API_URL}/ExamResultsByExamId/${examId}`);
+
+  try {
+    const response = await axios.get(
+      `${API_URL}/ExamResultsByExamId/${examId}`
+    );
     console.log('📥 API 응답:', response.data);
     return response.data;
   } catch (error) {
