@@ -47,11 +47,11 @@ const Header = () => {
           )}
           <button className="logout-btn" onClick={handleLogout}>로그아웃</button>
           <button className="mypage-btn" onClick={() => navigate("/mypage")}>마이페이지</button>
-          <div> <Link to="/Calendar">
-          <button style={{ fontSize: '20px', padding: '10px', cursor: 'pointer' }}>
-            📅 
-          </button>
-        </Link></div>
+          {/* <div> <Link to="/Calendar">
+          </Link></div> */}
+          <button onClick={() => window.location.href = "/calendar"}>📅</button>
+         
+        
         </div>
       ) : (
         // 로그인 전 화면

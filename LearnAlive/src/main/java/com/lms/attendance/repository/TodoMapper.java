@@ -25,6 +25,7 @@ public interface TodoMapper {
 
     // 투두 추가
     @Insert("INSERT INTO todo_list (user_id, text) VALUES (#{userId}, #{text})")
+    @Result(property = "userId", column = "user_id")
     @Options(useGeneratedKeys = true, keyProperty = "todoId")
     void insertTodo(Todo todo);
 

@@ -1,52 +1,71 @@
 import { useState, useEffect } from 'react';
-import { getSurveyTitles } from '../api/scheduleApi'; // API 호출 함수
-const ScheduleReminder = () => {
-    // 상태 변수 선언
-    const [surveyTitles, setSurveyTitles] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-  
-    // 데이터 로드 함수
-    const fetchSurveyTitles = async () => {
-      try {
-        const data = await getSurveyTitles();  // API 호출
-        setSurveyTitles(data);  // 가져온 데이터를 상태에 저장
-        setLoading(false);  // 로딩 상태 false로 설정
-        console.log("설문",data )
-      } catch (err) {
-        setError('설문조사를 가져오는 데 실패했습니다.');  // 에러 처리
-        setLoading(false);  // 로딩 상태 false로 설정
-      }
-    };
-  
-    // 컴포넌트가 마운트될 때 API 호출
-    useEffect(() => {
-      fetchSurveyTitles();
-    }, []);  // 빈 배열을 넣어 컴포넌트가 처음 렌더링될 때만 실행
-  
-    // 로딩 중일 때 표시할 내용
-    if (loading) {
-      return <div>로딩 중...</div>;
-    }
-  
-    // 에러가 발생했을 때 표시할 내용
-    if (error) {
-      return <div>{error}</div>;
-    }
-  
+import { getSurveyTitles } from '../api/scheduleApi';
+import { useAuth } from "../context/AuthContext";
+import Slider from "react-slick";
+import "../styles/calendar.css"; // 스타일 분리
 
-  
-  // 데이터가 있을 경우, 리스트로 표시
+const ScheduleReminder = () => {
+  const [surveyTitles, setSurveyTitles] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const { user } = useAuth();
+
+  const fetchSurveyTitles = async (userId) => {
+    try {
+      const data = await getSurveyTitles(userId);
+
+      const now = new Date();
+      const soon = new Date();
+      soon.setDate(now.getDate() + 7);
+
+      const upcoming = data.filter((survey) => {
+        const end = new Date(survey.endTime);
+        return end >= now && end <= soon;
+      });
+
+      setSurveyTitles(upcoming);
+      setLoading(false);
+    } catch (err) {
+      setError("설문조사를 가져오는 데 실패했습니다.");
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (user?.userId) {
+      fetchSurveyTitles(user.userId);
+    }
+  }, [user]);
+
+  const settings = {
+    vertical: true,
+    verticalSwiping: true,
+    infinite: true,
+    speed: 2600,
+    slidesToShow: 1,
+    slidesToScroll: 3,
+    autoplay: true,
+    autoplaySpeed: 1000,
+    arrows: true,
+  };
+
+  if (loading) return <div>로딩 중...</div>;
+  if (error) return <div>{error}</div>;
+
   return (
-    <div>
-      <h2>설문조사 목록</h2>
-      <ul>
+    <div className="survey-reminder-vertical">
+      <h3>📋 마감 임박 설문</h3>
+      <Slider {...settings}>
         {surveyTitles.map((survey) => (
-          <li key={survey.surveyId}>
-            <strong>{survey.title}</strong> - 종료일: {new Date(survey.endTime).toLocaleString()}
-          </li>
+          <div key={survey.surveyId} className="survey-slide">
+            <strong>{survey.title}</strong><br />
+            <span className="deadline">
+              {new Date(survey.endTime).toLocaleDateString("ko-KR")}{" "}
+              {new Date(survey.endTime).toLocaleTimeString("ko-KR")}
+            </span>
+          </div>
         ))}
-      </ul>
+      </Slider>
     </div>
   );
 };

@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class Schedule {
 	private int  scheduleId ; // PK
-	private int  userId; // 게시판 ID (Foreign Key)
+	private String  userId; // 게시판 ID (Foreign Key)
 	private LocalDate date;
 	private String title;
 	private String content;

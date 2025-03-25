@@ -5,10 +5,10 @@ import interactionPlugin from '@fullcalendar/interaction'; // 이벤트 상호�
 import "../styles/calendar.css"
 import ScheduleModal from '../components/ScheduleModal';
 import ScheduleReminder from '../components/ScheduleReminder';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 import { createSchedule, getAllSchedule } from '../api/scheduleApi';
-import { fetchClassrooms } from '../api/classroomApi';
-import { fetchSurveyBoards } from '../api/surveyApi';
 import { useAuth } from "../context/AuthContext";
 import ScheduleDetailModal from '../components/ScheduleDetailModal';
 import Alams from '../components/Alarms';
@@ -23,6 +23,13 @@ const CalendarPage = () => {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
 
+
+//  //강제새로고침 
+//   useEffect(() => {
+//     if (performance.navigation.type !== performance.navigation.TYPE_RELOAD) {
+//       window.location.reload();
+//     }
+//   }, []);
 
 //알림 권한 요청
 const requestNotificationPermission = () => {
@@ -40,12 +47,13 @@ const requestNotificationPermission = () => {
 // 일정 목록을 가져오는 함수
 const fetchSchedules = async () => {
       try {
-        const schedules = await getAllSchedule();
+        const schedules = await getAllSchedule(user.userId);
         
         const formattedEvents = schedules.map(schedule => ({
           id: schedule.scheduleId,
           title: schedule.title,
           start: schedule.date,
+          // start: `${schedule.date}T09:00:00+09:00`, // ⭐️ 핵심
           extendedProps: {
             content: schedule.content,
             mark: schedule.mark,
@@ -68,15 +76,26 @@ const fetchSchedules = async () => {
       requestNotificationPermission();
       fetchSchedules();
     }, 500); // 0.5초 후 실행
-  }, []);
+  },  [user?.userId]);
 
 
   //--------------------------------
   const getAlarmDates = () => {
-    return events
-      .filter(event => event.extendedProps?.mark === 1) // mark가 1이면 알람이 설정된 일정
-      .map(event => event.date); // 알람이 설정된 일정의 날짜만 추출
+    const filtered = events.filter(event => {
+      const mark = event.extendedProps?.mark;
+      return mark === true || mark === 1 || mark === "1";
+    });
+  
+    // console.log("✅ 알람 있는 이벤트들:", filtered);
+  
+    return filtered.map(event => {
+      const utcString = new Date(event.start).toISOString(); // → UTC 기준 ISO 문자열
+      const datePart = utcString.split("T")[0]; // → YYYY-MM-DD
+      return datePart;
+    });
   };
+  
+  
 
   const alarmDates = getAlarmDates(); // 알람이 있는 날짜 목록
 //----------------------------------------------------------------------
@@ -128,19 +147,31 @@ const handleEventClick = (info) => {
       await createSchedule(schedule);
   
       // 성공적으로 등록되면 이벤트에 추가
+      // setEvents([
+      //   ...events,
+      //   {
+      //     title: formData.title,
+      //     date: selectedDate,
+      //     content: formData.content,
+      //     extendedProps: {
+      //       alarmTime: formData.alarmTime,  // alarmTime도 포함
+      //       mark: formData.mark,
+      //     },
+      //     backgroundColor: formData.color,
+      //   },
+        
+      // ]);
       setEvents([
         ...events,
         {
           title: formData.title,
-          date: selectedDate,
-          content: formData.content,
+          start: selectedDate,  // ✅ 반드시 start로 넣어야 함
           extendedProps: {
-            alarmTime: formData.alarmTime,  // alarmTime도 포함
+            alarmTime: formData.alarmTime,
             mark: formData.mark,
           },
-          backgroundColor: formData.color,
-        },
-        
+          color: formData.color,
+        }
       ]);
       // 폼 초기화 및 모달 닫기
       setFormData({ title: "", content: "", mark: 0, color: "#ffcccc"});
@@ -156,11 +187,15 @@ const handleEventClick = (info) => {
   
 
   return (
-    <div className='calendar'>
-      <div className='calendar-left'>
-      <ScheduleReminder /> 
-      </div>
 
+    <div className='calendar'>
+
+        <div className='calendar-top'>
+        <ScheduleReminder /> {/* 🔼 상단으로 이동 */}
+        </div>
+
+  <div className='calendar-body'>
+        
         <div className='fullcalendar'>
           <FullCalendar
             plugins={[dayGridPlugin, interactionPlugin]} // 사용할 플러그인 등록
@@ -168,6 +203,7 @@ const handleEventClick = (info) => {
             events={events} // 표시할 이벤트 목록
             dateClick={handleDateClick} // 날짜 클릭 이벤트 핸들러
             eventClick={handleEventClick} // 이벤트 클릭 이벤트 핸들러
+            timeZone="Asia/Seoul" 
             eventContent={(eventInfo) => (
               <div>
                 {eventInfo.event.extendedProps.mark === 1 && "🔔"}
@@ -176,21 +212,23 @@ const handleEventClick = (info) => {
             )}
 
             dayCellContent={(args) => {
+              const dateStr = args.date.toISOString().split("T")[0];
               // 알람이 설정된 날짜에 벨 아이콘 표시
-              if (alarmDates.includes(args.dateStr)) {
+              if (alarmDates.includes(dateStr)) {
                 return (
                   <>
                     <span>{args.dayNumberText}</span>
-                    <span className="bell-icon">🔔</span> {/* 벨 아이콘 추가 */}
+                    <span className="bell-icon">🔔</span>
                   </>
                 );
               }
+            
               return <span>{args.dayNumberText}</span>;
             }}
-            
-
           />
         </div>
+
+        <div className='calendar-right'>
         {isDetailModalOpen && (
           <ScheduleDetailModal 
             isOpen={isDetailModalOpen} 
@@ -213,6 +251,8 @@ const handleEventClick = (info) => {
           />
            )}
             <Alams events={events} />
+    </div>
+    </div>
     </div>
   );
 };

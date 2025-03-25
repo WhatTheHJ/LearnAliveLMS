@@ -28,13 +28,15 @@ const ScheduleModal = ({ isModalOpen, selectedDate, formData, onChange, onSubmit
                 onChange={onChange}
               />
               <label>
+              <br/>
+               <span> 🔔</span><br/>
                 <input
                   type="checkbox"
                   name="mark"
                   checked={formData.mark}
                   onChange={onChange}
-                />
-                알람 추가 🔔
+                />  
+                 
               </label>
               <label>
                 색상 선택: 

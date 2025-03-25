@@ -43,6 +43,7 @@ C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\model
 C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\model\SurveyQuestion.java
 C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\model\SurveyResponse.java
 C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\model\SurveyResponseVisualization.java
+C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\model\Todo.java
 C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\model\User.java
 C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\repository\AttendanceMapper.java
 C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\repository\AuthMapper.java
@@ -62,6 +63,7 @@ C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\repos
 C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\repository\SurveyMapper.java
 C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\repository\SurveyResponseMapper.java
 C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\repository\TestMapper.java
+C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\repository\TodoMapper.java
 C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\service\AttendanceService.java
 C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\service\AttendanceServiceImpl.java
 C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\service\AuthService.java

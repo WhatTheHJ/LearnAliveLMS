@@ -1,4 +1,5 @@
 com\lms\attendance\controller\WebController.class
+com\lms\attendance\repository\TodoMapper.class
 com\lms\attendance\config\CorsConfig.class
 com\lms\attendance\model\ExamScore.class
 com\lms\attendance\controller\ExamScoreController.class
@@ -73,6 +74,7 @@ com\lms\attendance\service\SurveyResponseService.class
 com\lms\attendance\controller\SurveyResponseController.class
 com\lms\attendance\controller\UpdatePasswordRequest.class
 com\lms\attendance\model\Exam.class
+com\lms\attendance\model\Todo.class
 com\lms\attendance\model\ExamBoard.class
 com\lms\attendance\model\SurveyBoard$SurveyBoardBuilder.class
 com\lms\attendance\repository\SurveyMapper.class

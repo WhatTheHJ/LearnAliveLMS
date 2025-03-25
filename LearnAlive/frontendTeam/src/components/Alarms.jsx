@@ -139,37 +139,47 @@ const Alams = ({ events }) => {
   // }
   
   return (
-    <div className='calendar-right'>
-    <div >
-      <input
+    <div>
+    <div className='todo-list' >
+    <h4>Todo List</h4>
+      <div className='todo-input'>
+      <input 
         type="text"
         value={newTodo}
         onChange={(e) => setNewTodo(e.target.value)}
         placeholder="할 일을 입력하세요"
       />
       <button onClick={addTodo}>추가</button>
+      </div>
+     
 
-      <ul className='todo-list'>
+      <ul >
         {todoList.map((todo, index) => (
           <li key={index} className="todo-item">
             <input type="checkbox" checked={todo.completed} onChange={() => toggleTodo(index)} />
+            
             <span>{todo.text}</span>
-            <button onClick={() => removeTodo(todo.id)}>삭제</button>
+            <button onClick={() => removeTodo(todo.id)}>X</button>
           </li>
         ))}
       </ul>
     </div>
 
-<div>
-      <h3>📅 최근 일정</h3>
+<div className='todo-list'>
+      <h4>최근 일정</h4>
       {upcomingEvents.length > 0 ? (
-        <ul>
+        <ul className="event-list">
           {upcomingEvents
             .slice() // 원본 배열을 변경하지 않도록 복사
             .sort((a, b) => new Date(a.start) - new Date(b.start)) // 날짜 기준 오름차순 정렬
             .map((event, index) => (
-              <li key={index}>
-                {new Date(event.start).toLocaleDateString()} : {event.title}
+              
+              <li key={index} className="event-item">
+                {new Date(event.start).toLocaleDateString('ko-KR', {
+            // year: 'numeric',
+            // month: 'long',
+            day: 'numeric',
+          })} : {event.title}
               </li>
             ))}
         </ul>

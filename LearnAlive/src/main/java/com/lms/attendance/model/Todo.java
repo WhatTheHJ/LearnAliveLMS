@@ -12,7 +12,7 @@ import lombok.Setter;
 @Data
 public class Todo {
     private int todoId;         // 투두 ID
-    private int userId;         // 사용자 ID
+    private String userId;         // 사용자 ID
     private String text;        // 투두 내용
     private boolean completed;  // 완료 여부
     private Timestamp createdAt; // 생성 시간
