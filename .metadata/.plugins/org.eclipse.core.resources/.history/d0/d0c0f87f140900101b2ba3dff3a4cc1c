@@ -1,0 +1,21 @@
+package com.lms.attendance.repository;
+
+import java.util.List;
+import org.apache.ibatis.annotations.*;
+import com.lms.attendance.model.TeamActivityComment;
+
+@Mapper
+public interface TeamActivityCommentMapper {
+
+    @Insert("""
+            INSERT INTO team_activity_comment (post_id, commenter_id, content)
+            VALUES (#{postId}, #{commenterId}, #{content})
+            """)
+    @Options(useGeneratedKeys = true, keyProperty = "commentId")
+    void addComment(TeamActivityComment comment);
+
+    @Select("""
+            SELECT * FROM team_activity_comment WHERE post_id = #{postId} ORDER BY created_at ASC
+            """)
+    List<TeamActivityComment> getCommentsByPostId(int postId);
+}

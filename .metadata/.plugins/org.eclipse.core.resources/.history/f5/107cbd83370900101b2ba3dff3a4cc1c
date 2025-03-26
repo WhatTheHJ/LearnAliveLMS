@@ -1,0 +1,33 @@
+package com.lms.attendance.repository;
+
+import org.apache.ibatis.annotations.*;
+import com.lms.attendance.model.TeamActivityApplication;
+import java.util.List;
+
+@Mapper
+public interface TeamActivityApplicationMapper {
+
+    @Insert("""
+            INSERT INTO team_activity_application (post_id, applicant_student_id, status)
+            VALUES (#{postId}, #{applicantStudentId}, #{status})
+            """)
+    @Options(useGeneratedKeys = true, keyProperty = "applicationId")
+    void applyForTeamActivity(TeamActivityApplication application);
+
+    @Update("""
+            UPDATE team_activity_application
+            SET status = #{status}
+            WHERE application_id = #{applicationId}
+            """)
+    void updateApplicationStatus(@Param("applicationId") int applicationId, @Param("status") String status);
+
+    @Select("SELECT * FROM team_activity_application WHERE post_id = #{postId}")
+    List<TeamActivityApplication> getApplicationsByPostId(int postId);
+
+    @Select("SELECT * FROM team_activity_application WHERE application_id = #{applicationId}")
+    TeamActivityApplication getApplicationById(int applicationId);
+    
+    // 새로 추가: 강의실(classId)별 팀 활동 게시글 목록 조회
+    @Select("SELECT * FROM team_activity_post WHERE class_id = #{classId} ORDER BY created_at DESC")
+    List<TeamActivityPost> getPostsByClassId(int classId);
+}

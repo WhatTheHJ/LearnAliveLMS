@@ -1,0 +1,13 @@
+package com.lms.attendance.model;
+
+import lombok.Data;
+import java.time.LocalDateTime;
+
+@Data
+public class TeamActivity {
+    private Integer applicationId;
+    private int postId;
+    private String applicantStudentId; // 참석 신청한 학생의 학번
+    private String status;             // "PENDING", "APPROVED", "REJECTED" 등의 상태
+    private LocalDateTime appliedAt;
+}

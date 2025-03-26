@@ -1,0 +1,13 @@
+package com.lms.attendance.model;
+
+import lombok.Data;
+import java.time.LocalDateTime;
+
+@Data
+public class TeamActivityComment {
+    private Integer commentId;
+    private int postId;
+    private String commenterId; // 댓글 작성자의 학번
+    private String content;
+    private LocalDateTime createdAt;
+}

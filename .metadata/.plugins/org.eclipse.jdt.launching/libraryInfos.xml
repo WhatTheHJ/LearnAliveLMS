@@ -17,6 +17,7 @@
             <entry path="null"/>
         </endorsedDirs>
     </libraryInfo>
+    <libraryInfo home="/opt/homebrew/Cellar/openjdk@17/17.0.14/libexec/openjdk.jdk/Contents/Home" version="17.0.14"/>
     <libraryInfo home="C:\springWorkMulti\Tool\sts-4.16.1.RELEASE\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_17.0.4.v20221004-1257" version="17.0.4.1"/>
     <libraryInfo home="/Users/mac/Library/Java/JavaVirtualMachines/openjdk-23.0.2/Contents/Home" version="23.0.2"/>
 </libraryInfos>

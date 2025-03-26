@@ -29,7 +29,6 @@ import MyGrades from "./components/MyGrades"
 import MyClasses from "./components/MyClasses";
 import Achievements from "./components/Achievements";
 import AchievementsDetail from "./components/AchievementsDetail";
-
   
 function App() {
   return (
@@ -47,17 +46,13 @@ function App() {
           <Route path="/classroom/:classId/manage-attendance" element={<ManageAttendancePage />} />
           <Route path="/survey/create" element={<SurveyCreate />} />
           <Route path="/survey/:surveyId" element={<SurveyDetail />} />
-          <Route path="/classroom/:classId/boards" element={<ClassroomDetail />} /> 
+          <Route path="/classroom/:classId/boards" element={<ClassroomDetail />} />
           <Route path="/classroom/:classId/settings" element={<ClassSettings />} />
 
           <Route path="/classroom/:classId/boards/addpost/:boardId" element={<AddPostPage />} /> {/* 게시글 추가 페이지 */}
 
-
           <Route path="/classroom/:classId/exam" element={<ExamList />} />
-          <Route
-            path="/classroom/:classId/exam/add"
-             element={<ExamCreate />}
-          />
+          <Route path="/classroom/:classId/exam/add" element={<ExamCreate />}/>
           <Route path="exam/:examId" element={<ExamDetail />} />
 
           <Route path="/mypage" element={<MyPage />}>
@@ -70,6 +65,7 @@ function App() {
             <Route path="/mypage/achievements" element={<Achievements />} />
             <Route path="/mypage/achievements/detail" element={<AchievementsDetail />} />
           </Route>
+
         </Routes>
         </main>
         <Footer />

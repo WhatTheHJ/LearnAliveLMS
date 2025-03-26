@@ -1,0 +1,23 @@
+package com.lms.attendance.repository;
+
+import org.apache.ibatis.annotations.*;
+import com.lms.attendance.model.TeamActivityPost;
+import java.util.List;
+
+@Mapper
+public interface TeamActivityPostMapper {
+
+    @Insert("""
+            INSERT INTO team_activity_post 
+            (title, content, author_id, author_name, department, email, contact)
+            VALUES (#{title}, #{content}, #{authorId}, #{authorName}, #{department}, #{email}, #{contact})
+            """)
+    @Options(useGeneratedKeys = true, keyProperty = "postId")
+    void createPost(TeamActivityPost post);
+
+    @Select("SELECT * FROM team_activity_post ORDER BY created_at DESC")
+    List<TeamActivityPost> getAllPosts();
+
+    @Select("SELECT * FROM team_activity_post WHERE post_id = #{postId}")
+    TeamActivityPost getPostById(int postId);
+}

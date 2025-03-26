@@ -119,3 +119,222 @@
 2025-03-23 13:40:03,660 [Worker-17: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
 2025-03-23 13:40:03,694 [Worker-17: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
 2025-03-23 13:40:03,714 [Worker-17: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-23 22:21:17,981 [Worker-8: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
+2025-03-23 22:25:49,209 [Worker-7: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2025-03-24 13:35:59,383 [Worker-6: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2025-03-24 13:38:15,860 [Worker-16: Launching LearnAlive - LearnAliveApplication] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-24 13:38:15,906 [Worker-16: Launching LearnAlive - LearnAliveApplication] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-24 13:38:15,920 [Worker-16: Launching LearnAlive - LearnAliveApplication] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-24 14:36:50,742 [Worker-15: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-24 14:36:50,760 [Worker-15: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-24 14:36:50,782 [Worker-15: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-24 14:37:02,845 [Worker-6: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-24 14:37:02,857 [Worker-6: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-24 14:37:02,864 [Worker-6: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-24 14:37:18,546 [Worker-18: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-24 14:37:18,833 [Worker-18: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-24 14:37:19,139 [Worker-18: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-24 14:37:28,813 [Worker-15: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-24 14:37:28,825 [Worker-15: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-24 14:37:28,828 [Worker-15: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-24 14:37:57,585 [Worker-2: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-24 14:37:57,593 [Worker-2: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-24 14:37:57,602 [Worker-2: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-24 14:38:12,914 [Worker-13: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-24 14:38:12,918 [Worker-13: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-24 14:38:12,923 [Worker-13: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-24 14:38:19,469 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-24 14:38:19,481 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-24 14:38:19,488 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-24 14:38:32,827 [Worker-1: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-24 14:38:32,838 [Worker-1: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-24 14:38:32,844 [Worker-1: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-24 14:38:38,993 [Worker-12: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-24 14:38:39,001 [Worker-12: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-24 14:38:39,007 [Worker-12: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-24 14:38:47,384 [Worker-15: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-24 14:38:47,387 [Worker-15: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-24 14:38:47,391 [Worker-15: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-24 14:38:52,132 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-24 14:38:52,135 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-24 14:38:52,139 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-24 14:39:08,853 [Worker-4: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-24 14:39:08,881 [Worker-4: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-24 14:39:08,901 [Worker-4: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-24 14:39:16,124 [Worker-18: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-24 14:39:16,128 [Worker-18: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-24 14:39:16,131 [Worker-18: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-24 14:39:27,834 [Worker-4: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-24 14:39:27,838 [Worker-4: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-24 14:39:27,843 [Worker-4: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-24 14:39:35,973 [Worker-1: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-24 14:39:35,975 [Worker-1: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-24 14:39:35,980 [Worker-1: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-24 16:29:47,912 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-24 16:29:47,951 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-24 16:29:47,964 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-24 16:29:54,305 [Worker-12: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-24 16:29:54,316 [Worker-12: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-24 16:29:54,319 [Worker-12: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-24 16:30:03,754 [Worker-19: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-24 16:30:03,760 [Worker-19: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-24 16:30:03,764 [Worker-19: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-24 16:30:09,855 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-24 16:30:09,857 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-24 16:30:09,862 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-24 16:32:42,765 [Worker-6: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-24 16:32:42,776 [Worker-6: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-24 16:32:42,783 [Worker-6: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-24 16:32:45,707 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-24 16:32:45,714 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-24 16:32:45,719 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-24 16:33:17,603 [Worker-19: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-24 16:33:17,615 [Worker-19: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-24 16:33:17,621 [Worker-19: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-24 16:34:00,722 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-24 16:34:00,726 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-24 16:34:00,732 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-24 16:35:08,101 [Worker-6: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-24 16:35:08,118 [Worker-6: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-24 16:35:08,126 [Worker-6: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-25 09:58:11,676 [Worker-4: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-25 09:58:11,696 [Worker-4: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-25 09:58:11,711 [Worker-4: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-25 09:58:23,096 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-25 09:58:23,116 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-25 09:58:23,133 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-25 09:58:31,611 [Worker-0: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-25 09:58:31,624 [Worker-0: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-25 09:58:31,641 [Worker-0: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-25 09:59:28,508 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-25 09:59:28,517 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-25 09:59:28,528 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-25 09:59:31,882 [Worker-18: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-25 09:59:31,919 [Worker-18: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-25 09:59:31,951 [Worker-18: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-25 09:59:33,841 [Worker-19: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-25 09:59:33,845 [Worker-19: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-25 09:59:33,850 [Worker-19: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-25 09:59:50,384 [Worker-0: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-25 09:59:50,388 [Worker-0: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-25 09:59:50,393 [Worker-0: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-25 10:00:02,769 [Worker-19: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-25 10:00:02,793 [Worker-19: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-25 10:00:02,814 [Worker-19: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-25 10:00:10,573 [Worker-15: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-25 10:00:10,578 [Worker-15: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-25 10:00:10,589 [Worker-15: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-25 10:00:21,657 [Worker-19: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-25 10:00:21,659 [Worker-19: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-25 10:00:21,665 [Worker-19: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-25 10:00:50,763 [Worker-19: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-25 10:00:50,780 [Worker-19: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-25 10:00:50,788 [Worker-19: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-25 10:03:54,873 [Worker-4: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-25 10:03:54,879 [Worker-4: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-25 10:03:54,886 [Worker-4: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-25 11:03:07,784 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-25 11:03:07,808 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-25 11:03:07,818 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-25 11:07:07,155 [Worker-18: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-25 11:07:07,193 [Worker-18: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-25 11:07:07,207 [Worker-18: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-25 11:07:16,749 [Worker-18: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-25 11:07:16,785 [Worker-18: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-25 11:07:16,791 [Worker-18: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-25 11:07:33,790 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-25 11:07:33,793 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-25 11:07:33,797 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-25 14:01:37,091 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-25 14:01:37,110 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-25 14:01:37,127 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-25 14:01:41,413 [Worker-24: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-25 14:01:41,425 [Worker-24: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-25 14:01:41,450 [Worker-24: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-25 14:01:49,118 [Worker-19: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-25 14:01:49,139 [Worker-19: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-25 14:01:49,161 [Worker-19: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-25 14:10:49,089 [Worker-24: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-25 14:10:49,101 [Worker-24: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-25 14:10:49,117 [Worker-24: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-25 14:11:00,227 [Worker-0: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-25 14:11:00,238 [Worker-0: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-25 14:11:00,245 [Worker-0: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-25 14:53:49,971 [Worker-23: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-25 14:53:49,995 [Worker-23: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-25 14:53:50,010 [Worker-23: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-25 14:54:18,052 [Worker-4: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-25 14:54:18,066 [Worker-4: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-25 14:54:18,074 [Worker-4: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-25 14:54:27,810 [Worker-18: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-25 14:54:27,814 [Worker-18: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-25 14:54:27,821 [Worker-18: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-25 15:00:13,774 [Worker-15: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-25 15:00:13,795 [Worker-15: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-25 15:00:13,813 [Worker-15: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-25 15:00:26,711 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-25 15:00:26,720 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-25 15:00:26,725 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-25 15:00:39,157 [Worker-0: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-25 15:00:39,162 [Worker-0: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-25 15:00:39,166 [Worker-0: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-25 16:07:23,386 [Worker-4: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-25 16:07:23,415 [Worker-4: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-25 16:07:23,426 [Worker-4: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-25 16:08:46,604 [Worker-23: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-25 16:08:46,617 [Worker-23: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-25 16:08:46,626 [Worker-23: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-25 16:09:07,843 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-25 16:09:07,846 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-25 16:09:07,851 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-25 16:28:13,559 [Worker-24: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-25 16:28:13,582 [Worker-24: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-25 16:28:13,589 [Worker-24: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-25 22:14:09,577 [Worker-24: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-25 22:14:09,605 [Worker-24: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-25 22:14:09,617 [Worker-24: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-25 22:14:24,978 [Worker-15: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-25 22:14:24,994 [Worker-15: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-25 22:14:25,004 [Worker-15: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-25 22:14:36,412 [Worker-4: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-25 22:14:36,416 [Worker-4: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-25 22:14:36,420 [Worker-4: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-25 22:19:24,572 [Worker-18: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-25 22:19:24,590 [Worker-18: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-25 22:19:24,598 [Worker-18: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-25 22:23:30,927 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-25 22:23:30,937 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-25 22:23:30,942 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-25 22:24:07,492 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-25 22:24:07,498 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-25 22:24:07,505 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-26 10:37:37,970 [Worker-19: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-26 10:37:37,995 [Worker-19: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-26 10:37:38,007 [Worker-19: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-26 10:37:44,068 [Worker-0: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-26 10:37:44,072 [Worker-0: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-26 10:37:44,079 [Worker-0: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-26 10:38:06,820 [Worker-18: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-26 10:38:06,824 [Worker-18: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-26 10:38:06,834 [Worker-18: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-26 10:38:34,049 [Worker-19: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-26 10:38:34,068 [Worker-19: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-26 10:38:34,076 [Worker-19: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-26 10:46:36,559 [Worker-18: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-26 10:46:36,603 [Worker-18: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-26 10:46:36,607 [Worker-18: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-26 10:48:56,133 [Worker-0: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-26 10:48:56,153 [Worker-0: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-26 10:48:56,163 [Worker-0: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-26 10:49:16,702 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-26 10:49:16,708 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-26 10:49:16,712 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-26 10:49:34,179 [Worker-24: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-26 10:49:34,181 [Worker-24: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-26 10:49:34,184 [Worker-24: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-26 10:50:05,357 [Worker-19: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-26 10:50:05,359 [Worker-19: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-26 10:50:05,362 [Worker-19: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources
+2025-03-26 11:31:58,810 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-26 11:31:58,841 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 8 resources from src/main/resources to target/classes
+2025-03-26 11:31:58,852 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/mac/Desktop/LearnAlive_git/LearnAlive/src/test/resources

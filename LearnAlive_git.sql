@@ -15,11 +15,14 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+use LearnAlive_git;
+
 select * from admin;
 select * from student;
 select * from professor;
 select * from class;
 select * from post;
+select * from team_activity_post;
 
 --
 -- Table structure for table `admin`
@@ -566,3 +569,61 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2025-03-21 16:04:35
+
+-- ======================================================
+-- 1. 팀 활동 게시글 테이블 (team_activity_post)
+-- 특정 강의실(class_id)과 연계되며, 제목, 내용, 작성자 정보, 좋아요 수,
+-- 그리고 팀원 정보를 JSON 배열 형식(team_members)으로 저장합니다.
+-- ======================================================
+DROP TABLE IF EXISTS `team_activity_post`;
+CREATE TABLE `team_activity_post` (
+  `post_id` INT NOT NULL AUTO_INCREMENT,
+  `class_id` INT NOT NULL,                  -- 연계된 강의실의 ID
+  `title` VARCHAR(255) NOT NULL,              -- 게시글 제목
+  `content` TEXT,                           -- 게시글 내용
+  `author_id` VARCHAR(50) NOT NULL,           -- 작성자 학번
+  `author_name` VARCHAR(255),                 -- 작성자 이름
+  `department` VARCHAR(100),                  -- 학과 정보
+  `email` VARCHAR(100),                       -- 이메일
+  `contact` VARCHAR(50),                      -- 연락처
+  `likes` INT DEFAULT 0,                      -- 좋아요 수
+  `team_members` JSON DEFAULT NULL,           -- 팀원들의 학번을 JSON 배열로 저장 (예: ["st001", "st002"])
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 생성 시각
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- 수정 시각
+  PRIMARY KEY (`post_id`),
+  KEY `class_id` (`class_id`),
+  CONSTRAINT `fk_team_activity_class` FOREIGN KEY (`class_id`) REFERENCES `class` (`class_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- ======================================================
+-- 2. 팀 활동 참가 신청 테이블 (team_activity_application)
+-- 학생이 특정 게시글에 대해 참가 신청(Attend)을 할 때 신청 정보를 기록하며,
+-- 신청 상태(status)는 'PENDING', 'APPROVED', 'REJECTED' 중 하나로 관리합니다.
+-- ======================================================
+DROP TABLE IF EXISTS `team_activity_application`;
+CREATE TABLE `team_activity_application` (
+  `application_id` INT NOT NULL AUTO_INCREMENT,
+  `post_id` INT NOT NULL,                     -- 해당 팀 활동 게시글의 ID
+  `applicant_student_id` VARCHAR(50) NOT NULL,  -- 참가 신청한 학생의 학번
+  `status` ENUM('PENDING','APPROVED','REJECTED') DEFAULT 'PENDING', -- 신청 상태
+  `applied_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 신청 시각
+  PRIMARY KEY (`application_id`),
+  KEY `post_id` (`post_id`),
+  CONSTRAINT `fk_team_activity_post_application` FOREIGN KEY (`post_id`) REFERENCES `team_activity_post` (`post_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- ======================================================
+-- 3. 팀 활동 댓글 테이블 (team_activity_comment)
+-- 팀 활동 게시글에 달린 댓글들을 저장하며, 각 댓글은 게시글과 연계되어 있습니다.
+-- ======================================================
+DROP TABLE IF EXISTS `team_activity_comment`;
+CREATE TABLE `team_activity_comment` (
+  `comment_id` INT NOT NULL AUTO_INCREMENT,
+  `post_id` INT NOT NULL,                    -- 댓글이 달린 팀 활동 게시글의 ID
+  `commenter_id` VARCHAR(50) NOT NULL,         -- 댓글 작성자의 학번
+  `content` TEXT NOT NULL,                    -- 댓글 내용
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 댓글 작성 시각
+  PRIMARY KEY (`comment_id`),
+  KEY `post_id` (`post_id`),
+  CONSTRAINT `fk_team_activity_comment_post` FOREIGN KEY (`post_id`) REFERENCES `team_activity_post` (`post_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

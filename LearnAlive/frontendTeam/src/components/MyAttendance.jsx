@@ -4,6 +4,7 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import * as XLSX from "xlsx";
 import { fetchAttendanceByStudent, fetchMonthlyAttendance } from "../api/attendanceApi";
+import "../styles/post.css";
 
 // Chart.js 관련 import
 import { Bar } from "react-chartjs-2";
@@ -223,7 +224,22 @@ const MyAttendance = () => {
       
       {/* 상단 영역: 캘린더와 월별 차트 */}
       <div>
-        <Calendar onChange={setSelectedDate} value={selectedDate} locale="ko-KR" />
+        <Calendar 
+          onChange={setSelectedDate} 
+          value={selectedDate}
+          locale="ko-KR"  // ✅ 한국어 로케일 적용
+          calendarType="gregory"  // ✅ 일요일부터 시작하도록 강제 설정
+          tileClassName={({ date, view }) => {
+            if (view === "month") {
+              const day = date.getDay();
+              return [
+                "calendar-tile", 
+                day === 0 || day === 6 ? "weekend" : "",  // ✅ 주말 빨간색
+                date.getMonth() !== selectedDate.getMonth() ? "neighboring-month" : "" // ✅ 지난달 / 다음달 날짜 회색
+              ].join(" ");
+            }
+          }} 
+        />
       </div>
       <div>
         <h3>월별 출결 통계</h3>

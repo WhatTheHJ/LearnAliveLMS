@@ -103,19 +103,20 @@ public class AttendanceServiceImpl implements AttendanceService {
         return response;
     }
 
-    public List<Attendance> getAttendanceByStudent(int studentId, String date) {
+    @Override
+    public List<Attendance> getAttendanceByStudent(String studentId, String date) {
         return attendanceMapper.findAttendanceByStudent(studentId, date);
     }
     
     @Override
     @Transactional
-    public List<Attendance> getMonthlyAttendance(int studentId, String month) {
+    public List<Attendance> getMonthlyAttendance(String studentId, String month) {
         return attendanceMapper.findAttendanceByStudentForMonth(studentId, month);
     }
     
     @Override
     @Transactional
-    public List<Attendance> getPastAttendance(int studentId, String endDate) {
+    public List<Attendance> getPastAttendance(String studentId, String endDate) {
         return attendanceMapper.findPastAttendanceByStudent(studentId, endDate);
     }
 }

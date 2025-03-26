@@ -28,16 +28,33 @@ const Achievements = () => {
   if (loading) return <div>로딩 중...</div>;
   if (error) return <div>{error}</div>;
 
-  // 업적 조건에 따른 메시지 생성
-  const achievementMessages = [];
-  if (achievement.postCount >= 5)
-    achievementMessages.push("게시물 5개 이상 작성 업적 달성!");
-  if (achievement.totalLikes >= 10)
-    achievementMessages.push("내 게시글의 좋아요 횟수 10회 이상 받기 업적 달성!");
-  if (achievement.totalViews >= 10)
-    achievementMessages.push("내 게시글이 10회 이상 조회되기 업적 달성!");
-  if (achievementMessages.length === 0)
-    achievementMessages.push("달성한 업적 없음");
+  // 각 업적 조건에 따른 달성한 업적과 달성 조건을 객체로 생성
+  const achievementsList = [];
+
+  if (achievement.postCount >= 5) {
+    achievementsList.push({
+      title: "내가 바로 소통왕!",
+      condition: "게시물 5개 이상 작성하기"
+    });
+  }
+  if (achievement.totalLikes >= 10) {
+    achievementsList.push({
+      title: "이거 나한테 플러팅한거지?",
+      condition: "내 게시글의 좋아요 횟수 10회 이상 달성하기"
+    });
+  }
+  if (achievement.totalViews >= 10) {
+    achievementsList.push({
+      title: "조횟숴~! 영차~!",
+      condition: "내 게시글의 조회수 10회 이상 달성하기"
+    });
+  }
+  if (achievementsList.length === 0) {
+    achievementsList.push({
+      title: "달성한 업적 없음",
+      condition: ""
+    });
+  }
 
   return (
     <div>
@@ -46,17 +63,19 @@ const Achievements = () => {
         <thead>
           <tr>
             <th>달성한 업적</th>
+            <th>달성 조건</th>
           </tr>
         </thead>
         <tbody>
-          {achievementMessages.map((msg, idx) => (
+          {achievementsList.map((item, idx) => (
             <tr key={idx}>
-              <td colSpan="2">
-                {msg !== "달성한 업적 없음" && (
+              <td>
+                {item.title !== "달성한 업적 없음" && (
                   <WorkspacePremiumIcon style={{ verticalAlign: "middle", marginRight: "5px" }} />
                 )}
-                {msg}
+                {item.title}
               </td>
+              <td>{item.condition}</td>
             </tr>
           ))}
         </tbody>

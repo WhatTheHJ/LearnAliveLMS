@@ -1,0 +1,67 @@
+package com.lms.attendance.service;
+
+import java.util.List;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import com.lms.attendance.model.TeamActivityApplication;
+import com.lms.attendance.model.TeamActivityComment;
+import com.lms.attendance.repository.TeamActivityApplicationMapper;
+import com.lms.attendance.model.TeamActivityPost;
+import com.lms.attendance.repository.TeamActivityCommentMapper;
+
+
+@Service
+public class TeamActivityService {
+    private final TeamActivityApplicationMapper applicationMapper;
+    private final TeamActivityCommentMapper commentMapper;
+
+    public TeamActivityService(TeamActivityApplicationMapper applicationMapper,
+                               TeamActivityCommentMapper commentMapper) {
+        this.applicationMapper = applicationMapper;
+        this.commentMapper = commentMapper;
+    }
+
+    @Transactional
+    public TeamActivityApplication applyForTeamActivity(TeamActivityApplication application) {
+        application.setStatus("PENDING");
+        applicationMapper.applyForTeamActivity(application);
+        return application;
+    }
+
+    public void updateApplicationStatus(int applicationId, String status) {
+        applicationMapper.updateApplicationStatus(applicationId, status);
+    }
+
+    public List<TeamActivityApplication> getApplicationsByPostId(int postId) {
+        return applicationMapper.getApplicationsByPostId(postId);
+    }
+
+    public TeamActivityApplication getApplicationById(int applicationId) {
+        return applicationMapper.getApplicationById(applicationId);
+    }
+
+    // 댓글 관련
+    @Transactional
+    public TeamActivityComment addComment(TeamActivityComment comment) {
+        commentMapper.addComment(comment);
+        return comment;
+    }
+
+    public List<TeamActivityComment> getCommentsByPostId(int postId) {
+        return commentMapper.getCommentsByPostId(postId);
+    }
+    
+    @Transactional
+    public TeamActivityPost createTeamActivityPost(TeamActivityPost post) {
+        postMapper.createPost(post);
+        return post;
+    }
+
+    public List<TeamActivityPost> getAllTeamActivityPosts() {
+        return postMapper.getAllPosts();
+    }
+
+    public TeamActivityPost getTeamActivityPostById(int postId) {
+        return postMapper.getPostById(postId);
+    }
+}
