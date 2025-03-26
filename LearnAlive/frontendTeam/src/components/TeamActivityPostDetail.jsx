@@ -5,9 +5,11 @@ import {
   addTeamActivityComment, 
   getTeamActivityComments,
   attendTeamActivityPost,
+  applyForTeamActivity,
   toggleTeamActivityLike
 } from "../api/teamActivityApi";
 import { useAuth } from "../context/AuthContext";
+import ApprovedMembers from "./ApprovedMembers";
 
 // 유저별로 storage key를 생성하는 헬퍼 함수
 const getStorageKey = (baseKey, userId) => `${baseKey}_${userId}`;
@@ -16,30 +18,41 @@ const TeamActivityPostDetail = ({ post, onBack, refreshPosts }) => {
   const { user } = useAuth();
   const [postData, setPostData] = useState(post);
   const [liked, setLiked] = useState(false);
+  const [applied, setApplied] = useState(false);
   const [attending, setAttending] = useState(false);
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
   const [loadingComments, setLoadingComments] = useState(false);
+  const [showMembers, setShowMembers] = useState(false);
 
-  // 컴포넌트 마운트 시 유저별 localStorage에서 좋아요 및 참석 상태 복원
+  // 상세 화면 진입 시 DB에서 최신 게시글 데이터 불러오기
+  useEffect(() => {
+    if (!post || !post.postId) return;
+    const fetchPostData = async () => {
+      try {
+        const freshPost = await getTeamActivityPost(post.postId);
+        setPostData(freshPost);
+      } catch (error) {
+        console.error("게시글 최신 데이터 불러오기 오류:", error);
+      }
+    };
+    fetchPostData();
+  }, [post]);
+
+  // 컴포넌트 마운트 시 로컬 스토리지에서 좋아요 상태 복원
   useEffect(() => {
     if (!user) return;
     const likedPostsKey = getStorageKey("likedPosts", user.userId);
-    const likeCountsKey = getStorageKey("likeCounts", user.userId);
-    const attendedPostsKey = getStorageKey("attendedPosts", user.userId);
-    
     const likedPosts = JSON.parse(localStorage.getItem(likedPostsKey) || "{}");
-    const likeCounts = JSON.parse(localStorage.getItem(likeCountsKey) || "{}");
-    const attendedPosts = JSON.parse(localStorage.getItem(attendedPostsKey) || "{}");
-    
     setLiked(likedPosts[postData.postId] || false);
-    if (likeCounts[postData.postId] !== undefined) {
-      setPostData((prev) => ({ ...prev, likes: likeCounts[postData.postId] }));
-    } else {
-      likeCounts[postData.postId] = postData.likes;
-      localStorage.setItem(likeCountsKey, JSON.stringify(likeCounts));
-    }
-    setAttending(attendedPosts[postData.postId] || false);
+  }, [postData.postId, user]);
+
+  // 참가 신청 상태 복원
+  useEffect(() => {
+    if (!user) return;
+    const appliedPostsKey = getStorageKey("appliedPosts", user.userId);
+    const appliedPosts = JSON.parse(localStorage.getItem(appliedPostsKey) || "{}");
+    setApplied(appliedPosts[postData.postId] || false);
   }, [postData.postId, user]);
 
   // 댓글 불러오기
@@ -65,54 +78,45 @@ const TeamActivityPostDetail = ({ post, onBack, refreshPosts }) => {
     }
   }, [user, postData.teamMembers]);
 
-  // 좋아요 추가 함수 (유저당 한 번만 좋아요 처리)
   const handleLike = async () => {
-    // 이미 좋아요를 누른 경우 추가 호출 방지
-    if (liked) {
-      alert("이미 좋아요를 누르셨습니다.");
-      return;
-    }
     try {
-      // 좋아요 추가 시에는 increment 값 1만 전달
-      const updatedPost = await toggleTeamActivityLike(postData.postId, 1);
-      setPostData(updatedPost);
-      setLiked(true);
-      // localStorage에 상태 저장 (옵션)
+      const increment = liked ? -1 : 1;
+      await toggleTeamActivityLike(postData.postId, increment);
+      // 최신 데이터를 다시 불러와 업데이트
+      const freshPost = await getTeamActivityPost(postData.postId);
+      setPostData(freshPost);
+      
+      // 로컬 스토리지 좋아요 상태 업데이트
       const likedPostsKey = getStorageKey("likedPosts", user.userId);
       const likedPosts = JSON.parse(localStorage.getItem(likedPostsKey) || "{}");
-      likedPosts[postData.postId] = true;
+      likedPosts[postData.postId] = !liked;
       localStorage.setItem(likedPostsKey, JSON.stringify(likedPosts));
+      
+      // 토글 후 메시지 출력
+      if (!liked) {
+        alert("좋아요를 눌렀습니다.");
+      } else {
+        alert("좋아요가 취소되었습니다.");
+      }
+      setLiked(!liked);
     } catch (error) {
       console.error("좋아요 처리 오류:", error);
     }
   };
 
-  // 참석 버튼 클릭 처리
+  // 참가 신청 처리 (학생만 보임)
   const handleAttend = async () => {
     if (!user) return;
-    const attendedPostsKey = getStorageKey("attendedPosts", user.userId);
+    const appliedPostsKey = getStorageKey("appliedPosts", user.userId);
     try {
-      const updatedPost = await attendTeamActivityPost(postData.postId, user.userId);
-      // 만약 updatedPost.teamMembers에 참석한 사용자가 없다면 직접 추가
-      let updatedTeamMembers = updatedPost.teamMembers || [];
-      if (!updatedTeamMembers.includes(user.userId)) {
-        updatedTeamMembers.push(user.userId);
-      }
-      updatedPost.teamMembers = updatedTeamMembers;
-      // 참석 상태를 localStorage에 저장
-      const attendedPosts = JSON.parse(localStorage.getItem(attendedPostsKey) || "{}");
-      attendedPosts[postData.postId] = true;
-      localStorage.setItem(attendedPostsKey, JSON.stringify(attendedPosts));
-      // 서버 응답에 좋아요 값이 덮어쓰여질 수 있으므로 localStorage의 좋아요 값 복원
-      const likeCountsKey = getStorageKey("likeCounts", user.userId);
-      const likeCounts = JSON.parse(localStorage.getItem(likeCountsKey) || "{}");
-      if (likeCounts[postData.postId] !== undefined) {
-        updatedPost.likes = likeCounts[postData.postId];
-      }
-      setPostData(updatedPost);
-      setAttending(true);
+      await applyForTeamActivity(postData.postId, user.userId);
+      alert("참가 신청이 완료되었습니다. 승인 대기 중입니다.");
+      const appliedPosts = JSON.parse(localStorage.getItem(appliedPostsKey) || "{}");
+      appliedPosts[postData.postId] = true;
+      localStorage.setItem(appliedPostsKey, JSON.stringify(appliedPosts));
+      setApplied(true);
     } catch (error) {
-      console.error("참석 처리 오류:", error);
+      console.error("참가 신청 오류:", error);
     }
   };
 
@@ -121,8 +125,8 @@ const TeamActivityPostDetail = ({ post, onBack, refreshPosts }) => {
     if (window.confirm("정말 이 게시글을 삭제하시겠습니까?")) {
       try {
         await deleteTeamActivityPost(postData.postId);
-        refreshPosts(); // 부모에서 게시글 목록 새로고침
-        onBack(); // 목록으로 돌아가기
+        refreshPosts();
+        onBack();
       } catch (error) {
         console.error("게시글 삭제 오류:", error);
       }
@@ -147,29 +151,48 @@ const TeamActivityPostDetail = ({ post, onBack, refreshPosts }) => {
     }
   };
 
+  // 멤버 보기 버튼 클릭 시 ApprovedMembers 컴포넌트로 전환
+  if (showMembers) {
+    return (
+      <ApprovedMembers 
+        postId={postData.postId} 
+        onBack={() => setShowMembers(false)} 
+        post={postData} 
+      />
+    );
+  }
+
   return (
     <div>
       <h2>{postData.title}</h2>
-      <p> <strong>작성자:</strong> {postData.authorName} </p>
-      <p> <strong>작성일:</strong> {new Date(postData.createdAt).toLocaleString()} </p>
-      <p> <strong>좋아요:</strong> {post.likes} </p>
+      <p><strong>작성자:</strong> {postData.authorName}</p>
+      <p><strong>작성일:</strong> {new Date(postData.createdAt).toLocaleString()}</p>
+      <p><strong>좋아요:</strong> {postData.likes}</p>
       <div>
         <p>{postData.content}</p>
       </div>
       <div style={{ margin: "1rem 0" }}>
         <button onClick={handleLike}>
-          {liked ? "좋아요 취소" : "좋아요"}
+          {liked ? "좋아요 취소" : "👍 좋아요"}
         </button>
-        <button onClick={handleAttend} disabled={attending} style={{ marginLeft: "1rem" }}>
-          {attending ? "참석 완료" : "참석"}
+        {/* 학생일 때, 작성자도 아니고, 아직 팀 멤버(승인)도 아니라면 신청 버튼을 표시 */}
+        {user?.role === "STUDENT" && user.userId !== postData.authorId && !attending && !applied && (
+          <button onClick={handleAttend} style={{ marginLeft: "1rem" }}>
+            참가 신청
+          </button>
+        )}
+        {/* 만약 이미 신청했지만 아직 승인되지 않았다면 신청 완료 버튼(비활성화)을 표시 */}
+        {user?.role === "STUDENT" && !attending && applied && (
+          <button disabled style={{ marginLeft: "1rem" }}>
+            신청 완료
+          </button>
+        )}
+        <button onClick={() => setShowMembers(true)} style={{ marginLeft: "1rem" }}>
+          멤버 보기
         </button>
-      </div>
-      {user?.role === "professor" && (
-        <div style={{ marginBottom: "1rem" }}>
+        {user?.role === "professor" && (
           <button onClick={handleDelete}>게시글 삭제</button>
-        </div>
-      )}
-      <div style={{ marginBottom: "1rem" }}>
+        )}
         <button onClick={() => onBack(postData)}>뒤로가기</button>
       </div>
       <hr />

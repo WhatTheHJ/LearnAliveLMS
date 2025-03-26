@@ -1,0 +1,19 @@
+package com.lms.attendance.repository;
+
+import org.apache.ibatis.annotations.*;
+import com.lms.attendance.model.ProjectMember;
+import java.util.List;
+
+@Mapper
+public interface ProjectMemberMapper {
+
+    @Insert("""
+            INSERT INTO project_member (post_id, student_id, name, department, email, contact, approved_at)
+            VALUES (#{postId}, #{studentId}, #{name}, #{department}, #{email}, #{contact}, #{approvedAt})
+            """)
+    @Options(useGeneratedKeys = true, keyProperty = "memberId")
+    void insertProjectMember(ProjectMember member);
+
+    @Select("SELECT * FROM project_member WHERE post_id = #{postId}")
+    List<ProjectMember> getProjectMembersByPostId(int postId);
+}

@@ -3,6 +3,7 @@ package com.lms.attendance.controller;
 import com.lms.attendance.model.TeamActivityPost;
 import com.lms.attendance.model.TeamActivityApplication;
 import com.lms.attendance.model.TeamActivityComment;
+import com.lms.attendance.model.ProjectMember;
 import com.lms.attendance.service.TeamActivityService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -52,12 +53,12 @@ public class TeamActivityController {
         return ResponseEntity.ok(application);
     }
 
-    // 참가 신청 승인
-    @PutMapping("/applications/{applicationId}/approve")
-    public ResponseEntity<String> approveApplication(@PathVariable("applicationId") int applicationId) {
-        teamActivityService.updateApplicationStatus(applicationId, "APPROVED");
-        return ResponseEntity.ok("참가 신청이 승인되었습니다.");
-    }
+//    // 참가 신청 승인
+//    @PutMapping("/applications/{applicationId}/approve")
+//    public ResponseEntity<String> approveApplication(@PathVariable("applicationId") int applicationId) {
+//        teamActivityService.updateApplicationStatus(applicationId, "APPROVED");
+//        return ResponseEntity.ok("참가 신청이 승인되었습니다.");
+//    }
 
     // 참가 신청 거절
     @PutMapping("/applications/{applicationId}/reject")
@@ -124,5 +125,25 @@ public class TeamActivityController {
         teamActivityService.updateLikeCount(postId, increment);
         TeamActivityPost updatedPost = teamActivityService.getTeamActivityPostById(postId);
         return ResponseEntity.ok(updatedPost);
+    }
+    
+    // 참가 신청 승인 (게시글 작성자 전용)
+    @PutMapping("/applications/{applicationId}/approve")
+    public ResponseEntity<String> approveApplication(@PathVariable("applicationId") int applicationId) {
+        teamActivityService.approveApplicationAndAddMember(applicationId);
+        return ResponseEntity.ok("참가 신청이 승인되었고, 프로젝트 멤버로 등록되었습니다.");
+    }
+
+    // 승인된 프로젝트 멤버 목록 조회
+    @GetMapping("/posts/{postId}/members")
+    public ResponseEntity<List<ProjectMember>> getProjectMembers(@PathVariable("postId") int postId) {
+        List<ProjectMember> members = teamActivityService.getProjectMembersByPostId(postId);
+        return ResponseEntity.ok(members);
+    }
+    
+    @DeleteMapping("/project-members/{memberId}")
+    public ResponseEntity<String> deleteProjectMember(@PathVariable("memberId") int memberId) {
+        teamActivityService.deleteProjectMember(memberId);
+        return ResponseEntity.ok("프로젝트 멤버 삭제 완료");
     }
 }

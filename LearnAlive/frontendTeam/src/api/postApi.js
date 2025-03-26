@@ -74,8 +74,8 @@ export const createPost = async (boardId, postData, file) => {
   //좋아요 기능
 export const likePost = (postId, userId) => {
   return axios.post(`${API_BASE_URL}/${postId}/like`, null, {
-   params: { userId }
-});
+    params: { userId }
+  });
 };
 
 export const checkIfLiked = async (postId, userId) => {

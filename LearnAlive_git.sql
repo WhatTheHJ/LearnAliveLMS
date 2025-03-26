@@ -23,6 +23,9 @@ select * from professor;
 select * from class;
 select * from post;
 select * from team_activity_post;
+select * from project_member;
+select * from team_activity_application;
+
 
 --
 -- Table structure for table `admin`
@@ -398,6 +401,8 @@ CREATE TABLE `student` (
 ) ENGINE=InnoDB AUTO_INCREMENT=531 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+ALTER TABLE Student ADD COLUMN contact VARCHAR(50);
+
 --
 -- Dumping data for table `student`
 --
@@ -627,3 +632,15 @@ CREATE TABLE `team_activity_comment` (
   KEY `post_id` (`post_id`),
   CONSTRAINT `fk_team_activity_comment_post` FOREIGN KEY (`post_id`) REFERENCES `team_activity_post` (`post_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE project_member (
+  member_id INT AUTO_INCREMENT PRIMARY KEY,
+  post_id INT NOT NULL,
+  student_id VARCHAR(50) NOT NULL,
+  name VARCHAR(100) NOT NULL,
+  department VARCHAR(100),
+  email VARCHAR(100),
+  contact VARCHAR(50),
+  approved_at DATETIME NOT NULL,
+  FOREIGN KEY (post_id) REFERENCES team_activity_post(post_id)
+);

@@ -84,3 +84,20 @@ export const toggleTeamActivityLike = async (postId, increment) => {
   });
   return response.data;
 };
+
+// 승인된 프로젝트 멤버 조회 API 함수 추가
+export const getProjectMembers = async (postId) => {
+  const response = await axios.get(`${API_BASE_URL}/posts/${postId}/members`);
+  return response.data;
+};
+
+// 특정 학생 정보를 조회하는 API 함수 추가
+export const getStudentById = async (studentId) => {
+  const response = await axios.get(`${API_BASE_URL}/auth/student/${studentId}`);
+  return response.data;
+};
+
+export const deleteProjectMember = async (memberId) => {
+  const response = await axios.delete(`${API_BASE_URL}/project-members/${memberId}`);
+  return response.data;
+};
