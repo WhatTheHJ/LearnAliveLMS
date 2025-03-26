@@ -1,13 +1,18 @@
 import { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { fetchExamDetail, submitExam } from '../api/examApi';
 import { useAuth } from '../context/AuthContext';
 import '../styles/ExamTake.css';
 
-const ExamTake = ({ examId, classId, onBack, onResult }) => {
+const ExamTake = () => {
+  const { examId, classId } = useParams();
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [exam, setExam] = useState(null);
   const [answers, setAnswers] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(null);
+  const [totalExamTime, setTotalExamTime] = useState(null);
 
   useEffect(() => {
     const loadExam = async () => {
@@ -16,7 +21,26 @@ const ExamTake = ({ examId, classId, onBack, onResult }) => {
         console.log('📥 불러온 시험 데이터:', data);
         if (data && Array.isArray(data.questions)) {
           setExam(data);
-          setAnswers(new Array(data.questions.length).fill(null)); // 초기값 설정 (null)
+          setAnswers(new Array(data.questions.length).fill(null));
+
+          const endTime = new Date(data.endTime); // 시험 종료 시간
+          const startTime = new Date(data.startTime); // 시험 시작 시간
+          const totalExamTime = endTime - startTime; // 총 시험 시간 (ms 단위)
+          let timeRemaining = totalExamTime;
+          const totalTime = Math.floor((endTime - startTime) / 60000); // 분 단위 변환
+          setTotalExamTime(totalTime); // 상태 저장
+
+          const timer = setInterval(() => {
+            if (timeRemaining <= 0) {
+              clearInterval(timer);
+              setTimeLeft(0); // 시간 종료
+            } else {
+              timeRemaining -= 1000; // 1초씩 차감
+              setTimeLeft(timeRemaining); // 남은 시간 업데이트
+            }
+          }, 1000);
+
+          return () => clearInterval(timer); // 컴포넌트가 unmount 될 때 interval 해제
         } else {
           console.error('시험 데이터에 문제가 있습니다.', data);
         }
@@ -34,11 +58,12 @@ const ExamTake = ({ examId, classId, onBack, onResult }) => {
   };
 
   const handleSubmit = async () => {
-    const unansweredQuestions = [];
+    if (isSubmitting) return;
 
+    const unansweredQuestions = [];
     answers.forEach((answer, index) => {
       if (answer === null) {
-        unansweredQuestions.push(index + 1); // 문제 번호 저장 (배열은 0부터 시작이므로 +1)
+        unansweredQuestions.push(index + 1);
       }
     });
 
@@ -55,15 +80,10 @@ const ExamTake = ({ examId, classId, onBack, onResult }) => {
 
     setIsSubmitting(true);
     try {
-      // 시험 제출
-      const result = await submitExam(examId, examData);
+      const result = await submitExam(examData);
       console.log('시험 제출 결과:', result);
-
       alert('시험 제출 완료!');
-
-      // ✅ 부모 컴포넌트로 결과 전환 요청 (navigate 제거)
-      if (onResult) onResult(examId);
-
+      navigate(`/exam_result/${classId}/${examId}`);
     } catch (error) {
       console.error('시험 제출 실패:', error);
       alert('시험 제출에 실패했습니다.');
@@ -72,33 +92,80 @@ const ExamTake = ({ examId, classId, onBack, onResult }) => {
     }
   };
 
-  // exam 또는 exam.questions이 없을 경우 로딩 메시지를 표시
+  const getAnsweredCount = () => {
+    return answers.filter((answer) => answer !== null).length;
+  };
+
   if (!exam || !exam.questions || exam.questions.length === 0) {
     return <p className="loading">시험 정보를 불러오는 중...</p>;
   }
 
+  const formatTime = (ms) => {
+    const seconds = Math.floor((ms / 1000) % 60);
+    const minutes = Math.floor((ms / 1000 / 60) % 60);
+    // const hours = Math.floor((ms / (1000 * 60 * 60)) % 24);
+    return `${minutes.toString().padStart(2, '0')}:${seconds
+      .toString()
+      .padStart(2, '0')}`;
+  };
+
   return (
     <div className="exam-container">
-      <h2 className="exam-title">{exam.title} (시험 응시)</h2>
+      <div className="exam-header">
+        <h2 className="exam-title">{exam.title} (시험 응시)</h2>
+      </div>
 
       <div className="exam-info">
-        <div className="exam-info-field">
-          <span>담당 교수 : {exam.profName.replace('T', ' ')}</span>
-          <span>시험 시작 시간 : {exam.startTime.replace('T', ' ')}</span>
-          <span>시험 종료 시간 : {exam.endTime.replace('T', ' ')}</span>
+        <div className="exam-info-field-1">
+          <span>
+            담당 교수 : {exam.profName}
+            <br />
+            <br />
+            수료기준 : 60점
+            <br />
+            <br />총 시험 시간 : {totalExamTime}분
+            <br />
+            <br />
+            시험 시작 시간 : {exam.startTime.replace('T', ' ')}
+            <br />
+            <br />
+            시험 종료 시간 : {exam.endTime.replace('T', ' ')}
+          </span>
+          <div className="timer-container">
+            <div className="timer-header-1">
+              <div className="timer-1">
+                ⏱️ {timeLeft !== null ? formatTime(timeLeft) : '00:00'}
+              </div>
+              <div className="getAnsweredCount">
+                {getAnsweredCount()}/{exam.questionCount}
+              </div>
+            </div>
+
+            <div className="answer-preview-1">
+              {exam.questions.map((question, index) => (
+                <span key={index} className="answer-item-1">
+                  <span>{index + 1}</span>
+                  {answers[index] !== null ? (
+                    <span className="answered">✅</span>
+                  ) : (
+                    <span className="not-answered">⬜</span>
+                  )}
+                </span>
+              ))}
+            </div>
+          </div>
         </div>
-        <br></br>
+
         <h3>시험 문제 ({exam.questionCount}문항)</h3>
+
         <div className="question-options">
           {exam.questions.map((question, index) => (
             <div key={index}>
-              <br></br>
-              <div className="question-header">
-                <h3 className="question-number">Q{index + 1}.</h3>
-                <div className="question-title">{question.questionTitle}</div>
+              <div className="question-header-1">
+                <h3 className="question-number-1">Q{index + 1}.</h3>
+                <div className="question-title-1">{question.questionTitle}</div>
               </div>
               <div className="question-text">{question.questionText}</div>
-              <br />
               {['answer1', 'answer2', 'answer3', 'answer4'].map((key, i) => (
                 <div key={i} className="option">
                   <label>
@@ -106,7 +173,7 @@ const ExamTake = ({ examId, classId, onBack, onResult }) => {
                       type="radio"
                       name={`question-${index}`}
                       className="question-option-input"
-                      value={i + 1} // 선택된 값 (1~4)
+                      value={i + 1}
                       checked={answers[index] === i + 1}
                       onChange={() => handleAnswerChange(index, i + 1)}
                     />
@@ -117,8 +184,7 @@ const ExamTake = ({ examId, classId, onBack, onResult }) => {
             </div>
           ))}
         </div>
-        <br></br>
-        <br></br>
+
         <div className="submit-container">
           <button
             className="submit-btn"
@@ -131,7 +197,7 @@ const ExamTake = ({ examId, classId, onBack, onResult }) => {
 
         <div className="button-container">
           <button
-            onClick={onBack}
+            onClick={() => navigate(`/classroom/${classId}/exam`)}
             className="home-btn"
           >
             시험목록으로

@@ -99,10 +99,6 @@ const ExamCreate = () => {
         alert(`문제 ${i + 1}의 제목을 입력해주세요.`);
         return;
       }
-      if (!q.text.trim()) {
-        alert(`문제 ${i + 1}의 내용을 입력해주세요.`);
-        return;
-      }
       if (q.options.some((option) => !option.trim())) {
         alert(`문제 ${i + 1}의 모든 선택지를 입력해주세요.`);
         return;
@@ -191,7 +187,9 @@ const ExamCreate = () => {
         {questions.map((question, qIndex) => (
           <div key={qIndex} className="question-box">
             <div className="question-header">
-              <strong>문제 {qIndex + 1}</strong>
+              <h2>
+                <strong>문제 {qIndex + 1}</strong>
+              </h2>
               <button
                 className="delete-btn"
                 onClick={() => removeQuestion(qIndex)}

@@ -6,8 +6,6 @@ import com.lms.attendance.model.ExamQuestion;
 import com.lms.attendance.model.ExamResult;
 import com.lms.attendance.model.ExamStudentAnswer;
 import com.lms.attendance.model.ExamSubmission;
-import com.lms.attendance.repository.ExamMapper;
-import com.lms.attendance.repository.ExamQuestionMapper;
 import com.lms.attendance.repository.ExamSubmissionMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,7 +26,7 @@ public class ExamSubmissionService {
 
     // 시험 제출 및 자동 채점
    
-    public void submitExam(ExamStudentAnswer examStudentAnswer, int examId) {
+    public void submitExam(ExamStudentAnswer examStudentAnswer) {
     	
         // 시험 제출 정보 저장
     	ExamSubmission submission = new ExamSubmission();
@@ -106,24 +104,10 @@ public class ExamSubmissionService {
     	examResult.setExam(exam);
     	examResult.setExamSubmission(examSubmission);
     	examResult.setAnswers(answers);
-    	// .. 학생꺼 더담기    	
     	return examResult;
     }
+
     
-    
-    
-    // 특정 시험 상세 보기
-//    public Exam getExamById(int examId) {
-//        // 시험 정보 가져오기
-//        Exam exam = examMapper.getExamById(examId);
-//        
-//        // 해당 시험에 속하는 질문들 가져오기
-//        List<ExamQuestion> questions = examQuestionMapper.getQuestionsByExamId(examId);
-//        exam.setQuestions(questions);  // 시험에 질문 목록 추가
-//        
-//        return exam;
-//    }
-    
-    
+
     
 }

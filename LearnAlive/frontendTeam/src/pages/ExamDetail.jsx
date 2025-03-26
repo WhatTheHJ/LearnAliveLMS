@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchExamDetail, updateExam, deleteExam } from '../api/examApi';
-import "../styles/ExamDetail.css";
+import '../styles/ExamDetail.css';
+import PropTypes from "prop-types";
 
 const ExamDetail = ({ examId: propExamId, onUpdated, onBack }) => {
   const { examId: paramExamId } = useParams();
@@ -96,12 +97,13 @@ const ExamDetail = ({ examId: propExamId, onUpdated, onBack }) => {
       setExam(updatedExam); // 백엔드에서 받은 최신 데이터 적용
       setIsEditing(false);
       alert('시험 정보가 업데이트되었습니다.');
+      navigate(`/exam/${finalExamId}`); // 시험 상세 페이지로 이동
       if (onUpdated) onUpdated(); // 부모에게 리로드 요청
-  } catch (error) {
-    console.error('❌ 시험 수정 실패:', error);
-    alert('시험 수정에 실패했습니다.');
-  }
-  };
+    } catch (error) {
+      console.error('❌ 시험 수정 실패:', error);
+      alert('시험 수정에 실패했습니다.');
+    }
+    };
 
   const handleDelete = async () => {
     if (window.confirm('정말 삭제하시겠습니까?')) {
@@ -123,7 +125,7 @@ const ExamDetail = ({ examId: propExamId, onUpdated, onBack }) => {
 
       <div className="exam-info">
         <div className="exam-title-input">
-          <label>시험명:</label>
+          <label>시험명 :</label>
           {isEditing ? (
             <input
               type="text"
@@ -135,7 +137,7 @@ const ExamDetail = ({ examId: propExamId, onUpdated, onBack }) => {
           ) : (
             <span>{exam.title}</span>
           )}
-          <label>담당교수:</label>
+          <label>담당교수 :</label>
           {isEditing ? (
             <input
               type="text"
@@ -150,7 +152,7 @@ const ExamDetail = ({ examId: propExamId, onUpdated, onBack }) => {
         </div>
 
         <div className="exam-field">
-          <label>시험 시작 시간:</label>
+          <label>시험 시작 시간 :</label>
           {isEditing ? (
             <input
               type="datetime-local"
@@ -159,12 +161,14 @@ const ExamDetail = ({ examId: propExamId, onUpdated, onBack }) => {
               onChange={handleEditChange}
             />
           ) : (
-            <span className="exam-time">{exam.startTime}</span>
+            <span className="exam-time">
+              {exam.startTime.replace('T', ' ')}
+            </span>
           )}
         </div>
 
         <div className="exam-field">
-          <label className="exam-endtime">시험 종료 시간:</label>
+          <label className="exam-endtime">시험 종료 시간 :</label>
           {isEditing ? (
             <input
               type="datetime-local"
@@ -173,32 +177,37 @@ const ExamDetail = ({ examId: propExamId, onUpdated, onBack }) => {
               onChange={handleEditChange}
             />
           ) : (
-            <span className="exam-time">{exam.endTime}</span>
+            <span className="exam-time">{exam.endTime.replace('T', ' ')}</span>
           )}
         </div>
       </div>
-
-      <h3 className="question-title">시험 문제 ({questions.length}문항)</h3>
+      <br></br>
+      <h3>시험 문제 ({exam.questionCount}문항)</h3>
       <div className="question-list">
         {questions.length > 0 ? (
           questions.map((question, index) => (
-            <div key={question.questionId} className="question-card">
-              <h4 className="question-number">Q{index + 1}.</h4>
-              {isEditing ? (
-                <textarea
-                  type="title"
-                  placeholder="문제 제목 입력"
-                  name="questionTitle"
-                  className="question-title"
-                  value={question.questionTitle}
-                  onChange={(e) =>
-                    handleQuestionChange(index, 'questionTitle', e.target.value)
-                  }
-                />
-              ) : (
-                <p className="question-title">{question.questionTitle}</p>
-              )}
-
+            <div key={question.questionId}>
+              <div className="question-header-1">
+                <h3>Q{index + 1}.</h3>
+                {isEditing ? (
+                  <textarea
+                    type="title"
+                    placeholder="문제 제목 입력"
+                    name="questionTitle"
+                    className="question-title-1"
+                    value={question.questionTitle}
+                    onChange={(e) =>
+                      handleQuestionChange(
+                        index,
+                        'questionTitle',
+                        e.target.value
+                      )
+                    }
+                  />
+                ) : (
+                  <p className="question-title-1">{question.questionTitle}</p>
+                )}
+              </div>
               {isEditing ? (
                 <textarea
                   type="text"
@@ -246,6 +255,7 @@ const ExamDetail = ({ examId: propExamId, onUpdated, onBack }) => {
                             name={`question-${index}`}
                             className="question-option-input"
                             checked={question.correctAnswer === i + 1}
+                            disabled
                             onChange={() =>
                               handleCorrectAnswerChange(index, i + 1)
                             }
@@ -258,7 +268,7 @@ const ExamDetail = ({ examId: propExamId, onUpdated, onBack }) => {
                 )}
               </div>
               {isEditing ? (
-                <div className="correct-answer-input">
+                <div className="correct-answer">
                   <label> ✅ 정답 : {question.correctAnswer}</label>
                 </div>
               ) : (
@@ -296,12 +306,17 @@ const ExamDetail = ({ examId: propExamId, onUpdated, onBack }) => {
             </button>
           </>
         )}
-        <button className="back-btn" onClick={onBack}>
+<button className="back-btn" onClick={onBack}>
           ⬅ 목록으로
         </button>
       </div>
     </div>
   );
 };
-
+// ✅ PropTypes 검증 추가
+ExamDetail.propTypes = {
+  onBack: PropTypes.func.isRequired,
+  onUpdated: PropTypes.func.isRequired,
+  examId: PropTypes.number.isRequired,
+};
 export default ExamDetail;

@@ -235,13 +235,13 @@ const ClassroomDetail = () => {
             </button>
           )}
 
-          {/* 퀴즈 게시판 */}
+          {/* 시험관리 게시판 */}
           {examBoards.length > 0 && (
             <button
               className="menu-button"
               onClick={() => setSelectedMenu("exam")}
             >
-              퀴즈
+              시험관리
             </button>
           )}
 

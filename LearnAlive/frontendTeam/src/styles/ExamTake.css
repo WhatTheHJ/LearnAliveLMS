@@ -1,47 +1,122 @@
-.exam-info-field {
-    font-size: 17px;
-    display: flex;
-    flex-direction: column; /* 세로 정렬 */
-    justify-content: space-between;
-    background: white;
-    padding: 10px;
-    border-radius: 5px;
-  }
-  
-  .exam-info-field span {
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-  
-  .exam-status {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 15px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    width: 200px;
-  }
-  
-  .status-box {
-    text-align: center;
-    padding: 10px;
-    font-size: 18px;
-    font-weight: bold;
-  }
-  
-  .status-box strong {
-    display: block;
-    font-size: 22px;
-    color: #333;
-    margin-top: 5px;
-  }
-  
-  .question-number {
-    margin-top: 0px;
-  }
-  
-  .question-title {
-    margin-top: 8px;
-  }
+.exam-container {
+  padding: 30px;
+  width: 50%;
+}
+.exam-info-field-1 {
+  margin-bottom: 30px;
+  font-size: 17px;
+  display: flex;
+  height: 190px; /* 고정된 세로 길이 */
+  background: white;
+  padding: 30px;
+}
+
+.exam-info-field-1 span {
+  width: 100%;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.exam-status {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 15px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 200px;
+}
+
+.status-box {
+  text-align: center;
+  padding: 10px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.status-box strong {
+  display: block;
+  font-size: 22px;
+  color: #333;
+  margin-top: 5px;
+}
+
+.question-header-1 {
+  margin-top: 30px;
+  padding: 8px 12px;
+  font-size: 20px;
+  display: flex; 
+}
+
+.question-number-1 {
+  margin-top: 0px;
+  font-size: 27px;
+}
+
+.question-title-1 {
+  margin-top: 5px;
+margin-left: 20px;
+}
+
+.option,
+.question-title-1,
+.question-text {
+  width: 70%;
+}
+
+.option {
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.timer-container {
+  margin-top: -3px;
+  flex-direction: column;
+  width: 60%;
+  padding: 10px;
+  padding-bottom: 20px;
+  background: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  height: 170px;
+}
+
+.timer-header-1 {
+  gap: 60px;
+  display: flex;
+  align-items: center;
+}
+
+.timer-1 {
+  margin-left: 10px;
+  font-size: 23px;
+  padding-top: 0px;
+  color: #555;
+}
+
+.getAnsweredCount {
+  font-size: 14px;
+  color: #555;
+  background: #f9f9f9;
+}
+
+.answer-preview-1 {
+  margin-top: 5px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* 한 줄에 3개씩 */
+  justify-content: center; /* 중앙 정렬 */
+  gap: 10px;
+}
+
+.answer-item-1 {
+  gap: 1px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e9edf2;
+  border-radius: 20px;
+  font-size: 10px;
+  text-align: center; /* 중앙 정렬 */
+}

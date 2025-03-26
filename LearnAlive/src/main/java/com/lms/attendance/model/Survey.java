@@ -12,7 +12,7 @@ import lombok.Singular;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+
 public class Survey {
     private int surveyId;
     private int boardId;

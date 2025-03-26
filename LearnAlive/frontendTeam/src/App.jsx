@@ -19,6 +19,9 @@ import RegisterStudent from "./components/RegisterStudent";
 import ExamList from './pages/ExamList';
 import ExamCreate from './pages/ExamCreate';
 import ExamDetail from './pages/ExamDetail';
+import ExamTake from './pages/ExamTake';
+import ExamResult from './pages/ExamResult';
+
 
 import MyPage from "./pages/MyPage";
 import MyProfile from "./components/MyProfile";
@@ -52,11 +55,16 @@ function App() {
 
 
           <Route path="/classroom/:classId/exam" element={<ExamList />} />
-          <Route
-            path="/classroom/:classId/exam/add"
-             element={<ExamCreate />}
-          />
-          <Route path="exam/:examId" element={<ExamDetail />} />
+            <Route
+              path="/classroom/:classId/boards/examadd"
+              element={<ExamCreate />}
+            />
+            <Route path="exam/:examId" element={<ExamDetail />} />
+            <Route path="exam_take/:classId/:examId" element={<ExamTake />} />
+            <Route
+              path="exam_result/:classId/:examId"
+              element={<ExamResult />}
+            />
 
           <Route path="/mypage" element={<MyPage />}>
             <Route path="/mypage/myprofile" element={<MyProfile />} />
