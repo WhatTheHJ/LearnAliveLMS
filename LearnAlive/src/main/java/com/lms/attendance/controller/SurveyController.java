@@ -1,6 +1,7 @@
 package com.lms.attendance.controller;
 
 import java.util.List;
+
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
@@ -16,16 +17,30 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lms.attendance.model.Survey;
 import com.lms.attendance.model.SurveyBoard;
+import com.lms.attendance.repository.SurveyMapper;
 import com.lms.attendance.service.SurveyService;
+import com.lms.attendance.service.BoardService;
+import com.lms.attendance.service.AlarmSender;
+import com.lms.attendance.model.AlarmMessage;
+
+import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/api/surveys") // ✅ API 기본 경로
 public class SurveyController {
 
+	
     private final SurveyService surveyService;
+    //----------------웹소켓의존성추가
+    private final BoardService boardService;
+    private final AlarmSender alarmSender;
+    private final SurveyMapper surveyMapper;
 
-    public SurveyController(SurveyService surveyService) {
+    public SurveyController(SurveyService surveyService, BoardService boardService, AlarmSender alarmSender, SurveyMapper surveyMapper) {
         this.surveyService = surveyService;
+        this.boardService = boardService;
+        this.alarmSender = alarmSender;
+        this.surveyMapper = surveyMapper;
     }
 
     /** ✅ 특정 강의실의 모든 설문조사 게시판 조회 */
@@ -64,6 +79,27 @@ public class SurveyController {
         if (createdSurvey == null) {
             return ResponseEntity.badRequest().build();
         }
+        
+        // 웹소켓 알림 전송
+        Integer boardId = createdSurvey.getBoardId(); // 모델에 boardId 존재
+        Integer classId = surveyMapper.findClassIdBySurveyBoardId(boardId);
+        
+        if (classId == null) {
+            System.err.println("❌ 해당 boardId(" + boardId + ")에 해당하는 classId가 없습니다.");
+            return ResponseEntity.badRequest().body(null); // 또는 예외 던지기
+        }
+
+        AlarmMessage message = new AlarmMessage(
+            "SURVEY",
+            createdSurvey.getTitle(),
+            LocalDateTime.now().toString(),
+            classId
+        );
+     // 안전하게 WebSocket 알림 전송
+        alarmSender.sendToUsersInClass(classId, new AlarmMessage(
+            "SURVEY", createdSurvey.getTitle(), LocalDateTime.now().toString(), classId
+        ));
+        
         return ResponseEntity.ok(createdSurvey);
     }
     

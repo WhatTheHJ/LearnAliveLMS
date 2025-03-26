@@ -1,4 +1,5 @@
 com\lms\attendance\controller\WebController.class
+com\lms\attendance\repository\AlarmListMapper.class
 com\lms\attendance\repository\TodoMapper.class
 com\lms\attendance\config\CorsConfig.class
 com\lms\attendance\model\ExamScore.class
@@ -7,6 +8,7 @@ com\lms\attendance\service\BoardService.class
 com\lms\attendance\repository\ExamQuestionMapper.class
 com\lms\attendance\repository\NoticeMapper.class
 com\lms\attendance\model\LoginRequest.class
+com\lms\attendance\model\AlarmList.class
 com\lms\attendance\util\DatabaseUtil.class
 com\lms\attendance\controller\TestController.class
 com\lms\attendance\model\ClassDetail.class
@@ -19,6 +21,7 @@ com\lms\attendance\model\Attendance.class
 com\lms\attendance\controller\StudentController.class
 com\lms\attendance\model\StudentSurveyStatus.class
 com\lms\attendance\service\ProfessorService.class
+com\lms\attendance\service\AlarmListService.class
 com\lms\attendance\controller\ClassController.class
 com\lms\attendance\repository\AttendanceMapper.class
 com\lms\attendance\controller\PostController.class
@@ -28,6 +31,7 @@ com\lms\attendance\controller\BoardController.class
 com\lms\attendance\controller\ProfessorController.class
 com\lms\attendance\repository\AuthMapper.class
 com\lms\attendance\model\Survey.class
+com\lms\attendance\model\AlarmMessage.class
 com\lms\attendance\repository\ScheduleMapper.class
 com\lms\attendance\model\Schedule.class
 com\lms\attendance\model\ExamQuestion.class
@@ -43,6 +47,7 @@ com\lms\attendance\controller\SurveyController.class
 com\lms\attendance\model\Post.class
 com\lms\attendance\model\Survey$SurveyBuilder.class
 com\lms\attendance\controller\AuthController.class
+com\lms\attendance\controller\AlarmListController.class
 com\lms\attendance\model\ClassSettings.class
 com\lms\attendance\model\StudentClassRequest.class
 com\lms\attendance\service\AttendanceService.class
@@ -56,6 +61,7 @@ com\lms\attendance\controller\MyProfileController.class
 com\lms\attendance\repository\SurveyResponseMapper.class
 com\lms\attendance\repository\ExamScoreMapper.class
 com\lms\attendance\model\User.class
+com\lms\attendance\service\ScheduleAlarmScheduler.class
 com\lms\attendance\service\ExamScoreService.class
 com\lms\attendance\repository\BoardMapper.class
 com\lms\attendance\service\AuthService.class
@@ -70,6 +76,7 @@ com\lms\attendance\config\SecurityConfig.class
 com\lms\attendance\service\PostService.class
 com\lms\attendance\model\SurveyResponse.class
 com\lms\attendance\model\SurveyQuestion.class
+com\lms\attendance\service\AlarmSender.class
 com\lms\attendance\service\SurveyResponseService.class
 com\lms\attendance\controller\SurveyResponseController.class
 com\lms\attendance\controller\UpdatePasswordRequest.class
@@ -80,6 +87,7 @@ com\lms\attendance\model\SurveyBoard$SurveyBoardBuilder.class
 com\lms\attendance\repository\SurveyMapper.class
 com\lms\attendance\service\ExamService.class
 com\lms\attendance\model\Notice.class
+com\lms\attendance\config\WebSocketConfig.class
 com\lms\attendance\model\Classroom.class
 com\lms\attendance\controller\ExamController.class
 com\lms\attendance\service\TestService.class

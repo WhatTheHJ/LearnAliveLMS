@@ -1,0 +1,18 @@
+package com.lms.attendance.service;
+
+import com.lms.attendance.model.AlarmMessage;
+import lombok.RequiredArgsConstructor;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
+public class AlarmSender {
+
+    private final SimpMessagingTemplate messagingTemplate;
+
+    public void sendToClass(Long classId, AlarmMessage message) {
+        String destination = "/topic/class/" + classId + "/event";
+        messagingTemplate.convertAndSend(destination, message);
+    }
+}

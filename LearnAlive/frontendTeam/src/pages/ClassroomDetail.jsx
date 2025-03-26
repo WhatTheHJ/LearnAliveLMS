@@ -140,6 +140,7 @@ const ClassroomDetail = () => {
         <p><strong>교수자:</strong> {classDetail.professorName}</p>
         <p><strong>이메일:</strong> {classDetail.professorEmail}</p>
       </div>
+      
       <div className="classroom-layout">
         {/* 좌측 메뉴 */}
         <div className="classroom-menu">

@@ -1,0 +1,53 @@
+package com.lms.attendance.service;
+
+import com.lms.attendance.model.AlarmList;
+import com.lms.attendance.model.AlarmMessage;
+import com.lms.attendance.repository.AlarmListMapper;
+
+import lombok.RequiredArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
+public class AlarmSender {
+	
+	private final AlarmListService alarmListService;
+	private final AlarmListMapper alarmListMapper;
+    private final SimpMessagingTemplate messagingTemplate;
+
+    public void sendToClass(int classId, AlarmMessage message) {
+        String destination = "/topic/class/" + classId + "/event";
+//        messagingTemplate.convertAndSend(destination, message);
+        messagingTemplate.convertAndSend("/topic/class/" + classId + "/event", message);
+        
+        List<String> userIds = new ArrayList<>();
+        userIds.addAll(alarmListMapper.findStudentIdsByClassId(classId));
+        
+     // 교수자
+        String profId = alarmListMapper.findProfessorIdByClassId(classId);
+        if (profId != null) {
+            userIds.add(profId);
+        }
+        
+        // ✅ 알림 저장 (루프마다 새 객체)
+        for (String userId : userIds) {
+            AlarmList alarm = new AlarmList();
+            alarm.setUserId(userId);
+            alarm.setClassId(classId);
+            alarm.setType(message.getType());
+            alarm.setTitle(message.getTitle());
+            alarm.setCreatedAt(message.getCreatedAt());
+            alarm.setRead(false); // setIsRead → setRead
+
+            alarmListService.saveAlarm(alarm);
+        }
+        
+    }
+    
+    
+}

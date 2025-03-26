@@ -1,0 +1,5 @@
+package com.lms.attendance.config;
+
+public class WebSocketConfig {
+
+}

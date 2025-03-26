@@ -1,9 +1,12 @@
 package com.lms.attendance.controller;
 
+import com.lms.attendance.model.AlarmMessage;
 import com.lms.attendance.model.Notice;
+import com.lms.attendance.service.AlarmSender;
 import com.lms.attendance.service.NoticeService;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -11,9 +14,11 @@ import java.util.List;
 public class NoticeController {
 
     private final NoticeService noticeService;
+    private final AlarmSender alarmSender;
 
-    public NoticeController(NoticeService noticeService) {
+    public NoticeController(NoticeService noticeService, AlarmSender alarmSender) {
         this.noticeService = noticeService;
+        this.alarmSender = alarmSender;
     }
 
     // 공지사항 전체 목록 조회
@@ -26,6 +31,16 @@ public class NoticeController {
     @PostMapping
     public void createNotice(@RequestBody Notice notice) {
         noticeService.createNotice(notice);
+        
+        AlarmMessage message = new AlarmMessage(
+                "NOTICE",
+                notice.getTitle(),
+                LocalDateTime.now().toString(),
+                0 // classId 없으므로 0 또는 -1 등으로 표시
+            );
+
+            // 전역 채널로 전송
+        		alarmSender.sendToUsersInClass(0, message);
     }
 
     // 공지사항 수정

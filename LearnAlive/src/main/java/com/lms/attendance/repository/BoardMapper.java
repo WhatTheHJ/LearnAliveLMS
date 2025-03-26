@@ -35,5 +35,9 @@ public interface BoardMapper {
 	})
 	@Select("SELECT * FROM board WHERE class_id = #{classId}")
 	List<Board> getAllBoard(@Param("classId") int classId);
+	
+	
+	 @Select("SELECT class_id FROM board WHERE board_id = #{boardId}")
+	 Integer findClassIdByBoardId(@Param("boardId") int boardId); //int는 null못받음
 
 }

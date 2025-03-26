@@ -71,3 +71,9 @@ export const createSchedule = async (schedule) => {
     const response = await axios.get(`http://localhost:8080/api/schedules/${userId}/calendar`);
     return response.data;
   };
+
+//헤더에서 띄울 알람 가져오기
+  export const fetchAlarmList = async (userId) => {
+    const response = await axios.get(`http://localhost:8080/api/alarms/${userId}`);
+    return response.data;
+  };

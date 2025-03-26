@@ -43,8 +43,8 @@ const ScheduleReminder = () => {
     infinite: true,
     speed: 2600,
     slidesToShow: 1,
-    slidesToScroll: 3,
-    autoplay: true,
+    slidesToScroll: 1,
+    autoplay: false,
     autoplaySpeed: 1000,
     arrows: true,
   };
@@ -54,7 +54,7 @@ const ScheduleReminder = () => {
 
   return (
     <div className="survey-reminder-vertical">
-      <h3>📋 마감 임박 설문</h3>
+      <h3>📋 진행중인 설문</h3>
       <Slider {...settings}>
         {surveyTitles.map((survey) => (
           <div key={survey.surveyId} className="survey-slide">

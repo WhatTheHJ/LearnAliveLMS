@@ -114,7 +114,7 @@
     max-width: 250px; /* 인풋의 최대 너비 설정 */
   }
   
-  button {
+  .modal button {
     /* margin-right: 10px; */
     float: right;  /* 오른쪽으로 정렬 */
     padding: 5px ;

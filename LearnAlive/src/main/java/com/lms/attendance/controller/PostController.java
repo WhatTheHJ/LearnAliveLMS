@@ -24,7 +24,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lms.attendance.model.AlarmMessage;
 import com.lms.attendance.model.Post;
+import com.lms.attendance.service.AlarmSender;
+import com.lms.attendance.service.BoardService;
 import com.lms.attendance.service.LikeService;
 import com.lms.attendance.service.PostService;
 
@@ -36,6 +39,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -48,17 +52,18 @@ public class PostController {
 
 	private final PostService postService;
 	private final LikeService likeService;
+	private final BoardService boardService;
+	private final AlarmSender alarmSender;
+
 
 	@Autowired
-	public PostController(PostService postService, LikeService likeService) {
+	public PostController(PostService postService, LikeService likeService, BoardService boardService, AlarmSender alarmSender) {
 		this.postService = postService;
 		this.likeService = likeService;
+		this.boardService=boardService;
+		 this.alarmSender = alarmSender;
 	}
 
-//    @Autowired
-//    public LikeService(LikeService likeService) {
-//        this.likeService = likeService;
-//    }
 
 	// 게시글 목록 조회
 	@GetMapping("/{boardId}/post")
@@ -110,7 +115,10 @@ public class PostController {
 
 		// 게시글 생성
 		Post createdPost = postService.createPost(boardId, post);
-
+		int classId = boardService.findClassIdByBoardId(boardId);
+		
+		AlarmMessage msg = new AlarmMessage("POST", createdPost.getTitle(), LocalDateTime.now().toString(), classId);
+	    alarmSender.sendToUsersInClass(classId, msg);
 		// 게시글 생성 후 응답 반환
 		return ResponseEntity.ok(createdPost);
 	}
@@ -206,16 +214,3 @@ public class PostController {
 		return ResponseEntity.ok(posts);
 	}
 }
-
-//    @PostMapping()
-
-//    @GetMapping("/{boardId}/post/new")
-//    public String showCreatePostForm() {
-//    	return "create-post.html";
-//    }
-//
-//    @PostMapping("/{boardId}/post/new")
-//    public String createPost(Post post) {
-//        postService.createPost(post); // 게시글 생성
-//        return "create-post.html"; // 게시글 목록 페이지로 리디렉션
-//    }

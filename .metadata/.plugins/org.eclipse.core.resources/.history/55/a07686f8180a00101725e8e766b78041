@@ -1,0 +1,38 @@
+package com.lms.attendance.service;
+
+import com.lms.attendance.model.AlarmList;
+import com.lms.attendance.model.AlarmMessage;
+import lombok.RequiredArgsConstructor;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
+public class AlarmSender {
+	
+	private final AlarmListService alarmListService;
+
+    private final SimpMessagingTemplate messagingTemplate;
+
+//    public void sendToClass(int classId, AlarmMessage message) {
+//        String destination = "/topic/class/" + classId + "/event";
+//        messagingTemplate.convertAndSend(destination, message);
+//    }
+    public void sendToClass(int classId, AlarmMessage message) {
+        String destination = "/topic/class/" + classId + "/event";
+        messagingTemplate.convertAndSend(destination, message);
+
+        // 예시용: 테스트용 유저에게 저장
+        AlarmList alarm = new AlarmList();
+        alarm.setClassId(classId);
+        alarm.setType(message.getType());
+        alarm.setTitle(message.getTitle());
+        alarm.setCreatedAt(message.getCreatedAt());
+        alarm.setRead(false); //Lombok은 setIsRead()를 만들지 않음
+        alarm.setUserId("1234"); // 실제로는 수업 참여자 전원에게 저장
+
+        alarmListService.saveAlarm(alarm);
+    }
+    
+    
+}

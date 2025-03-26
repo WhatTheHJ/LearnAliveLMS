@@ -29,13 +29,13 @@ const ScheduleModal = ({ isModalOpen, selectedDate, formData, onChange, onSubmit
               />
               <label>
               <br/>
-               <span> 🔔</span><br/>
+               <span> 🔔알람 설정</span>
                 <input
                   type="checkbox"
                   name="mark"
                   checked={formData.mark}
                   onChange={onChange}
-                />  
+                />  <br></br>
                  
               </label>
               <label>
@@ -54,7 +54,8 @@ const ScheduleModal = ({ isModalOpen, selectedDate, formData, onChange, onSubmit
                   <input
                     type="datetime-local"
                     name="alarmTime"
-                    value={formData.alarmTime || new Date().toISOString().slice(0, 16)}
+                    // value={formData.alarmTime || new Date().toISOString().slice(0, 16)}
+                    value={formData.alarmTime ?? " "} // 비어있으면 빈 문자열로!
                     onChange={onChange}
                   />
                 </label>

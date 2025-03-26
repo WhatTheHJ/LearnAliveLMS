@@ -1,6 +1,8 @@
 C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\config\CorsConfig.java
 C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\config\MyBatisConfig.java
 C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\config\SecurityConfig.java
+C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\config\WebSocketConfig.java
+C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\controller\AlarmListController.java
 C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\controller\AttendanceController.java
 C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\controller\AuthController.java
 C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\controller\BoardController.java
@@ -20,6 +22,8 @@ C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\contr
 C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\controller\UpdatePasswordRequest.java
 C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\controller\WebController.java
 C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\LearnAliveApplication.java
+C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\model\AlarmList.java
+C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\model\AlarmMessage.java
 C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\model\Attendance.java
 C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\model\Board.java
 C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\model\ClassDetail.java
@@ -45,6 +49,7 @@ C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\model
 C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\model\SurveyResponseVisualization.java
 C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\model\Todo.java
 C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\model\User.java
+C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\repository\AlarmListMapper.java
 C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\repository\AttendanceMapper.java
 C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\repository\AuthMapper.java
 C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\repository\BoardMapper.java
@@ -64,6 +69,8 @@ C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\repos
 C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\repository\SurveyResponseMapper.java
 C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\repository\TestMapper.java
 C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\repository\TodoMapper.java
+C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\service\AlarmListService.java
+C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\service\AlarmSender.java
 C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\service\AttendanceService.java
 C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\service\AttendanceServiceImpl.java
 C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\service\AuthService.java
@@ -79,6 +86,7 @@ C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\servi
 C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\service\PostService.java
 C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\service\ProfessorService.java
 C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\service\ProfessorServiceImpl.java
+C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\service\ScheduleAlarmScheduler.java
 C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\service\ScheduleService.java
 C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\service\StudentService.java
 C:\GitRepository\LearnAliveLMS\LearnAlive\src\main\java\com\lms\attendance\service\SurveyResponseService.java

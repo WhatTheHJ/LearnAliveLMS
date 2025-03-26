@@ -29,13 +29,25 @@ import MyGrades from "./components/MyGrades"
 import MyClasses from "./components/MyClasses";
 
 import CalendarPage from "./pages/CalendarPage";
+//--------------웹소켓시도
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { NotificationProvider } from "./context/NotificationContext";
+// import { useAuth } from "./context/AuthContext";
 
   
 function App() {
+  // const auth = useAuth();
+// const user = auth?.user;
+  // const classId = user?.classId;
   return (
     <AuthProvider> {/* ✅ 여기서 Provider 감싸기 */}
+       <NotificationProvider>  {/* ✅ 여기서 감싸야 useNotifications 작동 */}
       <Router>
         <Header />
+        <ToastContainer />
+        {/* {user?.classId && <NotificationListener classId={classId} />} */}
+
         <main>
         <Routes>
           <Route path="/" element={<Dashboard />} />
@@ -74,6 +86,7 @@ function App() {
         </main>
         <Footer />
       </Router>
+      </NotificationProvider>
     </AuthProvider>
   );
 }

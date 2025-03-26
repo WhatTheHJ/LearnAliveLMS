@@ -1,5 +1,7 @@
 package com.lms.attendance.repository;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
@@ -37,4 +39,15 @@ public interface AuthMapper {
     // ✅ 관리자 비밀번호 조회 (admin)
     @Select("SELECT password FROM Admin WHERE admin_id = #{adminId}")
     String findAdminPasswordById(String adminId);
+    
+    
+    
+    @Select("""
+    	    SELECT class_id FROM student_class WHERE student_id = #{userId}
+    	    UNION
+    	    SELECT class_id FROM class WHERE prof_id = #{userId}
+    	""")
+    List<Integer> findClassIdByUserId(String userId);
+
+    
 }
