@@ -71,78 +71,133 @@
 // };
 
 // export default ScheduleReminder;
+import { useState, useEffect,useRef  } from 'react';
+// import { getSurveyTitles } from '../api/scheduleApi';
+// import { useAuth } from "../context/AuthContext";
+import Slider from "react-slick";
+import "../styles/calendar.css"; // 스타일 분리
 
+const ScheduleReminder = () => {
+  // const [surveyTitles, setSurveyTitles] = useState([]);
+  // const [loading, setLoading] = useState(true);
+  // const [error, setError] = useState(null);
+  // const { user } = useAuth();
 
-import "../styles/calendar.css";
-import { useState } from 'react';
-import { deleteSchedule, updateSchedule } from '../api/scheduleApi'; // API 함수 임포트
+  // const fetchSurveyTitles = async (userId) => {  <설문조사 제목 가져오던것>
+  //   try {
+  //     const data = await getSurveyTitles(userId);
 
-const ScheduleDetailModal = ({ isOpen, event, onClose, fetchSchedules  }) => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [updatedContent, setUpdatedContent] = useState(event?.extendedProps?.content || "");
-  const [updatedTitle, setUpdatedTitle] = useState(event?.title || "");
+  //     const now = new Date();
+  //     const soon = new Date();
+  //     soon.setDate(now.getDate() + 7);
 
-  const handleDelete = async () => {
-    try {
-      const scheduleId = event.id;
-      console.log("삭제할 scheduleId:", scheduleId);  // scheduleId 값 확인
-      const response = await deleteSchedule(scheduleId);  // scheduleId 전달
-      console.log('일정 삭제 성공:', response);
-      fetchSchedules();  // 삭제 후 일정 목록을 새로고침
-      onClose();  // 삭제 후 모달 닫기
-    } catch (error) {
-      console.error("일정 삭제 실패:", error);
-      alert("일정 삭제에 실패했습니다.");
-    }
-  };
+  //     const upcoming = data.filter((survey) => {
+  //       const end = new Date(survey.endTime);
+  //       return end >= now && end <= soon;
+  //     });
 
-  const handleUpdate = async () => {
-    try {
-      const updatedData = {
-        // ...event,
-        title: updatedTitle,
-        content: updatedContent,
-      };
-      await updateSchedule(event.id, updatedData);  // 수정할 일정의 ID
-      alert("일정이 수정되었습니다.");
-      fetchSchedules();
-      onClose();  // 모달 닫기
-    } catch (error) {
-      console.error("일정 수정 실패:", error);
-      alert("일정 수정에 실패했습니다.");
-    }
-  };
+  //     setSurveyTitles(upcoming);
+  //     setLoading(false);
+  //   } catch (err) {
+  //     setError("설문조사를 가져오는 데 실패했습니다.");
+  //     setLoading(false);
+  //   }
+  // };
+  // useEffect(() => {
+  //   if (user?.userId) {
+  //     fetchSurveyTitles(user.userId);
+  //   }
+  // }, [user]);
 
-  const handleEditToggle = () => {
-    setIsEditing(!isEditing);
-  };
+    const [diet, setDiet] = useState([]); //초기값 null넣으면 map에서오류
+    // const [today, setToday] = useState('');
+    const sliderRef = useRef();
+    const [dateLabels, setDateLabels] = useState([]);
+  
+    useEffect(() => {
+      // // 1. 오늘 날짜 세팅
+      // const date = new Date();
+      // const formatted = date.toLocaleDateString('ko-KR', {
+      //   year: 'numeric',
+      //   month: '2-digit',
+      //   day: '2-digit'
+      // });
+      // setToday(formatted);
 
+       // 날짜 라벨 설정
+       const now = new Date();
+       const labels = [-1, 0, 1].map(offset => {
+         const d = new Date(now);
+         d.setDate(d.getDate() + offset);
+         return d.toLocaleDateString('ko-KR', {
+           year: 'numeric',
+           month: '2-digit',
+           day: '2-digit'
+         });
+       });
+ 
+       setDateLabels(labels);
+  
+      // 2. 식단 API 호출
+      fetch(
+        'https://api.odcloud.kr/api/15130015/v1/uddi:eff6ee81-0eaa-4de0-87dc-b4f00776e567?page=1&perPage=20&serviceKey=tFZF5pw49xpEyedb7ht3PYqJCVjTs9xcbxdq63lJkxZTAE6V7ifvrD%2F6idPIxLuQwiuR16EkKluxkGhhaE%2BbjA%3D%3D'
+      )
+        .then(res => res.json())
+        .then(data => {
+          const items= data.data;
+          // 랜덤하게 3개 추출
+      const shuffled = [...items].sort(() => 0.5 - Math.random());
+      const selected = shuffled.slice(0, 3);
+          // 예: 아침, 점심, 저녁 중 하나 랜덤 선택
+          const meals = ['조식', '중식', '석식'];
 
-  //---------------------------------------------------------
+           const dietValues = selected.map(item => {
+        const type = meals[Math.floor(Math.random() * meals.length)];
+        return item[type];
+      });
+          // setDiet(`${today} 🍽️\n${dietValues}`);
+          setDiet(dietValues);
 
-  if (!isOpen || !event) return null;
+        })
+        .catch(error => {
+          console.error('식단 데이터 오류:', error);
+        });
+    }, []);
 
-  //  console.log("모달 이벤트 데이터:", event.extendedProps); // 🔥 디버깅용 로그 추가<확인완>
+          const settings = {  //캐러셀설정
+            vertical: true,
+            verticalSwiping: true,
+            infinite: false,
+            speed: 2600,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 1200,
+            arrows: true,
+            beforeChange: () => {
+              // 슬라이드 변경 직전에 포커스 제거
+              if (document.activeElement) {
+                document.activeElement.blur();
+              }
+            },
+          };
 
   return (
-    <div className="modal-overlay">
-      <div className="modal">
-        <h2>일정 상세</h2>
-        <p><strong>제목:</strong> {isEditing ? <input type="text" value={updatedTitle} onChange={(e) => setUpdatedTitle(e.target.value)} /> : updatedTitle}</p>
-        <p><strong>내용:</strong> {isEditing ? <textarea value={updatedContent} onChange={(e) => setUpdatedContent(e.target.value)} /> : updatedContent}</p>
-        <p><strong>알람 설정:</strong> {event.extendedProps?.mark ? "🔔 설정됨" : "❌ 없음"}</p>
-        <p><strong>알람 시간:</strong> {event.extendedProps?.alarmTime || "없음"}</p>
-        <p><strong>날짜:</strong> {new Date(event.start).toLocaleDateString()}</p>
+    <div className="survey-reminder-vertical">
+      <div><h3 className="text-xl font-bold mb-2">🍱 오늘의 식단</h3></div>
+      <div className="survey-slide">
+      <Slider ref={sliderRef} {...settings}>
 
-        <div className="modal-buttons">
-          <button onClick={onClose}>닫기</button>
-          <button onClick={handleEditToggle}>{isEditing ? "취소" : "수정"}</button>
-          {isEditing && <button onClick={handleUpdate}>수정 저장</button>}
-          <button onClick={handleDelete}>삭제</button>
-        </div>
+      {diet.map((diet, idx) => (
+    <div key={idx} className="survey-slide2">
+      <p className="text-sm text-gray-600 mb-">{dateLabels[idx]}</p>
+      <p className="text-md whitespace-pre-line">{diet}</p>
+    </div>
+  ))}
+      </Slider>
       </div>
     </div>
   );
 };
 
-export default ScheduleDetailModal;
+export default ScheduleReminder;
