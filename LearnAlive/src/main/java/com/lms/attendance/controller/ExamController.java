@@ -33,7 +33,7 @@ public class ExamController {
         AlarmMessage message = new AlarmMessage(
                 "EXAM",
                 exam.getTitle(),
-                LocalDateTime.now().toString(),
+                LocalDateTime.now(),
                 exam.getClassId()
             );
             alarmSender.sendToUsersInClass(exam.getClassId(), message);

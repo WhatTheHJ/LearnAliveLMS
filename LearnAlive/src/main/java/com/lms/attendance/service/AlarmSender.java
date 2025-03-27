@@ -6,6 +6,7 @@ import com.lms.attendance.repository.AlarmListMapper;
 
 import lombok.RequiredArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,14 +32,15 @@ public class AlarmSender {
             System.out.println("📤 WebSocket 알림 전송: userId = " + userId + ", title = " + message.getTitle());
 
             messagingTemplate.convertAndSend("/topic/user/" + userId, message); // ✅ 유저별 전송
-
+            
             AlarmList alarm = new AlarmList();
             alarm.setUserId(userId);
             alarm.setClassId(classId);
             alarm.setType(message.getType());
             alarm.setTitle(message.getTitle());
-            alarm.setCreatedAt(message.getCreatedAt());
-            alarm.setRead(false);
+            alarm.setCreatedAt(message.getCreatedAt() != null ? message.getCreatedAt() : LocalDateTime.now());
+ alarm.setRead(false);
+ System.out.println("🔍 AlarmMessage createdAt: " + message.getCreatedAt());
 
             alarmListService.saveAlarm(alarm);
         }

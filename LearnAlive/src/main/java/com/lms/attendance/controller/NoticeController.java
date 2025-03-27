@@ -35,7 +35,7 @@ public class NoticeController {
         AlarmMessage message = new AlarmMessage(
                 "NOTICE",
                 notice.getTitle(),
-                LocalDateTime.now().toString(),
+                LocalDateTime.now(),
                 0 // classId 없으므로 0 또는 -1 등으로 표시
             );
 

@@ -89,7 +89,9 @@ const Header = () => {
             <div key={i} className="notification-item">
               <strong>[{n.type}]</strong> {n.title}
               <div className="time">
+                
                 {new Date(n.createdAt).toLocaleString()}
+                
               </div>
             </div>
           ))}

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { fetchClassrooms } from "../api/classroomApi";
-import { fetchExamScores } from "../api/examApi";
+// import { fetchExamScores } from "../api/examApi";
 
 const MyGrades = () => {
   const { user } = useAuth();

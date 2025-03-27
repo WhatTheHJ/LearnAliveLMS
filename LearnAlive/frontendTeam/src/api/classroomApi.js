@@ -7,7 +7,19 @@ export const fetchClassrooms = async (userId) => {
 };
 
 export const addClassroom = async (classroomData) => {
-  const response = await axios.post(`${API_BASE_URL}/add`, classroomData);
+  console.log("보내는 데이터 확인 👉", classroomData);  // 확인용 로그 추가
+  const response = await axios.post(`${API_BASE_URL}/add`, classroomData, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`
+    }
+  });
+  return response.data;
+};
+
+// ✅ 관리자용 - 전체 강의실 조회
+export const fetchAllClassroomsForAdmin = async () => {
+  const response = await axios.get(`${API_BASE_URL}/admin/all`);
   return response.data;
 };
 

@@ -50,13 +50,7 @@ const Alams = ({ events }) => {
         setUpcomingEvents(filteredEvents);
       };
 
-  //
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     fetchTodo();
-  //   }, 700); // 0.5초 후 실행
-  // }, []);
 
   const fetchTodo = async () => {
         try {
@@ -132,11 +126,6 @@ const Alams = ({ events }) => {
         fetchTodo();
       }
     }, [events]); // todoList 또는 events가 변경될 때 실행
-
-  //      // 로딩 중일 때 처리
-  //  if (loading) {
-  //   return <div>로딩 중...</div>;
-  // }
   
   return (
     <div>
@@ -194,6 +183,4 @@ const Alams = ({ events }) => {
   );
   
 };
-  
-
   export default Alams;

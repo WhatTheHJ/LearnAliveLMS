@@ -117,7 +117,11 @@ public class PostController {
 		Post createdPost = postService.createPost(boardId, post);
 		int classId = boardService.findClassIdByBoardId(boardId);
 		
-		AlarmMessage msg = new AlarmMessage("POST", createdPost.getTitle(), LocalDateTime.now().toString(), classId);
+		AlarmMessage msg = new AlarmMessage(
+				"POST", 
+				createdPost.getTitle(), 
+				LocalDateTime.now(), 
+				classId);
 	    alarmSender.sendToUsersInClass(classId, msg);
 		// 게시글 생성 후 응답 반환
 		return ResponseEntity.ok(createdPost);

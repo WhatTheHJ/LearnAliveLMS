@@ -80,7 +80,7 @@ public class SurveyController {
             return ResponseEntity.badRequest().build();
         }
         
-        // 웹소켓 알림 전송
+// <<<웹소켓 알림 전송!!!!!!!!!!!!!!!!!!!!!!>>>
         Integer boardId = createdSurvey.getBoardId(); // 모델에 boardId 존재
         Integer classId = surveyMapper.findClassIdBySurveyBoardId(boardId);
         
@@ -92,12 +92,13 @@ public class SurveyController {
         AlarmMessage message = new AlarmMessage(
             "SURVEY",
             createdSurvey.getTitle(),
-            LocalDateTime.now().toString(),
+            LocalDateTime.now(),
             classId
         );
-     // 안전하게 WebSocket 알림 전송
+// 안전하게 WebSocket 알림 전송
         alarmSender.sendToUsersInClass(classId, new AlarmMessage(
-            "SURVEY", createdSurvey.getTitle(), LocalDateTime.now().toString(), classId
+            "SURVEY", 
+            createdSurvey.getTitle(), LocalDateTime.now(), classId
         ));
         
         return ResponseEntity.ok(createdSurvey);

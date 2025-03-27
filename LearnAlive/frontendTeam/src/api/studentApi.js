@@ -33,3 +33,9 @@ export const fetchStudentsByClass = async (classId) => {
     const response = await axios.get(`${API_URL}/class/${classId}`);
     return response.data;
   };
+
+  // 특정 학생 정보를 조회하는 API 함수 추가
+export const getStudentById = async (studentId) => {
+  const response = await axios.get(`${API_URL}/auth/student/${studentId}`);
+  return response.data;
+};
