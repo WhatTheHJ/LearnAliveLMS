@@ -1,5 +1,8 @@
 .notification-area {
     position: relative;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 14px;
   }
   
   .bell-button {
@@ -30,6 +33,9 @@
     max-height: 300px;
     overflow-y: auto;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+
+    border-radius: 10px;
+    padding: 10px;
   }
   
   .notification-item {
