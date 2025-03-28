@@ -18,7 +18,7 @@ const CalendarPage = () => {
   const [events, setEvents] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState("");
-  const [formData, setFormData] = useState({ title: "", content: "", mark: 0, alarmTime: "" });
+  const [formData, setFormData] = useState({ title: "", content: "", mark: false, alarmTime: "" }); //알람 미선택시 0 나오던 문제 수정
   const { user } = useAuth(); 
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
