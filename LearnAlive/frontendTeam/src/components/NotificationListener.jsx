@@ -6,7 +6,7 @@ import { useNotifications } from "../context/NotificationContext";
 
 const NotificationListener = ({ userId }) => {
   const { addNotification } = useNotifications();
-  console.log("🧪 NotificationListener 시작됨, userId:", userId);
+  //console.log("🧪 NotificationListener 시작됨, userId:", userId);
   useEffect(() => {
     if (!userId )   {
         console.warn("❌ WebSocket 연결 생략 - userId 없음");
