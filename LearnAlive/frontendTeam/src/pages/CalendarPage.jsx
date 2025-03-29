@@ -18,18 +18,10 @@ const CalendarPage = () => {
   const [events, setEvents] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState("");
-  const [formData, setFormData] = useState({ title: "", content: "", mark: 0, alarmTime: "" });
+  const [formData, setFormData] = useState({ title: "", content: "", mark: false, alarmTime: "" });
   const { user } = useAuth(); 
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
-
-
-//  //강제새로고침 
-//   useEffect(() => {
-//     if (performance.navigation.type !== performance.navigation.TYPE_RELOAD) {
-//       window.location.reload();
-//     }
-//   }, []);
 
 //알림 권한 요청
 const requestNotificationPermission = () => {
@@ -72,11 +64,11 @@ const fetchSchedules = async () => {
 
    // 페이지 로드 시 일정 가져오기& 알람 권한 받기
    useEffect(() => {
-    setTimeout(() => {
-      requestNotificationPermission();
-      fetchSchedules();
-    }, 500); // 0.5초 후 실행
-  },  [user?.userId]);
+    if (!user || !user.userId) return;
+  
+    requestNotificationPermission();
+    fetchSchedules();
+  }, [user]);
 
 
   //--------------------------------
@@ -145,34 +137,8 @@ const handleEventClick = (info) => {
       };
       // 일정 등록 API 호출
       await createSchedule(schedule);
-  
-      // 성공적으로 등록되면 이벤트에 추가
-      // setEvents([
-      //   ...events,
-      //   {
-      //     title: formData.title,
-      //     date: selectedDate,
-      //     content: formData.content,
-      //     extendedProps: {
-      //       alarmTime: formData.alarmTime,  // alarmTime도 포함
-      //       mark: formData.mark,
-      //     },
-      //     backgroundColor: formData.color,
-      //   },
-        
-      // ]);
-      setEvents([
-        ...events,
-        {
-          title: formData.title,
-          start: selectedDate,  // ✅ 반드시 start로 넣어야 함
-          extendedProps: {
-            alarmTime: formData.alarmTime,
-            mark: formData.mark,
-          },
-          color: formData.color,
-        }
-      ]);
+      await fetchSchedules();   
+
       // 폼 초기화 및 모달 닫기
       setFormData({ title: "", content: "", mark: 0, color: "#ffcccc"});
       setIsModalOpen(false);
@@ -185,7 +151,6 @@ const handleEventClick = (info) => {
   };
   
   
-
   return (
 
     <div className='calendar'>

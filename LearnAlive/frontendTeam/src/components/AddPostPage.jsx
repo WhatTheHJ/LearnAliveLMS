@@ -27,7 +27,7 @@ function AddPostPage({ boardId,  onCancle, onPostCreated }) {
         boardId: boardId, // URL에서 가져온 boardId 
         authorId: user.userId, // 세션에서 받아온 userId
         authorRole: user.role, // 세션에서 받아온 role
-        author: user.name, // 로그인된 사용자의 이름
+        author: user.username, // 로그인된 사용자의 이름
         title: title, // 게시글 제목
         content: content, // 게시글 내용
         // filePath: filePath,

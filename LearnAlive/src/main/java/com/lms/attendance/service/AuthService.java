@@ -27,7 +27,7 @@ public class AuthService {
         if (student != null) {
             // 비밀번호 검증 (암호화 여부 고려)
             if (isPasswordValid(password, student.getPassword())) {
-                return "STUDENT";  // 학생 로그인 성공 시 "STUDENT" 반환
+                return "student";  // 학생 로그인 성공 시 "student" 반환
             }
             return null; // 비밀번호 틀림
         }

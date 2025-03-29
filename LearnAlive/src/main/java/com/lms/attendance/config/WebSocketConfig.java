@@ -37,6 +37,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
         // 클라이언트에서 서버로 보낼 때 prefix 설정
         // "/app"으로 시작하는 메시지는 컨트롤러(@MessageMapping)로 라우팅됨
-        config.setApplicationDestinationPrefixes("/app");
+        config.setApplicationDestinationPrefixes("/app"); 
     }
 }

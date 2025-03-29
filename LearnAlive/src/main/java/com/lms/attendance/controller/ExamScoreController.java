@@ -18,7 +18,7 @@ public class ExamScoreController {
     
     // 학생별 시험 점수 및 등급 조회 (강의별)
     @GetMapping
-    public ResponseEntity<List<ExamScore>> getExamScores(@PathVariable int classId) {
+    public ResponseEntity<List<ExamScore>> getExamScores(@PathVariable("classId") int classId) {
         List<ExamScore> scores = examScoreService.getExamScoresByClassId(classId);
         return ResponseEntity.ok(scores);
     }
@@ -33,8 +33,11 @@ public class ExamScoreController {
     
     // 특정 학생의 시험 점수 및 등급 업데이트
     @PutMapping("/{studentId}")
-    public ResponseEntity<?> updateExamScore(@PathVariable int classId, @PathVariable String studentId, @RequestBody Map<String, Object> payload) {
-        Object scoreObj = payload.get("score");
+    public ResponseEntity<?> updateExamScore(
+    	    @PathVariable("classId") int classId, 
+    	    @PathVariable("studentId") String studentId, 
+    	    @RequestBody Map<String, Object> payload) {
+    	Object scoreObj = payload.get("score");
         Object gradeObj = payload.get("grade");
         if (scoreObj == null || gradeObj == null) {
             return ResponseEntity.badRequest().body("성적 정보(score, grade)가 누락되었습니다.");

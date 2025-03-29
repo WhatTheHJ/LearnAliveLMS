@@ -50,11 +50,10 @@ public class ClassController {
         System.out.println("📌 불러온 강의실 목록: " + classes); // ✅ 콘솔 로그 확인
         return ResponseEntity.ok(classes);
     }
-
-
     
     @PostMapping("/add")
     public ResponseEntity<?> addClassroom(@RequestBody Classroom newClass) {
+        System.out.println("받은 값: " + newClass);
         classService.addClassroom(newClass);
         return ResponseEntity.ok("강의실 추가 완료");
     }
@@ -126,4 +125,18 @@ public class ClassController {
         classService.updateClassDescription(classId, description);
         return ResponseEntity.ok("강의 설명 업데이트 성공");
     }
+    
+ // ✅ 관리자 전용 - 전체 강의 목록 조회
+    @GetMapping("/admin/all")
+    public ResponseEntity<List<Classroom>> getAllClassesForAdmin() {
+        logger.info("📌 [DEBUG] 관리자 전체 강의 목록 조회 요청 도착");
+
+        List<Classroom> classes = classService.getAllClassesForAdmin();
+
+        logger.info("📌 [DEBUG] 관리자 조회된 강의실 개수: {}", classes.size());
+        logger.info("📌 [DEBUG] 관리자 조회된 강의실 리스트: {}", classes);
+
+        return ResponseEntity.ok(classes);
+    }
+
 }

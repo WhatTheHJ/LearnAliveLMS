@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
@@ -18,17 +19,29 @@ import com.lms.attendance.model.Classroom;
 @Mapper
 public interface ClassMapper {
 
+	//사용자의 강의실 정보 가져오기
 	@Select("(SELECT c.class_id AS classId, c.class_name AS className, c.prof_id AS profId "
 			+ "FROM Class c JOIN student_class sc ON c.class_id = sc.class_id WHERE sc.student_id = #{userId}) "
 			+ "UNION " + "(SELECT c.class_id AS classId, c.class_name AS className, c.prof_id AS profId "
 			+ "FROM Class c WHERE c.prof_id = #{userId})")
 	List<Classroom> findClassesByUserId(String userId);
 
+	//강의실 추가
 	@Insert("""
-			    INSERT INTO Class (class_name, prof_id)
-			    VALUES (#{className}, #{profId})
-			""")
-	void insertClassroom(Classroom newClass);
+		    INSERT INTO class (
+		      class_name, prof_id, start_time, end_time, present_start, present_end, 
+		      late_end, credit, capacity, course_type, required
+		    ) VALUES (
+		      #{className}, #{profId}, #{startTime}, #{endTime}, #{presentStart}, #{presentEnd},
+		      #{lateEnd}, #{credit}, #{capacity}, #{courseType}, #{required}
+		    )
+		""")
+		@Options(useGeneratedKeys = true, keyProperty = "classId")
+		void insertClassroom(Classroom newClass);
+
+	    // ✅ 요일 저장용 insert
+	    @Insert("INSERT INTO class_day (class_id, day_of_week) VALUES (#{classId}, #{dayOfWeek})")
+	    void insertClassDay(@Param("classId") Integer classId, @Param("dayOfWeek") String dayOfWeek);
 
 	// ✅ 강의실 삭제 SQL
 	@Delete("DELETE FROM Class WHERE class_id = #{classId}")
@@ -91,7 +104,7 @@ public interface ClassMapper {
 
 	@Select("SELECT present_start, present_end, late_end FROM Class WHERE class_id = #{classId}")
 	ClassSettings getClassSettings(@Param("classId") int classId);
-
+	
 	@Update("""
 			   UPDATE Class
 			   SET score = #{score},
@@ -99,4 +112,24 @@ public interface ClassMapper {
 			   WHERE class_id = #{classId}
 			""")
 	void updateClassGrade(@Param("classId") int classId, @Param("score") Double score, @Param("grade") String grade);
+
+	//전체 강의실 정보 조회 쿼리
+	@Select("""
+		    SELECT c.class_id AS classId,
+		           c.class_name AS className,
+		           c.prof_id AS profId,
+		           p.name AS professorName,
+		           c.credit,
+		           c.capacity,
+		           c.course_type AS courseType,
+		           c.required
+		    FROM class c
+		    LEFT JOIN professor p ON c.prof_id = p.prof_id
+		""")
+		List<Classroom> findAllClassesForAdmin();
+	
+	//권장 학년 정보 추가 쿼리
+	@Insert("INSERT INTO recommended_grade (class_id, grade) VALUES (#{classId}, #{grade})")
+	void insertRecommendedGrade(@Param("classId") int classId, @Param("grade") int grade);
+
 }

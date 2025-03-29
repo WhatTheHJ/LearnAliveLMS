@@ -30,11 +30,18 @@ public interface StudentMapper {
 //		""")
 //		void registerStudent(Student student);
 	
-	// ✅ 학생 로그인
-		@Select("""
-			    SELECT * FROM Student WHERE student_id = #{studentId}
-			""")
-			Student findStudentById(@Param("studentId") String studentId);
+		// ✅ 학생 로그인
+				@Select("SELECT * FROM Student WHERE student_id = #{studentId}")
+				@Results({
+				    @Result(column = "student_id", property = "studentId"),
+				    @Result(column = "university", property = "university"),
+				    @Result(column = "department", property = "department"),
+				    @Result(column = "name", property = "name"),
+				    @Result(column = "phone", property = "phone"),
+				    @Result(column = "email", property = "email"),
+				    @Result(column = "password", property = "password")
+				})
+				Student findStudentById(@Param("studentId") String studentId);
 
     // ✅ 특정 강의실에 속한 모든 학생 조회 (SELECT)
 		@Select("""

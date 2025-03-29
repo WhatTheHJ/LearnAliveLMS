@@ -210,59 +210,74 @@ function PostList({ boardId }) {
     <div className="post-container">
       {showCreatePost ? (
         <AddPostPage
-          boardId={boardId}
-          onCancle={() => setShowCreatePost(false)}
-          onPostCreated={(newPost) => {
-            setPosts((prevPosts) => [...prevPosts, newPost]);
-            setRefresh((prev) => !prev); // 새로고침
-            setShowCreatePost(false);
-            setSelectedPost(null);
-          }}
-        />
+        boardId={boardId}
+        onCancle={() => setShowCreatePost(false)}
+        onPostCreated={handlePostCreated}
+      />
       ) : (
-        <>
-          <div>
-            {/* 게시글 추가 버튼 로직 */}
-            {board?.isDefault === 0 && user?.role === "professor" && (
-              <button className="add-post-button" onClick={() => setShowCreatePost(true)}>
-                게시글 추가
-              </button>
-            )}
-            {board?.isDefault === 1 && (
-              <button className="add-post-button" onClick={() => setShowCreatePost(true)}>
-                게시글 추가
-              </button>
-            )}
+          <>
+          <h2 className="title-bar">
+            📌 {board?.boardName || "알 수 없음"} 게시판
+          </h2>
+
+          {/* 게시글 추가 버튼 + 검색창 양쪽 정렬 */}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginBottom: "16px",
+              flexWrap: "wrap",
+              gap: "10px"
+            }}
+          >
+            {/* 왼쪽: 게시글 추가 버튼 */}
+            <div>
+              {(board?.isDefault === 1 || (board?.isDefault === 0 && user?.role === "professor")) && (
+                <button className="add-post-button" onClick={() => setShowCreatePost(true)}>
+                  게시글 추가
+                </button>
+              )}
+            </div>
+
+            {/* 오른쪽: 검색창 */}
+            <div style={{ display: "flex", gap: "8px" }}>
+              <input
+                type="text"
+                placeholder="검색어 입력"
+                value={searchQuery}
+                onChange={handleSearchChange}
+                style={{
+                  padding: "6px 10px",
+                  borderRadius: "4px",
+                  border: "1px solid #ccc"
+                }}
+              />
+              <button onClick={handleSearchClick}>검색</button>
+            </div>
           </div>
 
           {selectedPost ? (
-            <PostDetail post={selectedPost} onBack={() => setSelectedPost(null)}  onLikeToggle={handleLikeToggle}   onUpdate={handleUpdatePost} fetchData={fetchData} />
+            <PostDetail
+              post={selectedPost}
+              onBack={() => setSelectedPost(null)}
+              onLikeToggle={handleLikeToggle}
+              onUpdate={handleUpdatePost}
+              fetchData={fetchData}
+            />
           ) : (
             <>
-              <div>
-                <input
-                  type="text"
-                  placeholder="검색어 입력"
-                  value={searchQuery}
-                  onChange={handleSearchChange}
-                />
-                <button onClick={handleSearchClick}>검색</button>
-              </div>
-
               {showFiltered ? (
-                 <FilteredPostList
-                filteredPosts={filteredPosts}  // 필터링된 게시글을 전달
-                handleDelete={handleDelete}  // 삭제 함수 전달
-                // filteredPosts={currentPosts} 
-                onPostClick={handleTitleClick} 
-                paginate={paginate} 
-                currentPage={currentPage} 
-                totalPages={totalPages} 
-                
-              />
+                <FilteredPostList
+                  filteredPosts={filteredPosts}
+                  handleDelete={handleDelete}
+                  onPostClick={handleTitleClick}
+                  paginate={paginate}
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                />
               ) : (
                 <div>
-                  <h2>게시글 목록</h2>
                   <table>
                     <thead>
                       <tr>
@@ -283,7 +298,9 @@ function PostList({ boardId }) {
                         정렬 {sortCriteria === "createdAt" && (sortOrder === "asc" ? "🔼" : "🔽")}
                           </button>
                         </th>
-                        {user?.author_role === "professor" && <th>관리</th>}
+                        {(user?.role === "professor" || sortedPosts.some(post => post.authorId === user?.userId)) && <th>관리</th>}
+
+
                       </tr>
                     </thead>
                     <tbody>
@@ -294,15 +311,15 @@ function PostList({ boardId }) {
                             <td className="post-title" onClick={() => handleTitleClick(post)}>
                               {post.title}
                             </td>
-                            <td>{post.authorId}</td>
+                            <td>{post.author}</td>
                             <td>{post.view}</td>
                             <td>{post.likes}</td>
                             <td>{post.createdAt}</td>
-                            {user?.author_role === "professor" && (
-                              <td>
-                                <button onClick={() => handleDelete(post.postId)}>삭제</button>
-                              </td>
-                            )}
+                            {(user?.role === "professor" || user?.userId === post.authorId) && (
+                            <td>
+                              <button onClick={() => handleDelete(post.postId)}>삭제</button>
+                            </td>
+                          )}
                           </tr>
                         ))
                       ) : (

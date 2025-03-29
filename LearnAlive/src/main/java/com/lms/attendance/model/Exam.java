@@ -21,6 +21,7 @@ public class Exam {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private int questionCount;	
+    private Integer score;
     
     private List<ExamQuestion> questions; // 질문들을 포함하는 리스트
     

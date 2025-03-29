@@ -22,4 +22,3 @@ public class AlarmListService {
         return alarmListMapper.getAlarmsByUserId(userId);
     }
 }
-

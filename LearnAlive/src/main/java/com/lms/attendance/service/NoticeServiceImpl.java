@@ -2,6 +2,7 @@ package com.lms.attendance.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import com.lms.attendance.model.Notice;
@@ -32,12 +33,12 @@ public class NoticeServiceImpl implements NoticeService {
     }
 
     @Override
-    public void deleteNotice(int notice_id) {
+    public void deleteNotice(@Param("notice_id") int notice_id) {
         noticeMapper.deleteNotice(notice_id);
     }
 
     @Override
-    public Notice getNoticeById(int notice_id) {  // 공지사항 조회 메소드 구현
+    public Notice getNoticeById(@Param("notice_id") int notice_id) {  // 공지사항 조회 메소드 구현
         return noticeMapper.getNoticeById(notice_id);  // DB에서 해당 notice_id를 가진 공지사항을 조회
     }
 }

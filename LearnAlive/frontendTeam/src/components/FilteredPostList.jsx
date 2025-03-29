@@ -6,7 +6,7 @@ const FilteredPostList = ({ filteredPosts, onPostClick, handleDelete, paginate, 
     const { user } = useAuth(); // 로그인된 사용자 정보 가져오기
    
     return (
-        <div className="post-container">
+        <div>
             
           <table>
             <thead>

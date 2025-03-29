@@ -77,3 +77,8 @@ export const createSchedule = async (schedule) => {
     const response = await axios.get(`http://localhost:8080/api/alarms/${userId}`);
     return response.data;
   };
+
+  //완료된 투두 밑줄 상황 업데이트
+  export const updateTodoCompletion = async (todoId, updatedData) => {
+    return axios.put(`${API_BASE_URL}/todos/${todoId}/complete`, updatedData);
+  };

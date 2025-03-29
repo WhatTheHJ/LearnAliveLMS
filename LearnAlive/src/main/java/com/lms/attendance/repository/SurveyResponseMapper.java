@@ -39,30 +39,31 @@ public interface SurveyResponseMapper {
     @Update("UPDATE survey_response SET response = #{response} WHERE survey_id = #{surveyId} AND user_id = #{userId} AND question_id = #{questionId}")
     void updateResponse(@Param("surveyId") int surveyId, @Param("userId") String userId, @Param("questionId") int questionId, @Param("response") String response);
 
-    /** 응답 여부 조회*/
+    /** 응답 여부 조회 */
     @Select("""
-    	    SELECT 
-    	        s.university AS university,
-    	        s.department AS department,
-    	        s.student_id AS studentId,
-    	        s.name AS name,
-    	        s.remarks AS remarks,
-    	        CASE 
-    	            WHEN sr.user_id IS NOT NULL THEN '응답 완료'
-    	            ELSE '미응답'
-    	        END AS responseStatus
-    	    FROM Student s
-    	    LEFT JOIN (
-    	        SELECT DISTINCT user_id
-    	        FROM survey_response
-    	        WHERE survey_id = #{surveyId}
-    	    ) sr ON s.student_id = sr.user_id
-    	    WHERE s.class_id = #{classId}
-    	    ORDER BY s.university ASC, s.department ASC, s.student_id ASC
-    	""")
-    	List<StudentSurveyStatus> getSurveyResponseStatus(
-    	        @Param("surveyId") int surveyId, 
-    	        @Param("classId") int classId);
+        SELECT 
+            s.university AS university,
+            s.department AS department,
+            s.student_id AS studentId,
+            s.name AS name,
+            sc.remarks AS remarks,
+            CASE 
+                WHEN sr.user_id IS NOT NULL THEN '응답 완료'
+                ELSE '미응답'
+            END AS responseStatus
+        FROM student_class sc
+        INNER JOIN Student s ON sc.student_id = s.student_id
+        LEFT JOIN (
+            SELECT DISTINCT user_id
+            FROM survey_response
+            WHERE survey_id = #{surveyId}
+        ) sr ON s.student_id = sr.user_id
+        WHERE sc.class_id = #{classId}
+        ORDER BY s.university ASC, s.department ASC, s.student_id ASC
+    """)
+    List<StudentSurveyStatus> getSurveyResponseStatus(
+            @Param("surveyId") int surveyId, 
+            @Param("classId") int classId);
 
     /** ✅ 특정 설문조사의 모든 응답을 시각화용으로 가져오기 */
     @Select("""

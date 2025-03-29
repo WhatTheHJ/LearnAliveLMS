@@ -2,9 +2,12 @@ package com.lms.attendance.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+
+import java.util.List;
 
 @Configuration
 public class SecurityConfig {
@@ -14,15 +17,23 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    // ✅ CORS 해결 핵심 Security 설정 추가
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .cors()   // ✅ CorsConfig와 연결해줌
-            .and()
-            .csrf().disable()  // ✅ POST/PUT 테스트용 CSRF 비활성화
-            .authorizeHttpRequests()
-            .anyRequest().permitAll();  // ✅ 모든 요청 허용 (로그인 필요 없게)
+            .csrf(csrf -> csrf.disable())
+            .cors(cors -> cors.configurationSource(request -> {
+                CorsConfiguration config = new CorsConfiguration();
+                config.setAllowedOrigins(List.of("http://localhost:5173"));
+                config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+                config.setAllowedHeaders(List.of("*"));
+                config.setAllowCredentials(true);
+                return config;
+            }))
+            .authorizeHttpRequests(auth -> auth
+                .anyRequest().permitAll()
+            )
+            .formLogin(form -> form.disable()) // ✅ 기본 로그인 폼 비활성화
+            .httpBasic(basic -> basic.disable()); // ✅ HTTP Basic 인증도 비활성화 (선택)
 
         return http.build();
     }

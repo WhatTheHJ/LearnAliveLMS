@@ -1,60 +1,85 @@
 import { useState, useEffect } from 'react';
-import { fetchExams } from '../api/examApi';
+import { fetchExams, ExamResultsByExamId } from '../api/examApi';
 import { useAuth } from '../context/AuthContext';
+import { useParams } from 'react-router-dom';
 import ExamCreate from './ExamCreate';
+import ExamDetail from './ExamDetail'; // 교수자 시험 상세 컴포넌트 (별도 구현 필요)
+import ExamResult from './ExamResult'; // 학생 시험 결과 화면
+import ExamTake from './ExamTake'; // 학생 시험 응시 화면
+import ExamResults from '../components/ExamResults'; // 교수자용 전체 시험 결과
 
-const ExamList = ( { classId, setSelectedMenu, setSelectedExamId  } ) => {
-  const { user } = useAuth(); // 현재 로그인한 사용자 정보 가져오기
-  const [exams, setExams] = useState([]); // 시험 목록 상태
-  const [isCreatingExam, setIsCreatingExam] = useState(false); // 시험 생성 화면 표시 여부
-
+const ExamList = () => {
+  const { classId } = useParams();
+  const { user } = useAuth();
+  const [exams, setExams] = useState([]);
+  const [viewMode, setViewMode] = useState('list'); // list, create, detail, take, result, results
+  const [selectedExamId, setSelectedExamId] = useState(null);
+  const [examResults, setExamResults] = useState([]);
 
   useEffect(() => {
-    if (!classId) return; // classId가 없으면 요청 안 함
-
-    fetchExams(classId)
+    if (!classId || !user) return;
+    fetchExams(classId, user.userId)
       .then((data) => {
-        console.log(data); // 데이터를 로그로 출력해 확인
         setExams(data);
       })
       .catch((error) => {
-        console.error('❌ 시험 목록을 불러오는 데 실패했습니다:', error);
+        console.error('❌ 시험 목록 불러오기 실패:', error);
       });
-  }, [classId]); // classId가 변경될 때만 실행
+  }, [classId, user]);
 
+  // 시험 목록을 새로고침하는 함수
+  const refreshExams = () => {
+    fetchExams(classId, user.userId)
+      .then((data) => setExams(data))
+      .catch((error) => console.error('❌ 시험 목록 불러오기 실패:', error));
+  };
+
+  // 시험 생성 후 목록으로 복귀
   const handleExamCreated = () => {
-    setIsCreatingExam(false); // 목록 화면으로 전환
-    fetchExams(classId)
+    setViewMode('list');
+    refreshExams();
+  };
+
+  // 시험 클릭 시 역할 및 응시 여부에 따라 화면 전환
+  const handleExamClick = (exam) => {
+    setSelectedExamId(exam.examId);
+    if (user.role === 'student') {
+      if (exam.score !== undefined && exam.score !== null) {
+        setViewMode('result'); // 이미 응시한 경우 학생 결과 화면
+      } else {
+        setViewMode('take'); // 미응시한 경우 시험 응시 화면
+      }
+    } else {
+      // 교수자인 경우 시험 제목 클릭 시 상세 화면으로 이동
+      setViewMode('detail');
+    }
+  };
+
+  // 교수자가 '점수 조회' 버튼 클릭 시 전체 시험 결과 화면 열기
+  const openExamResults = (examId) => {
+    setSelectedExamId(examId);
+    ExamResultsByExamId(examId)
       .then((data) => {
-        setExams(data); // 시험 목록 갱신
+        setExamResults(data);
+        setViewMode('results');
       })
       .catch((error) => {
-        console.error('❌ 시험 목록을 불러오는 데 실패했습니다:', error);
+        console.error('❌ 시험 결과 불러오기 실패:', error);
       });
   };
 
-  if (!user) {
-    return <p>로그인 해주세요.</p>; // 로그인되지 않은 경우
-  }
-
-  // if (user.role !== 'professor') {
-  //   return <p>시험 목록을 볼 수 있는 권한이 없습니다.</p>; // 교수자 외에는 접근할 수 없게 처리
-  // }
+  if (!user) return <p>로그인 해주세요.</p>;
 
   return (
-    <div>
-      <h2>📝 시험 목록</h2>
-
-      {isCreatingExam ? (
-        <ExamCreate classId={classId} onExamCreated={handleExamCreated} />
-      ) : (
+    <div className='post-container'>
+      {viewMode === 'list' && (
         <>
+          <h2>📝 시험 목록</h2>
           {user.role === 'professor' && (
-            <button onClick={() => setSelectedMenu('examCreate')}>
+            <button onClick={() => setViewMode('create')}>
               💁‍♀️ 시험 추가
             </button>
           )}
-
           {exams.length > 0 ? (
             <table>
               <thead>
@@ -64,24 +89,45 @@ const ExamList = ( { classId, setSelectedMenu, setSelectedExamId  } ) => {
                   <th>문항수</th>
                   <th>시험 시작</th>
                   <th>시험 종료</th>
+                  <th>시험 점수</th>
                 </tr>
               </thead>
               <tbody>
                 {exams.map((exam) => (
                   <tr key={exam.examId}>
-                    <td
-                      style={{ cursor: 'pointer', color: 'blue' }}
-                      onClick={() => {
-                        setSelectedExamId(exam.examId);
-                        setSelectedMenu('examDetail');
-                      }}
-                    >
-                      {exam.title}
+                    <td>
+                      <button
+                        onClick={() => handleExamClick(exam)}
+                        style={{
+                          background: 'none',
+                          border: 'none',
+                          color: 'blue',
+                          textDecoration: 'underline',
+                          cursor: 'pointer',
+                        }}
+                      >
+                        {exam.title}
+                      </button>
                     </td>
-                    <td>{exam.profName ? exam.profName.toString() : '-'}</td>
-                    <td>{exam.questionCount ? exam.questionCount : '-'}</td>
-                    <td>{exam.startTime ? exam.startTime.toString() : '-'}</td>
-                    <td>{exam.endTime ? exam.endTime.toString() : '-'}</td>
+                    <td>{exam.profName || '-'}</td>
+                    <td>{exam.questionCount || '-'}</td>
+                    <td>
+                      {exam.startTime
+                        ? exam.startTime.replace('T', ' ')
+                        : '-'}
+                    </td>
+                    <td>
+                      {exam.endTime ? exam.endTime.replace('T', ' ') : '-'}
+                    </td>
+                    <td>
+                      {user.role === 'student' ? (
+                        exam.score || '미응시'
+                      ) : (
+                        <button onClick={() => openExamResults(exam.examId)}>
+                          점수 조회
+                        </button>
+                      )}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -91,7 +137,47 @@ const ExamList = ( { classId, setSelectedMenu, setSelectedExamId  } ) => {
           )}
         </>
       )}
+
+      {viewMode === 'create' && (
+        <ExamCreate
+          classId={classId}
+          onExamCreated={handleExamCreated}
+          onBack={() => setViewMode('list')}
+        />
+      )}
+
+      {viewMode === 'detail' && selectedExamId && (
+        <ExamDetail
+          examId={selectedExamId}
+          onBack={() => setViewMode('list')}
+        />
+      )}
+
+      {viewMode === 'take' && selectedExamId && (
+        <ExamTake
+          examId={selectedExamId}
+          classId={classId}
+          onBack={() => setViewMode('list')}
+          onExamSubmitted={() => setViewMode('result')}
+        />
+      )}
+
+      {viewMode === 'result' && selectedExamId && (
+        <ExamResult
+          examId={selectedExamId}
+          classId={classId}
+          onBack={() => setViewMode('list')}
+        />
+      )}
+
+      {viewMode === 'results' && (
+        <ExamResults
+          examResults={examResults}
+          onBack={() => setViewMode('list')}
+        />
+      )}
     </div>
   );
 };
+
 export default ExamList;

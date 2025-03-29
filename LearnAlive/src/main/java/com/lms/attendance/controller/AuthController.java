@@ -1,6 +1,5 @@
 package com.lms.attendance.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lms.attendance.model.LoginRequest;
 import com.lms.attendance.model.Student;
-import com.lms.attendance.repository.AuthMapper;
 import com.lms.attendance.service.AuthService;
 import com.lms.attendance.service.StudentService;
 
@@ -24,12 +22,10 @@ public class AuthController {
 
     private final AuthService authService;
     private final StudentService studentService;
-    private final AuthMapper authMapper;
-    
-    public AuthController(AuthService authService, StudentService studentService, AuthMapper authMapper) {
+
+    public AuthController(AuthService authService, StudentService studentService) {
         this.authService = authService;
         this.studentService = studentService;
-        this.authMapper = authMapper;
     
     }
 
@@ -63,47 +59,45 @@ public class AuthController {
     // ✅ 통합 로그인 (학생, 교수, 관리자)
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
-        System.out.println("로그인 시도 userId: " + request.getUserId());
-        String userId = request.getUserId();
-        String password = request.getPassword();
+        // 관리자 계정에 대해서는 비밀번호 확인을 추가
+        if ("admin".equalsIgnoreCase(request.getUserId())) {
+            // 관리자 계정 비밀번호 확인 (DB에서 가져오기)
+            String adminPassword = authService.getAdminPasswordById(request.getUserId()); // DB에서 비밀번호 가져오기
 
-        // ✅ 관리자 로그인 처리
-        if ("admin".equalsIgnoreCase(userId)) {
-            String adminPassword = authService.getAdminPasswordById(userId);
-            if (adminPassword == null || !authService.isPasswordValid(password, adminPassword)) {
+            // DB에서 비밀번호를 가져오지 못했거나 비밀번호가 일치하지 않으면 로그인 실패
+            if (adminPassword == null || !authService.isPasswordValid(request.getPassword(), adminPassword)) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                         .body(Map.of("success", false, "message", "잘못된 관리자 비밀번호입니다."));
             }
 
+            // 관리자 로그인의 경우 역할을 "ADMIN"으로 설정
+            String role = "admin";
+            String roleInKorean = "관리자";
             return ResponseEntity.ok(Map.of(
                     "success", true,
                     "message", "로그인 성공",
-                    "role", "ADMIN",
-                    "username", "관리자",
-                    "userId", userId,
-                    "classIds", List.of()  // 관리자에겐 classId 없음
+                    "role", role,
+                    "username", roleInKorean,
+                    "userId", request.getUserId()     // userId 추가
             ));
         }
 
-        // ✅ 일반 사용자 로그인
-        String role = authService.authenticate(userId, password);
+        // 일반 사용자 로그인 처리
+        String role = authService.authenticate(request.getUserId(), request.getPassword());
+
         if (role == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(Map.of("success", false, "message", "잘못된 ID 또는 비밀번호입니다."));
         }
 
-//        String name = authService.getUserNameByIdAndRole(userId, role);
-
-        List<Integer> classIds = authMapper.findClassIdByUserId(userId);  // ✅ 학생/교수 모두 포함
-        System.out.println("📘 로그인한 사용자의 강의실 목록: " + classIds);
         // 사용자 이름 조회 (관리자는 이름 없음)
-        String name = "ADMIN".equalsIgnoreCase(role) ? null : authService.getUserNameByIdAndRole(request.getUserId(), role);
+        String name = "admin".equalsIgnoreCase(role) ? null : authService.getUserNameByIdAndRole(request.getUserId(), role);
 
         // 역할 한글 변환
         String roleInKorean = switch (role.toLowerCase()) {
-            case "ADMIN" -> "관리자";
-            case "PROFESSOR" -> "교수자";
-            case "STUDENT" -> "학생";
+            case "admin" -> "관리자";
+            case "professor" -> "교수자";
+            case "student" -> "학생";
             default -> "알 수 없음";
         };
 
@@ -113,7 +107,6 @@ public class AuthController {
                 "message", "로그인 성공",
                 "role", role,
                 "username", name,
-                "classId", classIds  ,
                 "userId", request.getUserId()     // userId 추가
         ));
     }

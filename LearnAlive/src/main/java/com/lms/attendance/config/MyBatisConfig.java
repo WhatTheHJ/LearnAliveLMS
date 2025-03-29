@@ -1,13 +1,16 @@
 package com.lms.attendance.config;
 
+import javax.sql.DataSource;
+
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.mybatis.spring.annotation.MapperScan; // ✅ 추가!
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import javax.sql.DataSource;
 
 @Configuration
+@MapperScan("com.lms.attendance.repository") // ✅ 여기에 추가만 해주면 됩니다!
 public class MyBatisConfig {
 
     @Bean

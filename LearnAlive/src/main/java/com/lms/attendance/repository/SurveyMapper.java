@@ -12,9 +12,6 @@ public interface SurveyMapper {
     /** ✅ 특정 강의실의 모든 설문조사 게시판 목록 조회 */
     @Select("SELECT board_id AS boardId, class_id AS classId FROM survey_board WHERE class_id = #{classId} ORDER BY board_id ASC")
     List<SurveyBoard> findSurveyBoardsByClassId(@Param("classId") int classId);
-    
-    @Select("SELECT class_id FROM survey_board WHERE board_id = #{boardId}")
-    Integer findClassIdBySurveyBoardId(@Param("boardId") int boardId);
 
     /** ✅ 설문조사 게시판 생성 */
     @Insert("INSERT INTO survey_board (class_id) VALUES (#{classId})")
@@ -158,4 +155,6 @@ public interface SurveyMapper {
     @Delete("DELETE FROM survey_response WHERE survey_id = #{surveyId}")
     int deleteSurveyResponses(@Param("surveyId") int surveyId);
 
+    @Select("SELECT class_id FROM survey_board WHERE board_id = #{boardId}")
+    Integer findClassIdBySurveyBoardId(@Param("boardId") int boardId);
 }

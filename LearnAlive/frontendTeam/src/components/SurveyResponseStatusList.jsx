@@ -83,7 +83,6 @@ const SurveyResponseStatusList = ({surveyId, onBack }) => {
       <h2 className="left-title" style={{ display: "flex", justifyContent: "center"}}>
         📊 설문 응답 여부 목록
       </h2>
-      <br></br>
       <div className="survey-response-list">
       {/* ✅ 엑셀 다운로드 버튼 */}
       <div style={{ display: "flex", justifyContent: "center", marginTop: "10px" }}>

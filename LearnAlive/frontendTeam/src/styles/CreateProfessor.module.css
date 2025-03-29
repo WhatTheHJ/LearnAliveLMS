@@ -1,0 +1,16 @@
+/* CreateProfessor.module.css */
+
+.formGroup {
+    margin-bottom: 1rem;
+  }
+  
+  .formGroup label {
+    display: inline-block;
+    width: 120px;           /* 원하는 너비로 조절 */
+    text-align: right;      /* 라벨 텍스트 오른쪽 정렬 */
+    margin-right: 10px;
+    vertical-align: middle; /* 인풋과 수직 중앙 정렬 */
+    padding-top: 0.25rem;   /* 위 여백 */
+    padding-bottom: 0.25rem;/* 아래 여백 */
+    font-weight: bold;
+  }

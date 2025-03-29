@@ -16,4 +16,5 @@ public class Student {
     private String password;   // 비밀번호 추가
     private String remarks; //  추가된 비고(remarks) 컬럼
     private Integer classId;
+    private String contact;
 }

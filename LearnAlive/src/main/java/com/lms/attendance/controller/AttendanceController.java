@@ -90,8 +90,8 @@ public class AttendanceController {
     
     @GetMapping("/student/{studentId}")
     public ResponseEntity<List<Attendance>> getAttendanceByStudent(
-    		@PathVariable int studentId, 
-            @RequestParam String date) {
+            @PathVariable("studentId") String studentId, 
+            @RequestParam("date") String date) {
         
         List<Attendance> attendanceList = attendanceService.getAttendanceByStudent(studentId, date);
         
@@ -104,8 +104,8 @@ public class AttendanceController {
     // 학생의 월별 출석 기록 조회 (예: /api/attendance/student/1/month?month=2025-03)
     @GetMapping("/student/{studentId}/month")
     public ResponseEntity<List<Attendance>> getMonthlyAttendance(
-            @PathVariable int studentId,
-            @RequestParam String month) {
+            @PathVariable("studentId") String studentId,
+            @RequestParam("month") String month) {
         List<Attendance> attendanceList = attendanceService.getMonthlyAttendance(studentId, month);
         if (attendanceList.isEmpty()) {
             return ResponseEntity.noContent().build();
@@ -115,10 +115,10 @@ public class AttendanceController {
     
 	 // 지난 출석 데이터 조회 엔드포인트
 	 // 예: GET /api/attendance/student/1/past?endDate=2025-03-18
-	 @GetMapping("/student/{studentId}/past")
-	 public ResponseEntity<List<Attendance>> getPastAttendance(
-	         @PathVariable int studentId,
-	         @RequestParam String endDate) {
+    @GetMapping("/student/{studentId}/past")
+    public ResponseEntity<List<Attendance>> getPastAttendance(
+            @PathVariable("studentId") String studentId,
+            @RequestParam("endDate") String endDate) {
 	     List<Attendance> attendanceList = attendanceService.getPastAttendance(studentId, endDate);
 	     if (attendanceList.isEmpty()) {
 	         return ResponseEntity.noContent().build();

@@ -1,22 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item key="selection" value="spring.application.name=LearnAlive&#x0A;&#x0A;# Server set for heroku default 8080&#x0A;server.port=${PORT:8080}&#x0A;&#x0A;# 데이터베이스 연결 설정&#x0A;spring.datasource.url=jdbc:mysql://localhost:3306/LearnAliveDB?useSSL=false&amp;serverTimezone=UTC&#x0A;spring.datasource.username=root&#x0A;spring.datasource.password=1234&#x0A;spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver&#x0A;&#x0A;# MyBatis set&#x0A;mybatis.configuration.log-impl=org.apache.ibatis.logging.stdout.StdOutImpl&#x0A;logging.level.org.mybatis=DEBUG&#x0A;logging.level.org.apache.ibatis=DEBUG&#x0A;logging.level.com.korea.attendance.repository=DEBUG&#x0A;&#x0A;# Hibernate set&#x0A;spring.jpa.hibernate.ddl-auto=update&#x0A;spring.jpa.properties.hibernate.format_sql=true&#x0A;spring.jpa.show-sql=true&#x0A;&#x0A;# React static resource setting&#x0A;#spring.web.resources.static-locations=classpath:/static/&#x0A;spring.mvc.view.suffix=.html&#x0A;&#x0A;# db connection killer&#x0A;spring.datasource.hikari.minimum-idle=2&#x0A;spring.datasource.hikari.maximum-pool-size=10&#x0A;spring.datasource.hikari.idle-timeout=30000&#x0A;spring.datasource.hikari.max-lifetime=1800000&#x0A;spring.datasource.hikari.connection-timeout=30000&#x0A;&#x0A;"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="INT"/>
 		<list key="findhistory">
-			<item value="int"/>
-			<item value="userid"/>
+			<item value="admin"/>
+			<item value="import com.lms.attendance.config.WebSocketConfig"/>
+			<item value="getAllPosts"/>
+			<item value="getAllTeamActivityPosts"/>
+			<item value="getProjectMembersWithStudentInfoByPostId"/>
+			<item value="examResult"/>
+			<item value="fetchexamre"/>
+			<item value="findByClassId"/>
+			<item value="getExamsByClassId"/>
+			<item value="role"/>
+			<item value="maven-com"/>
+			<item value="getattendance"/>
+			<item value="getmonth"/>
+			<item value="find"/>
+			<item value="remarks"/>
 		</list>
 		<list key="replacehistory">
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item key="DIALOG_X_ORIGIN" value="1333"/>
-		<item key="DIALOG_Y_ORIGIN" value="356"/>
+		<item key="DIALOG_X_ORIGIN" value="823"/>
+		<item key="DIALOG_Y_ORIGIN" value="150"/>
 		<item key="DIALOG_WIDTH" value="369"/>
 		<item key="DIALOG_HEIGHT" value="454"/>
 		<item key="DIALOG_FONT_NAME" value="1|맑은 고딕|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕"/>

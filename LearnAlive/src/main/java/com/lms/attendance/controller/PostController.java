@@ -1,6 +1,16 @@
 package com.lms.attendance.controller;
 
-import org.slf4j.Logger;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -8,12 +18,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -30,20 +37,6 @@ import com.lms.attendance.service.AlarmSender;
 import com.lms.attendance.service.BoardService;
 import com.lms.attendance.service.LikeService;
 import com.lms.attendance.service.PostService;
-
-import jakarta.servlet.http.HttpSession;
-
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
@@ -64,6 +57,10 @@ public class PostController {
 		 this.alarmSender = alarmSender;
 	}
 
+//    @Autowired
+//    public LikeService(LikeService likeService) {
+//        this.likeService = likeService;
+//    }
 
 	// 게시글 목록 조회
 	@GetMapping("/{boardId}/post")
@@ -117,12 +114,9 @@ public class PostController {
 		Post createdPost = postService.createPost(boardId, post);
 		int classId = boardService.findClassIdByBoardId(boardId);
 		
-		AlarmMessage msg = new AlarmMessage(
-				"POST", 
-				createdPost.getTitle(), 
-				LocalDateTime.now(), 
-				classId);
+		AlarmMessage msg = new AlarmMessage("POST", createdPost.getTitle(), LocalDateTime.now().toString(), classId);
 	    alarmSender.sendToUsersInClass(classId, msg);
+
 		// 게시글 생성 후 응답 반환
 		return ResponseEntity.ok(createdPost);
 	}

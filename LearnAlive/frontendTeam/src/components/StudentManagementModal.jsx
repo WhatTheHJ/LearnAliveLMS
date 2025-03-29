@@ -183,6 +183,7 @@ const handleRegisterToClass = async (studentId) => {
         />
         <button onClick={handleSearch}>검색</button>
 
+        <div className="table-container">
         {searchResults.length > 0 && (
           <table className="student-table">
             <thead>
@@ -216,7 +217,7 @@ const handleRegisterToClass = async (studentId) => {
             </tbody>
           </table>
         )}
-
+      </div>
   
         <div className="button-container">
           <button className="delete-button" onClick={onClose}>닫기</button>

@@ -67,4 +67,12 @@ public class StudentController {
         return ResponseEntity.ok("강의실 수강 등록 완료");
     }
     
+    @GetMapping("/auth/student/{studentId}")
+    public ResponseEntity<Student> getStudentById(@PathVariable("studentId") String studentId) {
+        Student student = studentService.findStudentById(studentId);
+        if (student == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(student);
+    }
 }

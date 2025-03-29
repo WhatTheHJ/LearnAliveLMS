@@ -25,6 +25,10 @@ export const AuthProvider = ({ children }) => {
         password,
       });
       const userData = response.data;
+      // 만약 백엔드 응답에 'id'가 있다면 'userId'로 변환합니다.
+      if (!userData.userId && userData.id) {
+        userData.userId = userData.id;
+      }
       setUser(userData);
       sessionStorage.setItem("user", JSON.stringify(userData));
       console.log("✅ 로그인 성공:", userData);

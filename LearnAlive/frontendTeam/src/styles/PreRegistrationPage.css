@@ -1,0 +1,51 @@
+/* 간단한 예시 스타일입니다. 필요에 맞게 조정하세요 */
+.pre-reg-container {
+    display: flex;
+    font-family: sans-serif;
+  }
+  
+  /* 좌측 사이드바 */
+  .sidebar {
+    width: 200px;
+    background-color: #f2f2f2;
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+  
+  .sidebar h2 {
+    margin-top: 0;
+  }
+  
+  .sidebar-info p {
+    margin: 0.25rem 0;
+  }
+  
+  /* 우측 메인 */
+  .main-content {
+    flex: 1;
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+  
+  .search-bar {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .course-list, .my-courses, .time-table {
+    margin-bottom: 1.5rem;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0.5rem;
+  }
+  
+  table, th, td {
+    border: 1px solid #ccc;
+    text-align: center;
+    padding: 0.5rem;
+  }
+  

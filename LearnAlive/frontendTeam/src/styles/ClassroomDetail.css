@@ -82,6 +82,7 @@
     border-radius: 10px;
     min-height: 70vh; /* ✅ footer와 겹치지 않도록 충분한 공간 확보 */
     overflow: auto; /* ✅ 동적으로 추가된 요소가 많아질 경우 스크롤 가능 */
+    width: 100%;
 }
 
 /* 모달 관련 css */
@@ -102,14 +103,16 @@
   .modal-window {
     background: white !important;
     padding: 20px;
+    min-width: 130vh;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    width: 80%;
     text-align: center;
     display: flex;
     flex-direction: column; /* ✅ 버튼들이 박스 안에 들어가도록 변경 */
     gap: 10px;
     animation: fadeIn 0.3s ease-in-out;
+    max-height: 75vh;
+    box-sizing: border-box;
   }
   
   /* ✅ 버튼 박스 정렬 */

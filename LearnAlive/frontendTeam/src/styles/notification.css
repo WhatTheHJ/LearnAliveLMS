@@ -1,5 +1,8 @@
 .notification-area {
     position: relative;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 14px;
   }
   
   .bell-button {
@@ -26,10 +29,12 @@
     width: 300px;
     background: white;
     z-index: 9999; /* 아주 높게! */
-    border: 1px solid #ccc;
+    border: 2px solid #ccc;
     max-height: 300px;
     overflow-y: auto;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    padding: 10px;
   }
   
   .notification-item {

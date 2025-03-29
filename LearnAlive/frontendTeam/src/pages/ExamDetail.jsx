@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { fetchExamDetail, updateExam, deleteExam } from '../api/examApi';
 import "../styles/ExamDetail.css";
 
 const ExamDetail = ({ examId: propExamId, onUpdated, onBack }) => {
   const { examId: paramExamId } = useParams();
   const finalExamId = propExamId || paramExamId; // props 우선, 없으면 params로 읽음
-  const navigate = useNavigate();
   const [exam, setExam] = useState(null);
   const [questions, setQuestions] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
@@ -178,7 +177,7 @@ const ExamDetail = ({ examId: propExamId, onUpdated, onBack }) => {
         </div>
       </div>
 
-      <h3 className="question-title">시험 문제 ({questions.length}문항)</h3>
+      <h3 className="question-title-1">시험 문제 ({questions.length}문항)</h3>
       <div className="question-list">
         {questions.length > 0 ? (
           questions.map((question, index) => (
@@ -196,7 +195,7 @@ const ExamDetail = ({ examId: propExamId, onUpdated, onBack }) => {
                   }
                 />
               ) : (
-                <p className="question-title">{question.questionTitle}</p>
+                <p className="question-title-1">{question.questionTitle}</p>
               )}
 
               {isEditing ? (
@@ -211,7 +210,7 @@ const ExamDetail = ({ examId: propExamId, onUpdated, onBack }) => {
                   }
                 />
               ) : (
-                <p className="question-text">{question.questionText}</p>
+                <p className="question-text-1">{question.questionText}</p>
               )}
 
               <div className="question-options">

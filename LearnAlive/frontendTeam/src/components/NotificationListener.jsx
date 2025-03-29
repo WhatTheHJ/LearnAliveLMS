@@ -6,7 +6,7 @@ import { useNotifications } from "../context/NotificationContext";
 
 const NotificationListener = ({ userId }) => {
   const { addNotification } = useNotifications();
-  // console.log("🧪 NotificationListener 시작됨, userId:", userId);<확인완>
+  // console.log("🧪 NotificationListener 시작됨, userId:", userId);
   useEffect(() => {
     if (!userId )   {
         console.warn("❌ WebSocket 연결 생략 - userId 없음");
@@ -49,6 +49,7 @@ const NotificationListener = ({ userId }) => {
           autoClose: 4000,
         });
       });
+
 
       // ✅ (선택) global 채널 구독 <subscribe는 반드시 온커넥트 내부에서!!!>
       stompClient.subscribe("/topic/global", (message) => {

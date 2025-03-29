@@ -45,4 +45,3 @@ public interface TodoMapper {
     @Delete("DELETE FROM todo_list WHERE completed = true AND todo_id IN (SELECT todo_id FROM (SELECT todo_id FROM todo_list WHERE completed = true ORDER BY updated_at ASC LIMIT 1) AS subquery)")
     void deleteOldestCompletedTodo();
 }
-

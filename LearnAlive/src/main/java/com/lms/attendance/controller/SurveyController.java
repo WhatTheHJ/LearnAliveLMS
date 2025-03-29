@@ -1,7 +1,7 @@
 package com.lms.attendance.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
-
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
@@ -15,21 +15,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lms.attendance.model.AlarmMessage;
 import com.lms.attendance.model.Survey;
 import com.lms.attendance.model.SurveyBoard;
 import com.lms.attendance.repository.SurveyMapper;
-import com.lms.attendance.service.SurveyService;
-import com.lms.attendance.service.BoardService;
 import com.lms.attendance.service.AlarmSender;
-import com.lms.attendance.model.AlarmMessage;
-
-import java.time.LocalDateTime;
+import com.lms.attendance.service.BoardService;
+import com.lms.attendance.service.SurveyService;
 
 @RestController
 @RequestMapping("/api/surveys") // ✅ API 기본 경로
 public class SurveyController {
 
-	
     private final SurveyService surveyService;
     //----------------웹소켓의존성추가
     private final BoardService boardService;
@@ -80,7 +77,7 @@ public class SurveyController {
             return ResponseEntity.badRequest().build();
         }
         
-// <<<웹소켓 알림 전송!!!!!!!!!!!!!!!!!!!!!!>>>
+        // 웹소켓 알림 전송
         Integer boardId = createdSurvey.getBoardId(); // 모델에 boardId 존재
         Integer classId = surveyMapper.findClassIdBySurveyBoardId(boardId);
         
@@ -92,13 +89,12 @@ public class SurveyController {
         AlarmMessage message = new AlarmMessage(
             "SURVEY",
             createdSurvey.getTitle(),
-            LocalDateTime.now(),
+            LocalDateTime.now().toString(),
             classId
         );
-// 안전하게 WebSocket 알림 전송
+     // 안전하게 WebSocket 알림 전송
         alarmSender.sendToUsersInClass(classId, new AlarmMessage(
-            "SURVEY", 
-            createdSurvey.getTitle(), LocalDateTime.now(), classId
+            "SURVEY", createdSurvey.getTitle(), LocalDateTime.now().toString(), classId
         ));
         
         return ResponseEntity.ok(createdSurvey);

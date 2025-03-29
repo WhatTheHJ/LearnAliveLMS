@@ -1,16 +1,20 @@
 package com.lms.attendance.controller;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.lms.attendance.model.Schedule;
 import com.lms.attendance.model.Todo;
@@ -114,7 +118,7 @@ public class ScheduleController {
     }
 
     // 투두 완료 상태 업데이트
-    @PutMapping("/{todoId}")
+    @PutMapping("/todos/{todoId}")
     public Todo updateTodo(@PathVariable("todoId") int todoId, @RequestBody Todo updatedTodo) {
         updatedTodo.setTodoId(todoId);
         return scheduleService.updateTodo(updatedTodo);
@@ -133,7 +137,7 @@ public class ScheduleController {
     }
 
     // 투두 완료 상태 업데이트 및 가장 오래된 완료된 투두 삭제
-    @PutMapping("/todos/{todoId}")
+    @PutMapping("/todos/{todoId}/complete")
     public Todo updateTodoCompletionAndCheckOldest(@PathVariable("todoId") int todoId, @RequestBody Todo updatedTodo) {
         updatedTodo.setTodoId(todoId);
         scheduleService.updateTodoCompletionAndCheckOldest(updatedTodo);

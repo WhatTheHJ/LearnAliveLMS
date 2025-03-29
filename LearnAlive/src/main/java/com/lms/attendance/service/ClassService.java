@@ -32,8 +32,20 @@ public class ClassService {
         return classrooms;
     }
     
+    @Transactional
     public void addClassroom(Classroom newClass) {
-        classMapper.insertClassroom(newClass);
+        classMapper.insertClassroom(newClass);  // class 테이블 insert
+        int classId = newClass.getClassId();    // auto_increment된 ID 가져오기
+
+        // ✅ 요일 저장
+        for (String day : newClass.getDaysOfWeek()) {
+            classMapper.insertClassDay(classId, day);
+        }
+
+        // ✅ 권장 학년 저장
+        for (String grade : newClass.getRecommendedGrade()) {
+            classMapper.insertRecommendedGrade(classId, Integer.parseInt(grade));
+        }
     }
     
     // ✅ 강의실 삭제 로직 추가
@@ -71,4 +83,10 @@ public class ClassService {
     public void updateClassDescription(int classId, String description) {
         classMapper.updateClassDescription(classId, description);
     }
+    
+    //모든 강의실 정보 가져오기
+    public List<Classroom> getAllClassesForAdmin() {
+        return classMapper.findAllClassesForAdmin();
+    }
+
 }

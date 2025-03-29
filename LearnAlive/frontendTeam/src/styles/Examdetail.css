@@ -1,154 +1,107 @@
 .exam-container {
-    width: 60%;
-    margin: 0 auto;
-    padding: 20px;
-    background: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    margin-top: 30px;
-    margin-bottom: 30px;
-  }
-  
-  .exam-title {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .exam-title-input {
-    font-size: 17px;
-    display: flex;
-    justify-content: space-between;
-    background: white;
-    padding: 10px;
-    border-radius: 5px;
-  }
-  .exam-title-input [type='text'] {
-    width: 23%;
-    font-size: 17px;
-    margin-right: 10px;
-  }
-  
-  .exam-info {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  .exam-field {
-    display: flex;
-    justify-content: space-between;
-    background: white;
-    padding: 10px;
-    border-radius: 5px;
-  }
-  
-  .question-title {
-    margin-top: 20px;
-    font-size: 18px;
-  }
-  
-  .question-list {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-  
-  .question-card {
-    background: white;
-    padding: 15px;
-    border-radius: 5px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-    margin-bottom: 10px;
-    margin-top: 10px;
-    font-size: 18px;
-  }
-  
-  .question-number {
-    font-size: 16px;
-    font-weight: bold;
-  }
-  
-  .correct-answer {
-    color: green;
-    font-weight: bold;
-    margin-top: 30px;
-  }
-  
-  .buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-  }
-  
-  button {
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .save-btn {
-    background: #4caf50;
-    color: white;
-  }
-  
-  .cancel-btn {
-    background: #ffc107;
-    color: white;
-  }
-  
-  .edit-btn {
-    background: #2196f3;
-    color: white;
-  }
-  
-  .delete-btn {
-    background: #f44336;
-    color: white;
-  }
-  
-  .back-btn {
-    background: gray;
-    color: white;
-  }
-  
-  .question-card .question-title,
-  .question-card .question-text {
-    display: block; /* 위아래로 배치 */
-    width: 98%; /* 가로 전체 차지 */
-    margin-top: 20px; /* 입력 필드 사이 간격 */
-    margin-bottom: 40px;
-    font-size: 17px;
-    white-space: pre-wrap;
-  }
-  
-  .question-options input[type='text'] {
-    width: 92%; /* 가로 전체 차지 */
-    margin-left: 10px; /* 왼쪽에 기존 번호 유지 */
-    font-size: 17px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
-  .option {
-    font-size: 17px;
-  
-    margin-bottom: 15px;
-  }
-  
-  .exam-field input {
-    width: 80%;
-    margin-right: 10px;
-    font-size: 17px;
-  }
-  
-  .exam-time {
-    margin-right: 30px;
-  }
-  
-  .exam-profname {
-    margin-right: 30px;
-  }
-  
-  .exam-starttime {
-    margin-left: 30px;
-  }
+  width: 60%;
+  margin: 0 auto;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.exam-title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.exam-title-input {
+  font-size: 17px;
+  display: flex;
+  justify-content: space-between;
+  background: white;
+  padding: 10px;
+  border-radius: 5px;
+}
+.exam-title-input [type='text'] {
+  width: 23%;
+  font-size: 17px;
+  margin-right: 10px;
+}
+
+.exam-field {
+  display: flex;
+  justify-content: space-between;
+  background: white;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.correct-answer {
+  color: green;
+  font-weight: bold;
+  margin-top: 50px;
+  margin-left: 70px;
+  margin-bottom: 70px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.save-btn {
+  background: #4caf50;
+  color: white;
+}
+
+.cancel-btn {
+  background: #ffc107;
+  color: white;
+}
+
+.edit-btn {
+  background: #2196f3;
+  color: white;
+}
+
+.delete-btn {
+  background: #f44336;
+  color: white;
+}
+
+.back-btn {
+  background: gray;
+  color: white;
+}
+
+.question-options input[type='text'] {
+  width: 88%; /* 가로 전체 차지 */
+  margin-left: 10px; /* 왼쪽에 기존 번호 유지 */
+  font-size: 17px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.option {
+  font-size: 17px;
+  margin-bottom: 15px;
+}
+
+.exam-field input {
+  width: 80%;
+  margin-right: 10px;
+  font-size: 17px;
+}
+
+.exam-time,
+.exam-profname {
+  margin-right: 30px;
+}
+
+.exam-starttime {
+  margin-left: 30px;
+}
+
+.exam-info {
+  border-radius: 10px;
+}

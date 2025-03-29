@@ -22,7 +22,14 @@ public class AttendanceServiceImpl implements AttendanceService {
     // ✅ 특정 날짜 출석 데이터 조회
     @Override
     public List<Attendance> getAttendanceByClassAndDate(int classId, String date) {
-        return attendanceMapper.findAttendanceByClassAndDate(classId, date);
+        List<Attendance> attendanceList = attendanceMapper.findAttendanceByClassAndDate(classId, date);
+
+        // ✅ createdAt, updatedAt null → "" 변환 처리
+        for (Attendance att : attendanceList) {
+            if (att.getCreatedAt() == null) att.setCreatedAt("");
+            if (att.getUpdatedAt() == null) att.setUpdatedAt("");
+        }
+        return attendanceList;
     }
 
 
@@ -103,19 +110,20 @@ public class AttendanceServiceImpl implements AttendanceService {
         return response;
     }
 
-    public List<Attendance> getAttendanceByStudent(int studentId, String date) {
+    @Override
+    public List<Attendance> getAttendanceByStudent(String studentId, String date) {
         return attendanceMapper.findAttendanceByStudent(studentId, date);
     }
     
     @Override
     @Transactional
-    public List<Attendance> getMonthlyAttendance(int studentId, String month) {
+    public List<Attendance> getMonthlyAttendance(String studentId, String month) {
         return attendanceMapper.findAttendanceByStudentForMonth(studentId, month);
     }
     
     @Override
     @Transactional
-    public List<Attendance> getPastAttendance(int studentId, String endDate) {
+    public List<Attendance> getPastAttendance(String studentId, String endDate) {
         return attendanceMapper.findPastAttendanceByStudent(studentId, endDate);
     }
 }

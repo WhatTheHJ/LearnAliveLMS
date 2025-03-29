@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, useNavigate} from "react-router-dom";
+import { fetchClassrooms } from "../api/classroomApi";
 import { fetchClassDetail } from "../api/classroomApi";
 import { fetchBoardsByClassId, createBoard, deleteBoardByBoardId } from "../api/boardsApi";
 import { fetchSurveyBoards, createSurveyBoard } from "../api/surveyApi"; // 설문조사 게시판 관련 API
@@ -14,15 +15,20 @@ import AddBoardModal from "../components/AddBoardModal";
 import ExamList from "./ExamList";
 import ExamCreate from "./ExamCreate";
 import ExamDetail from "./ExamDetail";
+import ExamTake from './ExamTake';
+import TeamActivity from "../components/TeamActivity";
 import "../styles/ClassroomDetail.css";
 import "../styles/post.css";
 
 const ClassroomDetail = () => {
   const { classId } = useParams();
   const { user } = useAuth();
+  const userId = user?.userId;
+  const navigate = useNavigate();
 
   // 강의실 정보 및 게시판 목록 상태
   const [classDetail, setClassDetail] = useState(null);
+  const [classrooms, setClassrooms] = useState([]);
   const [boards, setBoards] = useState([]); // 일반 게시판 목록
   const [surveyBoards, setSurveyBoards] = useState([]); // 설문조사 게시판 목록
 
@@ -69,6 +75,29 @@ const ClassroomDetail = () => {
     setSelectedMenu("survey");
   };
 
+    // ✅ 강의실 목록 가져오기
+    useEffect(() => {
+      const getClassrooms = async () => {
+        if (!userId) return; // userId가 없으면 요청하지 않음
+        try {
+          const data = await fetchClassrooms(userId); // API 호출
+          setClassrooms(data); // 강의실 목록 저장
+        } catch (error) {
+          console.error("강의실 목록을 불러오는데 실패했습니다.", error);
+        }
+      };
+  
+      getClassrooms();
+    }, [userId]);
+
+    // ✅ 강의실 선택 시 바로 이동
+    const handleClassroomChange = (event) => {
+      const selectedClassId = event.target.value;
+      if (selectedClassId) {
+        navigate(`/classroom/${selectedClassId}/boards`); // 강의실 페이지로 이동
+      }
+    };
+
   // 메뉴 선택에 따라 오른쪽 콘텐츠 렌더링
   useEffect(() => {
     if (!selectedMenu) return;
@@ -100,6 +129,19 @@ const ClassroomDetail = () => {
         console.log("❌ selectedExamId가 아직 null이다.");
       }
       break;
+      case "examTake":
+    if (selectedExamId) {
+      setActiveComponent(
+        <ExamTake
+          examId={selectedExamId}
+          classId={classId}
+          onBack={() => setSelectedMenu("exam")}
+        />
+      );
+    } else {
+      console.log("❌ selectedExamId가 아직 null이다.");
+    }
+    break;
       case "survey":
         setActiveComponent(
           selectedSurveyBoardId ? (
@@ -126,11 +168,14 @@ const ClassroomDetail = () => {
           )
         );
         break;
-      default:
-        setActiveComponent(null);
-    }
-  }, [selectedMenu, classId, boardId, selectedSurveyBoardId, user, selectedExamId]);
-
+        case "teamActivity":
+          setActiveComponent(<TeamActivity classId={classId} />);
+          break;
+        default:
+          setActiveComponent(null);
+      }
+    }, [selectedMenu, classId, boardId, selectedSurveyBoardId, user, selectedExamId]);
+  
   if (!classDetail) return <p>클래스 정보를 불러오는 중...</p>;
 
   return (
@@ -141,6 +186,18 @@ const ClassroomDetail = () => {
         <p><strong>이메일:</strong> {classDetail.professorEmail}</p>
       </div>
       
+      <div className="classroom-detail-container">
+              {/* 강의실 선택 dropdown */}
+              <select onChange={handleClassroomChange} defaultValue="">
+          <option value="" disabled> -- 강의실 선택 -- </option>
+          {classrooms.map((classroom) => (
+            <option key={classroom.classId} value={classroom.classId}>
+              {classroom.className} {/* 강의실 이름 표시 */}
+            </option>
+          ))}
+        </select>
+      </div>
+
       <div className="classroom-layout">
         {/* 좌측 메뉴 */}
         <div className="classroom-menu">
@@ -191,6 +248,14 @@ const ClassroomDetail = () => {
               퀴즈
             </button>
           )}
+
+          {/* 새로 추가된 팀 활동 게시판 버튼 */}
+          <button
+            className="menu-button"
+            onClick={() => setSelectedMenu("teamActivity")}
+          >
+            팀 활동
+          </button>
 
 
           {/* 추가 메뉴: 메인으로 */}

@@ -15,6 +15,7 @@ import org.apache.ibatis.annotations.Update;
 import com.lms.attendance.model.Exam;
 import com.lms.attendance.model.ExamBoard;
 import com.lms.attendance.model.ExamQuestion;
+import com.lms.attendance.model.StudentExamResult;
 
 
 
@@ -26,24 +27,29 @@ public interface ExamMapper {
     @Options(useGeneratedKeys = true, keyProperty = "examId")
     void createExam(Exam exam);
 
-    
     //특정 클래스의 시험 목록 가져오기
-    @Select("SELECT * FROM Exam WHERE class_id = #{classId}")
-    @Results({
-    	 @Result(property = "examId", column = "exam_id"),
-         @Result(property = "classId", column = "class_id"),
-         @Result(property = "profId", column = "prof_id"),
-         @Result(property = "profName", column = "prof_name"),
-         @Result(property = "title", column = "title"),
-         @Result(property = "startTime", column = "start_time"),
-         @Result(property = "endTime", column = "end_time"),
-         @Result(property = "createdAt", column = "created_at"),
-         @Result(property = "updatedAt", column = "updated_at"),
-         @Result(property = "questionCount", column = "question_count")
-    })
-    List<Exam> findByClassId(@Param("classId") int classId); 
-	
-    
+    @Select("""
+    	    SELECT e.*, es.score
+    	    FROM Exam e
+    	    LEFT JOIN Exam_Submission es 
+    	      ON e.exam_id = es.exam_id AND es.student_id = #{studentId}
+    	    WHERE e.class_id = #{classId}
+    	""")
+    	@Results({
+    	    @Result(property = "examId", column = "exam_id"),
+    	    @Result(property = "classId", column = "class_id"),
+    	    @Result(property = "profId", column = "prof_id"),
+    	    @Result(property = "profName", column = "prof_name"),
+    	    @Result(property = "title", column = "title"),
+    	    @Result(property = "startTime", column = "start_time"),
+    	    @Result(property = "endTime", column = "end_time"),
+    	    @Result(property = "createdAt", column = "created_at"),
+    	    @Result(property = "updatedAt", column = "updated_at"),
+    	    @Result(property = "questionCount", column = "question_count"),
+    	    @Result(property = "score", column = "score") // <- Exam_Submission.score
+    	})
+    	List<Exam> findByClassIdAndStudentId(@Param("classId") int classId, @Param("studentId") String studentId);
+
     //특정 시험 상세 보기
     @Select("SELECT * FROM Exam WHERE exam_id = #{examId}")
     @Results({
@@ -76,9 +82,17 @@ public interface ExamMapper {
     List<Exam> findAll();
     
     
-    @Insert("INSERT INTO Exam_Question (exam_id, question_text, question_type, correct_answer) VALUES (#{question.examId}, #{question.questionText}, #{question.questionType}, #{question.correctAnswer})")
-    void createExamQuestion(@Param("question") ExamQuestion question); // 문제 저장
+    @Insert("INSERT INTO Exam_Question (exam_id, question_text, question_type, correct_answer) VALUES (#{examId}, #{questionText}, #{questionType}, #{correctAnswer})")
+    void createExamQuestion(ExamQuestion question); // 문제 저장
 
+    // examId 기준으로 모든 학생의 시험 결과 조회
+    @Select("SELECT es.submission_id AS submissionId, es.exam_id AS examId, es.student_id AS studentId, " +
+            "es.submitted_at AS submittedAt, es.score, s.name " +
+            "FROM exam_submission es " +
+            "JOIN student s ON es.student_id = s.student_id " +
+            "WHERE es.exam_id = #{examId}")
+    List<StudentExamResult> findExamResultsByExamId(@Param("examId") int examId);
+    
     // Exam_Board 생성
     @Insert("INSERT INTO Exam_Board (class_id) VALUES (#{classId})")
     void createExamBoard(@Param("classId") int classId);

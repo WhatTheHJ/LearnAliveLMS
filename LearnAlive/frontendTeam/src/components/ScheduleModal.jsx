@@ -55,7 +55,7 @@ const ScheduleModal = ({ isModalOpen, selectedDate, formData, onChange, onSubmit
                     type="datetime-local"
                     name="alarmTime"
                     // value={formData.alarmTime || new Date().toISOString().slice(0, 16)}
-                    value={formData.alarmTime ?? " "} // 비어있으면 빈 문자열로!
+                    value={formData.alarmTime ?? ""} // 비어있으면 빈 문자열로!
                     onChange={onChange}
                   />
                 </label>

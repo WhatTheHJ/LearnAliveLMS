@@ -14,29 +14,27 @@ const ProfessorStatus = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [editingProfessor, setEditingProfessor] = useState(null);
 
-  useEffect(() => {
-    if (!user) {
-      navigate("/");
-    } else if (user.role === "ADMIN") {
-      fetchProfessors();
-      setIsLoggedIn(true);
-      setUsername(user.username);
-      setRole(user.role);
-    }
-  }, [user, navigate]);
-
   const fetchProfessors = async () => {
     try {
       const response = await axios.get("http://localhost:8080/api/professors", {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
+        headers: { Authorization: `Bearer ${user.token}` },
       });
       setProfessors(response.data);
     } catch (error) {
       console.error("교수 목록을 불러오는 데 실패했습니다.", error);
     }
   };
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/");
+    } else if (user.role === "admin") {
+      fetchProfessors();
+      setIsLoggedIn(true);
+      setUsername(user.username);
+      setRole(user.role);
+    }
+  }, [user, navigate]);
 
   const handleCreateProfessorClick = () => {
     setEditingProfessor(null);
@@ -56,14 +54,12 @@ const ProfessorStatus = () => {
   const handleDeleteProfessor = async (prof_id) => {
     try {
       const response = await axios.delete(`http://localhost:8080/api/professors/${prof_id}`, {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
+        headers: { Authorization: `Bearer ${user.token}` },
       });
-
       if (response.data.success) {
         alert(response.data.message);
-        setProfessors(professors.filter((professor) => professor.prof_id !== prof_id));
+        // 삭제 후 전체 목록 재조회
+        fetchProfessors();
       } else {
         alert(response.data.message);
       }
@@ -73,31 +69,32 @@ const ProfessorStatus = () => {
     }
   };
 
-  const handleProfessorAdded = (newProfessor) => {
-    setProfessors((prevProfessors) => [...prevProfessors, newProfessor]);
+  // 교수 추가/수정 후 전체 목록 재조회하도록 수정
+  const handleProfessorAdded = () => {
+    fetchProfessors();
   };
 
-  const handleProfessorUpdated = (updatedProfessor) => {
-    setProfessors((prevProfessors) =>
-      prevProfessors.map((professor) =>
-        professor.prof_id === updatedProfessor.prof_id ? updatedProfessor : professor
-      )
-    );
+  const handleProfessorUpdated = () => {
+    fetchProfessors();
   };
 
   useEffect(() => {
-    if (user && user.role === "ADMIN") {
+    if (user && user.role === "admin") {
       fetchProfessors();
     }
   }, [user]);
 
-  if (!user || user.role !== "ADMIN") {
-    return <p>관리자 권한이 필요합니다. <a href="/login">로그인 페이지로 가기</a></p>;
+  if (!user || user.role !== "admin") {
+    return (
+      <p>
+        관리자 권한이 필요합니다. <a href="/login">로그인 페이지로 가기</a>
+      </p>
+    );
   }
 
   return (
     <div className="container mt-5">
-      <h2>교수자 현황</h2>
+      <h2>[교수자 현황]</h2>
       {isLoggedIn ? (
         <>
           <p>안녕하세요, {username}님! ({role})</p>
@@ -111,8 +108,8 @@ const ProfessorStatus = () => {
                 <th>이름</th>
                 <th>학과</th>
                 <th>이메일</th>
-                <th>전화번호</th> {/* ✅ 전화번호 추가 */}
-                <th>소속 대학</th> {/* ✅ 소속 대학 추가 */}
+                <th>전화번호</th>
+                <th>소속 대학</th>
                 <th>수정</th>
                 <th>삭제</th>
               </tr>
@@ -124,8 +121,8 @@ const ProfessorStatus = () => {
                   <td>{professor.name}</td>
                   <td>{professor.department}</td>
                   <td>{professor.email}</td>
-                  <td>{professor.phone}</td> {/* ✅ 전화번호 출력 */}
-                  <td>{professor.university}</td> {/* ✅ 소속 대학 출력 */}
+                  <td>{professor.phone}</td>
+                  <td>{professor.university}</td>
                   <td>
                     <button
                       className="btn btn-warning"
@@ -152,10 +149,15 @@ const ProfessorStatus = () => {
               <div className="modal-dialog">
                 <div className="modal-content">
                   <div className="modal-header">
-                    <h5 className="modal-title">
-                      {editingProfessor ? "교수자 수정" : "교수자 계정 생성"}
-                    </h5>
-                    <button type="button" className="btn-close" onClick={handleCloseModal}></button>
+                    <h2 className="modal-title">
+                      {editingProfessor ? "교수자 수정" : "[교수자 계정 생성]"}
+                    </h2>
+                    <button
+                      type="button"
+                      className="btn-close"
+                      aria-label="Close"
+                      onClick={handleCloseModal}
+                    ></button>
                   </div>
                   <div className="modal-body">
                     <CreateProfessor

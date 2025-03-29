@@ -24,4 +24,3 @@ public class AlarmListController {
         return alarmListService.getUserAlarms(userId);
     }
 }
-

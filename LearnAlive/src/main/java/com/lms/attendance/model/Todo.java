@@ -18,4 +18,3 @@ public class Todo {
     private Timestamp createdAt; // 생성 시간
     private LocalDateTime updatedAt; // 마지막 업데이트 시간
 }
-
