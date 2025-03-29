@@ -48,7 +48,7 @@ public class NoticeController {
             );
 
             // 전역 채널로 전송
-        		alarmSender.sendToUsersInClass(0, message);
+        		alarmSender.sendToAllUsers(message);
     }
 
     // 공지사항 수정

@@ -26,6 +26,15 @@ public interface AlarmListMapper {
   	  @Result(property = "read", column = "is_read")
   	})
     void insertAlarm(AlarmList alarm);
+    
+    @Select("""
+    	    SELECT DISTINCT student_id AS user_id FROM student_class
+    	    UNION
+    	    SELECT DISTINCT prof_id AS user_id FROM class
+    	    UNION
+    	    SELECT DISTINCT admin_id AS user_id FROM admin
+    	""")
+    List<String> findAllUserIds();
 
     @Select("SELECT * FROM alarm_list WHERE user_id = #{userId} ORDER BY created_at DESC LIMIT 10")
     @Results({

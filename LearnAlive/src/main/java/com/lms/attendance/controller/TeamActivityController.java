@@ -3,10 +3,15 @@ package com.lms.attendance.controller;
 import com.lms.attendance.model.TeamActivityPost;
 import com.lms.attendance.model.TeamActivityApplication;
 import com.lms.attendance.model.TeamActivityComment;
+import com.lms.attendance.model.AlarmMessage;
 import com.lms.attendance.model.ProjectMember;
+import com.lms.attendance.service.AlarmSender;
+import com.lms.attendance.service.BoardService;
 import com.lms.attendance.service.TeamActivityService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -15,21 +20,34 @@ public class TeamActivityController {
 
     private final TeamActivityService teamActivityService;
 
-    public TeamActivityController(TeamActivityService teamActivityService) {
+    //--------------알림
+    private final AlarmSender alarmSender;
+
+    public TeamActivityController(TeamActivityService teamActivityService, AlarmSender alarmSender) {
         this.teamActivityService = teamActivityService;
+        this.alarmSender = alarmSender;
+
     }
 
     // 팀 활동 게시글 생성
     @PostMapping("/posts")
     public ResponseEntity<TeamActivityPost> createPost(@RequestBody TeamActivityPost post) {
-        TeamActivityPost createdPost = teamActivityService.createTeamActivityPost(post);
-        return ResponseEntity.ok(createdPost);
+        TeamActivityPost createdPost = teamActivityService.createTeamActivityPost(post);	    
+        
+		        //---------------알림추가
+		        // 모든 사용자에게 알림
+		        AlarmMessage message = new AlarmMessage("TEAM", post.getTitle(), LocalDateTime.now().toString(), post.getClassId());
+		        alarmSender.sendToAllUsers(message);
+		        //-----------------
+		        
+	return ResponseEntity.ok(createdPost);
     }
 
     // 팀 활동 게시글 목록 조회
     @GetMapping("/posts")
     public ResponseEntity<List<TeamActivityPost>> getAllPosts() {
         List<TeamActivityPost> posts = teamActivityService.getAllTeamActivityPosts();
+        
         return ResponseEntity.ok(posts);
     }
 
@@ -50,6 +68,15 @@ public class TeamActivityController {
         application.setApplicantStudentId(applicantId);
         application.setStatus("PENDING");
         teamActivityService.applyForTeamActivity(application);
+        
+		        //--------------------------------
+		        TeamActivityPost post = teamActivityService.getTeamActivityPostById(postId);
+		        List<String> recipients = List.of(post.getAuthorId());
+		        AlarmMessage message = new AlarmMessage("APPLY", "참가 신청이 있습니다.", LocalDateTime.now().toString(), post.getClassId());
+		        alarmSender.sendToSpecificUsers(recipients, message);
+		        // 게시글 작성자에게 알림
+        
+        
         return ResponseEntity.ok(application);
     }
 
@@ -81,6 +108,15 @@ public class TeamActivityController {
             @RequestBody TeamActivityComment comment) {
         comment.setPostId(postId);
         teamActivityService.addComment(comment);
+        
+        // -------------------------게시글 작성자에게 알림
+        TeamActivityPost post = teamActivityService.getTeamActivityPostById(postId);
+        List<String> recipients = List.of(post.getAuthorId());
+        AlarmMessage message = new AlarmMessage("COMMENT", "댓글이 추가되었습니다.", LocalDateTime.now().toString(), post.getClassId());
+        alarmSender.sendToSpecificUsers(recipients, message);
+        
+        
+        
         return ResponseEntity.ok(comment);
     }
 

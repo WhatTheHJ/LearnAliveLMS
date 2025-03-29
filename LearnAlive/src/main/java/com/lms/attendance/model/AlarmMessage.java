@@ -1,6 +1,7 @@
 package com.lms.attendance.model;
 
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
