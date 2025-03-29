@@ -1,5 +1,6 @@
-
-
+# 1. Front_end
+1. [생성] api - milestoneApi.js 
+2. [3가지 파일 생성] components - TeamClassMilestoneSetup.jsx  // TeamProjectMilestones.jsx  //  TeamProjectMilestoneView.jsx
 
 
 
