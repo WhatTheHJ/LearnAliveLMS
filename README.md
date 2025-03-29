@@ -1,6 +1,14 @@
 # 1. Front_end
 1. [생성] api - milestoneApi.js 
 2. [3가지 파일 생성] components - TeamClassMilestoneSetup.jsx  // TeamProjectMilestones.jsx  //  TeamProjectMilestoneView.jsx
+3. [생성] styles - ProjectMilestones.css
+
+
+# 2. Back-end
+1.  [2가지 파일 생성] controller - TeamClassMilestoneController.java   // TeamPostMilestoneStatusController.java
+2.  [2가지 파일 생성] model - TeamClassMilestone.java  //  TeamPostMilestoneStatus.java
+3.  [2가지 파일 생성] repository - TeamClassMilstoneMapper.java  // TeamPostMilestoneStatusMapper.java
+4.  [2가지 파일 생성] service - TeamClassMilestoneService.java  // TeamPostMilestoneStatusService.java
 
 
 
@@ -16,8 +24,7 @@
 
 
 
-
-3. DB 에는 `team_activity_post` 테이블과 `todo_list` 테이블 사이에 이 두 테이블을 추가했습니다.
+# 3. DB 에는 `team_activity_post` 테이블과 `todo_list` 테이블 사이에 이 두 테이블을 추가했습니다.
 
 
 --
