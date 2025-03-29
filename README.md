@@ -27,6 +27,11 @@
 # 3. DB 에는 `team_activity_post` 테이블과 `todo_list` 테이블 사이에 이 두 테이블을 추가했습니다.
 
 
+
+
+
+
+```jsx
 --
 -- Table structure for table `class_milestone`
 --
@@ -76,5 +81,14 @@ ADD CONSTRAINT post_milestone_status_ibfk_2
   FOREIGN KEY (milestone_id) REFERENCES class_milestone(milestone_id)
   ON DELETE CASCADE
   ON UPDATE CASCADE;
+
+```
+
+
+
+
+
+
+
 
 
