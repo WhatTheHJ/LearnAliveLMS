@@ -31,31 +31,42 @@ public interface AttendanceMapper {
 	int checkExistingAttendance(@Param("studentId") String studentId, @Param("classId") int classId,
 			@Param("date") String date);
 
-	// ✅ 학생 출석 시도 (Attendance 객체를 받아 처리)
-	@Insert("""
-			    INSERT INTO Attendance (student_id, class_id, date, state, created_at, updated_at)
-			    SELECT
-			        #{studentId},
-			        #{classId},
-			        #{date},
-			        CASE
-					    WHEN TIME(NOW()) BETWEEN c.present_start AND c.present_end THEN 'present'
-					    WHEN TIME(NOW()) BETWEEN c.present_end AND c.late_end THEN 'late'
-					    ELSE 'absent'
-					END,
-			        NOW(),
-			        NULL
-			    FROM Class c
-			    WHERE c.class_id = #{classId}
-			    AND NOT EXISTS (
-			        SELECT 1 FROM Attendance
-			        WHERE student_id = #{studentId}
-			        AND class_id = #{classId}
-			        AND date = #{date}
-			    )
-			""")
+//	// ✅ 학생 출석 시도 (Attendance 객체를 받아 처리)
+//	@Insert("""
+//			    INSERT INTO Attendance (student_id, class_id, date, state, created_at, updated_at)
+//			    SELECT
+//			        #{studentId},
+//			        #{classId},
+//			        #{date},
+//			        CASE
+//					    WHEN TIME(NOW()) BETWEEN c.present_start AND c.present_end THEN 'present'
+//					    WHEN TIME(NOW()) BETWEEN c.present_end AND c.late_end THEN 'late'
+//					    ELSE 'absent'
+//					END,
+//			        NOW(),
+//			        NULL
+//			    FROM Class c
+//			    WHERE c.class_id = #{classId}
+//			    AND NOT EXISTS (
+//			        SELECT 1 FROM Attendance
+//			        WHERE student_id = #{studentId}
+//			        AND class_id = #{classId}
+//			        AND date = #{date}
+//			    )
+//			""")
+//	@Options(useGeneratedKeys = true, keyProperty = "attendanceId")
+//	void studentCheckIn(Attendance attendance);
+	
+	@Insert("INSERT INTO Attendance (student_id, class_id, date, state, created_at, updated_at) " +
+	        "VALUES (#{studentId}, #{classId}, #{date}, " +
+	        "CASE WHEN TIME(NOW()) BETWEEN (SELECT present_start FROM Class WHERE class_id = #{classId}) " +
+	        "AND (SELECT present_end FROM Class WHERE class_id = #{classId}) THEN 'present' " +
+	        "WHEN TIME(NOW()) BETWEEN (SELECT present_end FROM Class WHERE class_id = #{classId}) " +
+	        "AND (SELECT late_end FROM Class WHERE class_id = #{classId}) THEN 'late' " +
+	        "ELSE 'absent' END, NOW(), NULL)")
 	@Options(useGeneratedKeys = true, keyProperty = "attendanceId")
 	void studentCheckIn(Attendance attendance);
+
 
 	// 출석 관리 페이지에서 해당 강의 학생 출결 데이터 전체 조회
 	@Select("""
@@ -179,8 +190,15 @@ public interface AttendanceMapper {
 				+ "FROM Attendance " + "WHERE student_id = #{studentId} " + "AND date LIKE CONCAT(#{month}, '%')")
 		List<Attendance> findAttendanceByStudentForMonth(@Param("studentId") String studentId, @Param("month") String month);
 
-		// 지난 출석 데이터 조회 (student_id가 일치하고, date가 endDate보다 작은 데이터)
-		@Select("SELECT attendance_id, student_id, class_id, date, state, reason, created_at, updated_at "
-				+ "FROM Attendance " + "WHERE student_id = #{studentId} " + "AND date < #{endDate} " + "ORDER BY date DESC")
+//		// 지난 출석 데이터 조회 (student_id가 일치하고, date가 endDate보다 작은 데이터)
+//		@Select("SELECT attendance_id, student_id, class_id, date, state, reason, created_at, updated_at "
+//				+ "FROM Attendance " + "WHERE student_id = #{studentId} " + "AND date < #{endDate} " + "ORDER BY date DESC")
+//		List<Attendance> findPastAttendanceByStudent(@Param("studentId") String studentId, @Param("endDate") String endDate);
+		
+		@Select("SELECT attendance_id, student_id, class_id, date, state, reason, created_at, updated_at " +
+		        "FROM Attendance " +
+		        "WHERE student_id = #{studentId} AND date < #{endDate} " +
+		        "ORDER BY date DESC")
+		@ResultMap("AttendanceResultMap")
 		List<Attendance> findPastAttendanceByStudent(@Param("studentId") String studentId, @Param("endDate") String endDate);
 }
