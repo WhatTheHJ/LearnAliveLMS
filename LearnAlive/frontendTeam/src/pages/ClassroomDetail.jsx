@@ -307,7 +307,8 @@
 
 
 import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, useNavigate} from "react-router-dom";
+import { fetchClassrooms } from "../api/classroomApi";
 import { fetchClassDetail } from "../api/classroomApi";
 import { fetchBoardsByClassId, createBoard, deleteBoardByBoardId } from "../api/boardsApi";
 import { fetchSurveyBoards, createSurveyBoard } from "../api/surveyApi";
@@ -322,16 +323,23 @@ import AddBoardModal from "../components/AddBoardModal";
 import ExamList from "./ExamList";
 import ExamCreate from "./ExamCreate";
 import ExamDetail from "./ExamDetail";
+<<<<<<< HEAD
 import TeamActivity from "../components/TeamActivity";  // 새로 추가된 부분
+=======
+import ExamTake from './ExamTake';
+>>>>>>> 39e29d56b (전반적인 css 수정 및 기능 오류 개선)
 import "../styles/ClassroomDetail.css";
 import "../styles/post.css";
 
 const ClassroomDetail = () => {
   const { classId } = useParams();
   const { user } = useAuth();
+  const userId = user?.userId;
+  const navigate = useNavigate();
 
   // 기존 상태들...
   const [classDetail, setClassDetail] = useState(null);
+<<<<<<< HEAD
   const [boards, setBoards] = useState([]);
   const [surveyBoards, setSurveyBoards] = useState([]);
   const [examBoards, setExamBoards] = useState([]);
@@ -339,6 +347,17 @@ const ClassroomDetail = () => {
   const [boardId, setBoardId] = useState(null);
   const [selectedSurveyBoardId, setSelectedSurveyBoardId] = useState(null);
   const [selectedExamId, setSelectedExamId] = useState(null);
+=======
+  const [classrooms, setClassrooms] = useState([]);
+  const [boards, setBoards] = useState([]); // 일반 게시판 목록
+  const [surveyBoards, setSurveyBoards] = useState([]); // 설문조사 게시판 목록
+
+  // 선택된 메뉴 및 게시판 관련 상태
+  const [selectedMenu, setSelectedMenu] = useState(null); // "post", "survey", "attendance"
+  const [boardId, setBoardId] = useState(null); // 일반 게시판 선택 시 사용
+  const [selectedSurveyBoardId, setSelectedSurveyBoardId] = useState(null); // 설문조사 게시판 선택 시 사용
+  const [selectedExamId, setSelectedExamId] = useState(null); // 시험 게시판에서 선택된 시험 게시물의 ID 관리
+>>>>>>> 39e29d56b (전반적인 css 수정 및 기능 오류 개선)
   const [activeComponent, setActiveComponent] = useState(null);
   const [showBoardModal, setShowBoardModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -371,6 +390,33 @@ const ClassroomDetail = () => {
     setSelectedMenu("survey");
   };
 
+<<<<<<< HEAD
+=======
+    // ✅ 강의실 목록 가져오기
+    useEffect(() => {
+      const getClassrooms = async () => {
+        if (!userId) return; // userId가 없으면 요청하지 않음
+        try {
+          const data = await fetchClassrooms(userId); // API 호출
+          setClassrooms(data); // 강의실 목록 저장
+        } catch (error) {
+          console.error("강의실 목록을 불러오는데 실패했습니다.", error);
+        }
+      };
+  
+      getClassrooms();
+    }, [userId]);
+
+    // ✅ 강의실 선택 시 바로 이동
+    const handleClassroomChange = (event) => {
+      const selectedClassId = event.target.value;
+      if (selectedClassId) {
+        navigate(`/classroom/${selectedClassId}/boards`); // 강의실 페이지로 이동
+      }
+    };
+
+  // 메뉴 선택에 따라 오른쪽 콘텐츠 렌더링
+>>>>>>> 39e29d56b (전반적인 css 수정 및 기능 오류 개선)
   useEffect(() => {
     if (!selectedMenu) return;
     switch (selectedMenu) {
@@ -406,6 +452,33 @@ const ClassroomDetail = () => {
           console.log("❌ selectedExamId가 아직 null이다.");
         }
         break;
+<<<<<<< HEAD
+=======
+        case "examDetail":
+      if (selectedExamId) {
+        setActiveComponent(<ExamDetail
+          examId={selectedExamId}
+          onUpdated={() => fetchExamBoards(classId).then(setExamBoards)}
+          onBack={() => setSelectedMenu("exam")}
+        />);
+      } else {
+        console.log("❌ selectedExamId가 아직 null이다.");
+      }
+      break;
+      case "examTake":
+    if (selectedExamId) {
+      setActiveComponent(
+        <ExamTake
+          examId={selectedExamId}
+          classId={classId}
+          onBack={() => setSelectedMenu("exam")}
+        />
+      );
+    } else {
+      console.log("❌ selectedExamId가 아직 null이다.");
+    }
+    break;
+>>>>>>> 39e29d56b (전반적인 css 수정 및 기능 오류 개선)
       case "survey":
         setActiveComponent(
           selectedSurveyBoardId ? (
@@ -454,6 +527,19 @@ const ClassroomDetail = () => {
           <strong>이메일:</strong> {classDetail.professorEmail}
         </p>
       </div>
+      
+      <div className="classroom-detail-container">
+              {/* 강의실 선택 dropdown */}
+              <select onChange={handleClassroomChange} defaultValue="">
+          <option value="" disabled> -- 강의실 선택 -- </option>
+          {classrooms.map((classroom) => (
+            <option key={classroom.classId} value={classroom.classId}>
+              {classroom.className} {/* 강의실 이름 표시 */}
+            </option>
+          ))}
+        </select>
+      </div>
+
       <div className="classroom-layout">
         {/* 좌측 메뉴 */}
         <div className="classroom-menu">

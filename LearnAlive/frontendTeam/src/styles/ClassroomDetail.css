@@ -82,6 +82,7 @@
     border-radius: 10px;
     min-height: 70vh; /* ✅ footer와 겹치지 않도록 충분한 공간 확보 */
     overflow: auto; /* ✅ 동적으로 추가된 요소가 많아질 경우 스크롤 가능 */
+    width: 100%;
 }
 
 /* 모달 관련 css */

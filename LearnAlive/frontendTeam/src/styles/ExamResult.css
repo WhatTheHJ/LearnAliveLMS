@@ -1,0 +1,96 @@
+/* 문제의 상단에 점수를 표시할 스타일 */
+.question-header {
+    display: flex;
+    background-color: #f9f9f9;
+    border-bottom: #f9f9f9;
+    position: relative;
+  }
+  
+  .score {
+    position: absolute;
+    top: 10px;
+    left: 530px;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 3px 8px;
+    border-radius: 5px;
+  }
+  .score.incorrect {
+    color: rgb(162, 161, 161);
+  }
+  
+  .question-title {
+    margin-bottom: 20px;
+    margin-left: 60px;
+    font-size: 17px;
+    position: absolute;
+  }
+  
+  .question-text {
+    margin-bottom: 30px;
+    margin-left: 70px;
+    font-size: 17px;
+    white-space: pre-wrap; /* 줄바꿈과 공백을 그대로 유지하면서 화면 크기에 맞게 자동으로 줄바꿈 */
+  }
+  
+  .result-text {
+    margin-top: 40px;
+    margin-bottom: 30px;
+    margin-left: 70px;
+  }
+  
+  .option {
+    margin-left: 70px;
+  }
+  
+  .exam-container {
+    position: relative;
+    background: #f9f9f9;
+  }
+  
+  .result-summary {
+    position: absolute;
+    top: 120px; /* ✅ 상단에서 10px 떨어짐 */
+    right: 50px; /* ✅ 우측에서 10px 떨어짐 */
+    display: flex;
+    align-items: center;
+    justify-content: center; /* ✅ 중앙 정렬 */
+    gap: 50px; /* ✅ 점수와 수료 여부 사이 간격 증가 */
+    background-color: rgba(237, 239, 242, 0.5);
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: 1px solid #edeff2;
+    text-align: center;
+    width: 150px; /* ✅ 가로 크기 약간 늘림 */
+  }
+  
+  .result-summary div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    position: relative; /* ✅ 구분선 위치 조정을 위해 추가 */
+  }
+  
+  .result-summary span {
+    font-size: 12px;
+    color: #666;
+  }
+  
+  .result-summary strong {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  /* ✅ 점수와 수료 여부 사이에 세로 구분선 (박스 중앙 정렬) */
+  .result-summary div:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: -25px; /* ✅ 세로선을 중앙으로 맞추기 위해 조정 */
+    top: 50%;
+    transform: translateY(-50%);
+    height: 50px; /* ✅ 세로선 길이 조정 */
+    width: 1px;
+    background-color: #ccc;
+  }

@@ -1,6 +1,6 @@
 /* 전체 페이지 기본 스타일 */
 body {
-    font-family: Arial, sans-serif !important;
+    font-family: 'NanumGothic', '맑은 고딕', Arial, Sans-Serif !important;
     background-color: #f8f9fa;
     margin: 0;
     padding: 0;

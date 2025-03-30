@@ -31,6 +31,7 @@
 
 /* 강의실 리스트 */
 .classroom-list {
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
   list-style: none;
   padding: 0;
 }
@@ -40,12 +41,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #f8f9fa;
+  background: white;
   padding: 12px;
   border-radius: 8px;
   margin-bottom: 10px;
   transition: background 0.2s;
+  min-height: 75px;
 }
+
 
 /* 강의실 아이템 호버 효과 */
 .classroom-item:hover {
@@ -67,6 +70,7 @@
   overflow-wrap: break-word;
   max-width: 70% !important;
   text-align: left;
+  margin-left: 5px;
 }
 
 .classroom-link:hover {
@@ -78,9 +82,10 @@
   background-color: #363A43; /* 기본 버튼 색상 */
   color: white;
   border: 2px solid black;
-  font-size: 20px;
+  font-size: 15px;
   border-radius: 5px;
   cursor: pointer;
+  font-weight: bold;
 }
 
 .delete-button:hover {
@@ -90,16 +95,16 @@
 /* 로그인 필요 컨테이너 */
 .login-container {
   max-width: 600px;
-  margin: 100px auto;
-  padding: 30px;
+  margin-left: 0px;
+  padding: 76px;
   background: white;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
+  border-radius: 8px;
   text-align: center;
 }
 
 .login-message {
-  font-size: 22px;
+  font-size: 24px;
   font-weight: bold;
   color: #333;
 }

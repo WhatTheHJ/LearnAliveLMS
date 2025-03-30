@@ -99,7 +99,6 @@ header .login-form {
 header .user-message {
     color: white;
     font-size: 18px;
-    font-weight: bold;
     margin: 0; /* ✅ 불필요한 줄바꿈 방지 */
 }
 
@@ -153,3 +152,9 @@ header .logout-btn {
 header .logout-btn:hover {
     background-color: #f5f5f5;
 }
+
+.divider {
+    width: 1px;
+    height: 24px;  /* 버튼 높이에 맞춰 */
+    background-color: white; /* 회색 */
+  }

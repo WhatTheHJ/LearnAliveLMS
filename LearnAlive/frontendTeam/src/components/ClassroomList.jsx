@@ -20,11 +20,14 @@ const ClassroomList = () => {
 
   if (!user) {
     return (
-      <div className="login-container">
+      <div className="classroom-container">
+        <div className="classroom-title">내 강의실</div>
+        <div className="login-container">
         <p className="login-message">
         먼저 로그인이 필요합니다.<br /><br />
         <span style={{ color: "gray", fontSize: "0.9rem" }}>로그인 아이디는 학번입니다.</span>
       </p>
+      </div>
       </div>
     );
   }
@@ -67,7 +70,6 @@ const ClassroomList = () => {
           <button onClick={() => setShowStudentModal(true)} className="normal-button">수강생 관리</button>
         </div>
       )}
-      <br></br>
       <ul className="classroom-list">
         {classrooms.length > 0 ? (
           classrooms.map((classroom) => (
@@ -94,7 +96,10 @@ const ClassroomList = () => {
             </li>
           ))
         ) : (
-          <p>강의실 정보가 없습니다.</p>
+          <div className="login-container">
+        <p className="login-message">
+          강의실 정보가 없습니다.</p>
+          </div>
         )}
       </ul>
 

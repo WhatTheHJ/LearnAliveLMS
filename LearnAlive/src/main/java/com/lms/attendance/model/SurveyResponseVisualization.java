@@ -15,4 +15,5 @@ public class SurveyResponseVisualization {
     private String response;      // 응답 내용 (문자열)
     private String studentId;     // 응답한 학생의 학번 (서술형 질문에서 필요)
     private String name;          // 응답한 학생의 이름 (서술형 질문에서 필요)
+    private String department;
 }

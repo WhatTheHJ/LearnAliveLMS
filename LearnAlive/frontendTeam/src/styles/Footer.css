@@ -2,10 +2,10 @@
     background-color: black;
     color: white;
     text-align: center;
-    padding: 15px 0;
+    padding: 30px 0;
     position: static;
     bottom: 0;
     width: 100%;
-    min-height: 80px; /* ✅ 최소 높이 지정 */
+    min-height: 20px; /* ✅ 최소 높이 지정 */
     font-size: 14px;
 }

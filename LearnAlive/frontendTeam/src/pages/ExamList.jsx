@@ -3,56 +3,52 @@ import { fetchExams } from '../api/examApi';
 import { useAuth } from '../context/AuthContext';
 import ExamCreate from './ExamCreate';
 
-const ExamList = ( { classId, setSelectedMenu, setSelectedExamId  } ) => {
-  const { user } = useAuth(); // 현재 로그인한 사용자 정보 가져오기
-  const [exams, setExams] = useState([]); // 시험 목록 상태
-  const [isCreatingExam, setIsCreatingExam] = useState(false); // 시험 생성 화면 표시 여부
-
+const ExamList = ({ classId, setSelectedMenu, setSelectedExamId }) => {
+  const { user } = useAuth();
+  const [exams, setExams] = useState([]);
+  const [isCreatingExam, setIsCreatingExam] = useState(false);
 
   useEffect(() => {
-    if (!classId) return; // classId가 없으면 요청 안 함
+    if (!classId) return;
 
     fetchExams(classId)
       .then((data) => {
-        console.log(data); // 데이터를 로그로 출력해 확인
+        console.log(data);
         setExams(data);
       })
       .catch((error) => {
         console.error('❌ 시험 목록을 불러오는 데 실패했습니다:', error);
       });
-  }, [classId]); // classId가 변경될 때만 실행
+  }, [classId]);
 
   const handleExamCreated = () => {
-    setIsCreatingExam(false); // 목록 화면으로 전환
+    setIsCreatingExam(false);
     fetchExams(classId)
       .then((data) => {
-        setExams(data); // 시험 목록 갱신
+        setExams(data);
       })
       .catch((error) => {
         console.error('❌ 시험 목록을 불러오는 데 실패했습니다:', error);
       });
   };
 
-  if (!user) {
-    return <p>로그인 해주세요.</p>; // 로그인되지 않은 경우
-  }
-
-  // if (user.role !== 'professor') {
-  //   return <p>시험 목록을 볼 수 있는 권한이 없습니다.</p>; // 교수자 외에는 접근할 수 없게 처리
-  // }
+  if (!user) return <p>로그인 해주세요.</p>;
 
   return (
-    <div>
-      <h2>📝 시험 목록</h2>
+    <div className='container'>
+      <h2 className='title-bar'>📝 시험 목록</h2>
 
       {isCreatingExam ? (
         <ExamCreate classId={classId} onExamCreated={handleExamCreated} />
       ) : (
         <>
+        <br></br>
           {user.role === 'professor' && (
-            <button onClick={() => setSelectedMenu('examCreate')}>
+            <div style={{ textAlign: 'center' }}>
+            <button onClick={() => setSelectedMenu('examCreate')} className='normal-button'>
               💁‍♀️ 시험 추가
             </button>
+            </div>
           )}
 
           {exams.length > 0 ? (
@@ -73,13 +69,17 @@ const ExamList = ( { classId, setSelectedMenu, setSelectedExamId  } ) => {
                       style={{ cursor: 'pointer', color: 'blue' }}
                       onClick={() => {
                         setSelectedExamId(exam.examId);
-                        setSelectedMenu('examDetail');
+                        if (user.role === 'professor') {
+                          setSelectedMenu('examDetail');
+                        } else {
+                          setSelectedMenu('examTake');
+                        }
                       }}
                     >
                       {exam.title}
                     </td>
-                    <td>{exam.profName ? exam.profName.toString() : '-'}</td>
-                    <td>{exam.questionCount ? exam.questionCount : '-'}</td>
+                    <td>{exam.profName || '-'}</td>
+                    <td>{exam.questionCount || '-'}</td>
                     <td>{exam.startTime ? exam.startTime.toString() : '-'}</td>
                     <td>{exam.endTime ? exam.endTime.toString() : '-'}</td>
                   </tr>
@@ -94,4 +94,5 @@ const ExamList = ( { classId, setSelectedMenu, setSelectedExamId  } ) => {
     </div>
   );
 };
+
 export default ExamList;

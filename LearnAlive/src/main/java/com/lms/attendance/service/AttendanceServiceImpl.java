@@ -22,7 +22,14 @@ public class AttendanceServiceImpl implements AttendanceService {
     // ✅ 특정 날짜 출석 데이터 조회
     @Override
     public List<Attendance> getAttendanceByClassAndDate(int classId, String date) {
-        return attendanceMapper.findAttendanceByClassAndDate(classId, date);
+        List<Attendance> attendanceList = attendanceMapper.findAttendanceByClassAndDate(classId, date);
+
+        // ✅ createdAt, updatedAt null → "" 변환 처리
+        for (Attendance att : attendanceList) {
+            if (att.getCreatedAt() == null) att.setCreatedAt("");
+            if (att.getUpdatedAt() == null) att.setUpdatedAt("");
+        }
+        return attendanceList;
     }
 
 
@@ -103,20 +110,50 @@ public class AttendanceServiceImpl implements AttendanceService {
         return response;
     }
 
+<<<<<<< HEAD
     @Override
     public List<Attendance> getAttendanceByStudent(String studentId, String date) {
         return attendanceMapper.findAttendanceByStudent(studentId, date);
+=======
+    public List<Attendance> getAttendanceByStudent(int studentId, String date) {
+        List<Attendance> attendanceList = attendanceMapper.findAttendanceByStudent(studentId, date);
+        for (Attendance att : attendanceList) {
+            if (att.getCreatedAt() == null) att.setCreatedAt("");
+            if (att.getUpdatedAt() == null) att.setUpdatedAt("");
+        }
+        return attendanceList;
+>>>>>>> 39e29d56b (전반적인 css 수정 및 기능 오류 개선)
     }
     
     @Override
     @Transactional
+<<<<<<< HEAD
     public List<Attendance> getMonthlyAttendance(String studentId, String month) {
         return attendanceMapper.findAttendanceByStudentForMonth(studentId, month);
+=======
+    public List<Attendance> getMonthlyAttendance(int studentId, String month) {
+        List<Attendance> attendanceList = attendanceMapper.findAttendanceByStudentForMonth(studentId, month);
+        for (Attendance att : attendanceList) {
+            if (att.getCreatedAt() == null) att.setCreatedAt("");
+            if (att.getUpdatedAt() == null) att.setUpdatedAt("");
+        }
+        return attendanceList;
+>>>>>>> 39e29d56b (전반적인 css 수정 및 기능 오류 개선)
     }
     
     @Override
     @Transactional
+<<<<<<< HEAD
     public List<Attendance> getPastAttendance(String studentId, String endDate) {
         return attendanceMapper.findPastAttendanceByStudent(studentId, endDate);
+=======
+    public List<Attendance> getPastAttendance(int studentId, String endDate) {
+        List<Attendance> attendanceList = attendanceMapper.findPastAttendanceByStudent(studentId, endDate);
+        for (Attendance att : attendanceList) {
+            if (att.getCreatedAt() == null) att.setCreatedAt("");
+            if (att.getUpdatedAt() == null) att.setUpdatedAt("");
+        }
+        return attendanceList;
+>>>>>>> 39e29d56b (전반적인 css 수정 및 기능 오류 개선)
     }
 }

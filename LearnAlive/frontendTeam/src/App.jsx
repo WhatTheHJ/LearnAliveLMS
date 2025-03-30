@@ -35,7 +35,7 @@ function App() {
     <AuthProvider> {/* ✅ 여기서 Provider 감싸기 */}
       <Router>
         <Header />
-        <main>
+        <main style={{ minHeight: '80vh' }}>
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/register" element={<RegisterStudent />} />

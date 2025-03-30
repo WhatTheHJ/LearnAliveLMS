@@ -21,6 +21,26 @@ const ManageAttendancePage = () => {
   const [newReason, setNewReason] = useState("");
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
 
+
+  // ✅ 기존에 선택한 날짜 가져오기 (없으면 오늘 날짜)
+  useEffect(() => {
+    const storedDate = localStorage.getItem("selectedDate");
+    if (storedDate) {
+      // ✅ 슬래시 포맷으로 안전하게 파싱
+      setSelectedDate(new Date(storedDate));
+    } else {
+      setSelectedDate(new Date());
+    }
+  }, []);
+  
+
+  useEffect(() => {
+    if (selectedDate) {
+      console.log("✅ 최종적으로 호출하는 날짜:", selectedDate);
+      reloadAttendanceData();
+    }
+  }, [selectedDate, classId]);
+
   // ✅ 컬럼 리스트 (사용자가 보는 화면과 동일한 순서)
   const [columns, setColumns] = useState([
     { id: "university", label: "단과 대학" },
@@ -36,15 +56,28 @@ const ManageAttendancePage = () => {
   ]);
 
   const getKSTDate = (date) => {
-    const localDate = new Date(date);
-    localDate.setMinutes(localDate.getMinutes() - localDate.getTimezoneOffset());
-    return localDate.toISOString().split("T")[0];
+    if (!date) return "";
+    const raw = typeof date === 'string' ? date.replace(/-/g, '/') : date;
+    const parsedDate = new Date(raw);
+    if (isNaN(parsedDate.getTime())) {
+      return "";
+    }
+  
+    const year = parsedDate.getFullYear();
+    const month = String(parsedDate.getMonth() + 1).padStart(2, '0');
+    const day = String(parsedDate.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
   };
-
+  
+  
   const reloadAttendanceData = async () => {
     setIsLoading(true);
     try {
       const formattedDate = getKSTDate(selectedDate);
+      if (!formattedDate) {
+        console.error("날짜 포맷 오류로 서버 요청 중단");
+        return;
+      }
       const updatedData = await fetchAttendanceByDate(classId, formattedDate);
       setAttendanceData(updatedData);
     } catch (error) {
@@ -53,10 +86,34 @@ const ManageAttendancePage = () => {
       setIsLoading(false);
     }
   };
-
-  useEffect(() => {
-    reloadAttendanceData();
-  }, [selectedDate, classId]);
+  
+  const handleDateChange = (date) => {
+    console.log("✅ 캘린더에서 선택된 date 객체:", date);
+  
+    // ✅ YYYY/MM/DD 형식으로 변환 (모든 브라우저 안전)
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const formattedDate = `${year}/${month}/${day}`;
+  
+    console.log("✅ 저장하는 날짜 (YYYY/MM/DD):", formattedDate);
+  
+    // ✅ localStorage에도 YYYY/MM/DD로 저장
+    localStorage.setItem("selectedDate", formattedDate);
+  
+    // ✅ new Date(formattedDate)로 확실히 Date 객체 만들어 저장
+    setSelectedDate(new Date(formattedDate));
+  };
+  
+  
+  const safeDateParse = (value) => {
+    if (!value) return "미등록";
+    const raw = value.includes('T') ? value : `${value}T00:00:00`;
+    const parsed = new Date(raw);
+    return isNaN(parsed.getTime()) ? "미등록" : parsed.toLocaleString("ko-KR");
+  };
+  
+  
 
   // ✅ 컬럼 정렬 기능 추가
   const handleSort = (key) => {
@@ -81,10 +138,12 @@ const ManageAttendancePage = () => {
 
   const getKSTDateTime = (date) => {
     if (!date) return "";
-    const localDate = new Date(date);
-    localDate.setMinutes(localDate.getMinutes() - localDate.getTimezoneOffset());
-    return localDate.toISOString().replace("T", " ").split(".")[0]; // "YYYY-MM-DD HH:mm:ss" 형식 유지
+    const parsedDate = new Date(date);
+    if (isNaN(parsedDate.getTime())) return "";  // Invalid Date 방어
+    parsedDate.setMinutes(parsedDate.getMinutes() - parsedDate.getTimezoneOffset());
+    return parsedDate.toISOString().replace("T", " ").split(".")[0];
   };
+  
   
   
 
@@ -96,8 +155,8 @@ const ManageAttendancePage = () => {
         // ✅ 새로운 출석 데이터 추가
         await addAttendance(studentId, classId, formattedDate, newState);
   
-        // ✅ 새로운 출석이 추가되면 강제 새로고침 (F5)
-        window.location.reload();
+        // ✅ 새로고침 없이 최신 데이터 반영
+      await reloadAttendanceData(); 
       } else {
         // ✅ 기존 출석 데이터 업데이트
         await updateAttendanceState(attendanceId, newState);
@@ -216,8 +275,8 @@ const ManageAttendancePage = () => {
           : record.state === "late"
           ? "지각"
           : "공결",
-      "기록 시간": record.createdAt,
-      "수정 시간": record.updatedAt,
+          "기록 시간": safeDateParse(record.createdAt),
+          "수정 시간": safeDateParse(record.updatedAt),
       "사유": record.reason,
     }));
 
@@ -229,9 +288,9 @@ const ManageAttendancePage = () => {
 
   return (
     <div className="container">
-      <h2 className="title-bar">출석 관리</h2>
+      <h2 className="title-bar">👨‍🏫 출석 관리</h2>
       <Calendar 
-        onChange={setSelectedDate} 
+        onChange={handleDateChange} 
         value={selectedDate}
         locale="ko-KR"  // ✅ 한국어 로케일 적용
         calendarType="gregory"  // ✅ 일요일부터 시작하도록 강제 설정
@@ -319,6 +378,8 @@ const ManageAttendancePage = () => {
                           </>)
                     ) : column.id === "actions" ? (
                       <button className="button-delete" onClick={() => handleDeleteAttendance(record.attendanceId)}>삭제</button>
+                    ) : (column.id === 'createdAt' || column.id === 'updatedAt' || column.id === 'date') ? (
+                      (record[column.id])
                     ) : (
                       record[column.id] || "미등록"
                     )}

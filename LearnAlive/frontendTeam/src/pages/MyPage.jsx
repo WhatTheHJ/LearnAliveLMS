@@ -36,8 +36,8 @@ const MyPage = () => {
   return (
     <div>
       <div className="class-choice">
-        <h3> 강의실 이동 </h3>
         {/* 강의실 선택 dropdown */}
+        <div className="classroom-detail-container">
         <select onChange={handleClassroomChange} defaultValue="">
           <option value="" disabled> -- 강의실 선택 -- </option>
           {classrooms.map((classroom) => (
@@ -46,20 +46,22 @@ const MyPage = () => {
             </option>
           ))}
         </select>
-      </div>
-      <h1> 마이페이지 </h1>
-      <div style={{ display: "flex", alignItems: "flex-start" }}>
-        <div style={{ marginRight: "20px" }}>
-          <p> <Link to="/mypage/myprofile"> <button> 내 정보 </button> </Link> </p>
-          <p> <Link to="/mypage/mypost"> <button> 내 게시물 조회 </button> </Link> </p>
-          <p> <Link to="/mypage/myclasses"> <button> 내 강의 조회 </button> </Link> </p>
-          <p> <Link to="/mypage/myattendance"> <button> 출결내역 확인 </button> </Link> </p>
-          {user?.role === "student" && (
-            <p> <Link to="/mypage/mygrades"> <button> 성적 확인 </button> </Link> </p>
-          )}
-          <p> <Link to="/mypage/achievements"> <button> 업적 </button> </Link> </p>
         </div>
+      </div>
+      <div className="classroom-layout">
+      <div className="classroom-menu">
+           <Link to="/mypage/myprofile"> <button className="menu-button"> 내 정보 </button> </Link>
+          <Link to="/mypage/mypost"> <button className="menu-button"> 내 게시물 조회 </button> </Link>
+          <Link to="/mypage/myclasses"> <button className="menu-button"> 내 강의 조회 </button> </Link>
+          <Link to="/mypage/myattendance"> <button className="menu-button"> 출결내역 확인 </button> </Link>
+          {user?.role === "student" && (
+            <button className="menu-button"> <Link to="/mypage/mygrades"> <button className="menu-button"> 성적 확인 </button> </Link> </button>
+          )}
+          <Link to="/mypage/achievements"> <button className="menu-button"> 업적 </button> </Link>
+      </div>
+      <div className="classroom-content">
         <Outlet /> {/* 현재 선택된 서브페이지가 여기에 표시됨 */}
+      </div>
       </div>
     </div>
   );

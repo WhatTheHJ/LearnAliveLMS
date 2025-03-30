@@ -1,6 +1,7 @@
 package com.lms.attendance.repository;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
@@ -28,11 +29,12 @@ public interface AuthMapper {
 
     // ✅ 사용자 이름 조회 (학생, 교수)
     @Select("""
-        SELECT name FROM Student WHERE student_id = #{userId}
-        UNION
-        SELECT name FROM Professor WHERE prof_id = #{userId}
-    """)
-    String findUserNameByIdAndRole(String userId, String role);
+    	    SELECT name FROM Student WHERE student_id = #{userId}
+    	    UNION
+    	    SELECT name FROM Professor WHERE prof_id = #{userId}
+    	""")
+    	String findUserNameByIdAndRole(@Param("userId") String userId, @Param("role") String role);
+
 
     // ✅ 관리자 비밀번호 조회 (admin)
     @Select("SELECT password FROM Admin WHERE admin_id = #{adminId}")

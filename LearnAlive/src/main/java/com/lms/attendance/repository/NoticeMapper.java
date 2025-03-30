@@ -19,9 +19,9 @@ public interface NoticeMapper {
     void updateNotice(Notice notice);
 
     @Delete("DELETE FROM notice WHERE notice_id = #{notice_id}") // noticeId -> notice_id로 변경
-    void deleteNotice(int notice_id); // noticeId -> notice_id로 변경
+    void deleteNotice(@Param("notice_id") int notice_id); // noticeId -> notice_id로 변경
 
     // 단일 공지사항 조회 메소드 추가
     @Select("SELECT * FROM notice WHERE notice_id = #{notice_id}")
-    Notice getNoticeById(int notice_id);  // notice_id로 공지사항을 조회
+    Notice getNoticeById(@Param("notice_id") int notice_id);  // notice_id로 공지사항을 조회
 }

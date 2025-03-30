@@ -66,17 +66,18 @@ const Header = () => {
             />
             <button type="submit" className="login-button">로그인</button>
           </form>
-          <div className="login-actions">  {/* 여기는 새로 생긴 부분, 필요하면 CSS 추가 */}
+          <div class="divider"></div>
+          <div className="login-form">  {/* 여기는 새로 생긴 부분, 필요하면 CSS 추가 */}
             <button
+              className="find-button"
               type="button"
-              className="find-account-btn"
               onClick={() => setIsModalOpen(true)}
             >
               회원정보 찾기
             </button>
             <button
+              className="find-button"
               type="button"
-              className="register-btn"
               onClick={() => navigate("/register")}
             >
               회원가입

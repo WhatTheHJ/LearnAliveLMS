@@ -3,8 +3,7 @@ import "../styles/Footer.css";
 const Footer = () => {
     return (
       <footer className="footer">
-        {/* <p>© 2025 Learn-Alive. created by 이현승. All rights reserved.</p>
-        <p>문의: 2024010085@korea.ac.kr</p> */}
+        © 2025 Learn-Alive. created by 김윤성, 노현주, 배한빈, 유명식, 이나리. All rights reserved.
       </footer>
     );
   };

@@ -9,10 +9,10 @@
     display: flex;
     flex-direction: column;
     gap: 10px; /* 항목 간격 */
-    margin-top: 30px;
+    margin-top: 15px;
     background-color: #F2EDE7;
     border-radius: 10px;
-    padding: 30px;
+    padding: 0px;
     align-items: center;
   }
   
@@ -54,14 +54,14 @@
   }
 
   .past-survey-label {
-    font-size: 20px !important;
+    font-size: 15px;
     font-weight: bold; /* ✅ 폰트 굵기 설정 */
-    color: #363A43; /* ✅ 폰트 색상 */
+    color: white; /* ✅ 폰트 색상 */
     cursor: pointer; /* ✅ 클릭 가능하도록 변경 */
   }
 
   .past-survey-checkbox {
-    width: 20px;  /* ✅ 체크박스 너비 */
-  height: 20px; /* ✅ 체크박스 높이 */
+    width: 18px;  /* ✅ 체크박스 너비 */
+  height: 18px; /* ✅ 체크박스 높이 */
   cursor: pointer; /* ✅ 마우스 올렸을 때 커서 변경 */
   }

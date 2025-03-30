@@ -112,7 +112,7 @@ const SurveyList = ({ boardId }) => {
     console.log("🔄 현재 상태 - selectedSurveyId:", selectedSurveyId, "isCreatingSurvey:", isCreatingSurvey, "showVisualization:", showVisualization, "showResponseStatus:", showResponseStatus, "showUpdate:", showUpdate);
 
   return (
-    <div className="survey-list-container">
+    <div className="container">
       {selectedSurveyId ? (
     showUpdate ? ( 
       <SurveyUpdate surveyId={selectedSurveyId} onSurveyUpdated={handleBackToDetail} onBack={handleBackToDetail} />
@@ -133,27 +133,34 @@ const SurveyList = ({ boardId }) => {
         <SurveyCreate boardId={boardId} onSurveyCreated={handleBackToList} onBack={handleBackToList} />
       ) : (
         <>
-          <h2 className="normal-title">📋 설문조사 목록</h2>
-
-          {/* ✅ 토글 버튼 추가 */}
-          <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginBottom: "10px" }}>
-            <label style={{ display: "flex", alignItems: "center", gap: "10px" }}
-                            className="past-survey-label"
-                            >
-              <input 
-                type="checkbox" 
-                checked={showPastSurveys} 
-                onChange={() => setShowPastSurveys(!showPastSurveys)} 
-                className="past-survey-checkbox"
-              />
-              지난 설문조사 보기
-            </label>
-          </div>
-
+          <h2 className="title-bar">📋 설문조사 목록</h2>
+          <br></br>
           <ul className="survey-list">
-          {isProfessor && (
-            <button onClick={handleAddSurvey} className="normal-button">💁‍♀️ 설문조사 추가</button>
-          )}
+          <div style={{ 
+                display: "flex", 
+                justifyContent: "space-between", 
+                alignItems: "center", 
+                marginBottom: "10px",
+                marginTop: "10px",
+                gap: "50px"
+              }}>
+                {isProfessor && (
+                  <button onClick={handleAddSurvey} className="normal-button">💁‍♀️ 설문조사 추가</button>
+                )}
+
+                {/* ✅ 토글은 오른쪽으로 */}
+                <button className="normal-button">
+                <label style={{ display: "flex", alignItems: "center", gap: "10px" }} className="past-survey-label">
+                  <input 
+                    type="checkbox" 
+                    checked={showPastSurveys} 
+                    onChange={() => setShowPastSurveys(!showPastSurveys)} 
+                    className="past-survey-checkbox"
+                  />
+                  지난 설문조사
+                </label>
+              </button>
+              </div>
              {filteredSurveys.length > 0 ? (
               filteredSurveys.map((survey) => (
                 <li key={survey.surveyId}>

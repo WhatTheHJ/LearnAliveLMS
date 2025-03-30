@@ -1,23 +1,32 @@
 package com.lms.attendance.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.lms.attendance.model.Exam;
-import com.lms.attendance.service.ExamService;
-
-import lombok.RequiredArgsConstructor;
-
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.lms.attendance.model.Exam;
+import com.lms.attendance.model.ExamResult;
+import com.lms.attendance.model.ExamStudentAnswer;
+import com.lms.attendance.service.ExamService;
+import com.lms.attendance.service.ExamSubmissionService;
+
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/exams")
 @RequiredArgsConstructor
 public class ExamController {
     private final ExamService examService;
+    private final ExamSubmissionService examSubmissionService;
 
     // 새로운 시험 추가 (시험과 질문 포함)
     @PostMapping
@@ -61,12 +70,28 @@ public class ExamController {
         return ResponseEntity.ok(exam); // 수정된 시험 객체 반환
     }
     
- // 퀴즈 게시판 생성 (Exam_Board)
+ // 시험 게시판 생성 (Exam_Board)
     @PostMapping("/board")
     public ResponseEntity<String> createQuizBoard(@RequestParam("classId") int classId) {
         examService.createQuizBoard(classId);
         return ResponseEntity.ok("퀴즈 게시판이 생성되었습니다.");
     }
 
+ // 학생이 시험을 제출
+    @PostMapping("/{examId}/submit")
+    public ResponseEntity<String> submitExam(@PathVariable("examId") int examId, @RequestBody ExamStudentAnswer examStudentAnswer) {
+        System.out.println("시험 제출 데이터: " + examStudentAnswer);
+        examSubmissionService.submitExam(examStudentAnswer, examId);
+        return ResponseEntity.ok("시험이 성공적으로 제출되었습니다.");
+    }
+    
+// 시험결과
+    @GetMapping("/examResult/{examId}")
+    public ResponseEntity<ExamResult> getExamResult(@PathVariable int examId, @RequestParam String studentId) {
+    	ExamResult result = examSubmissionService.getExamResult(examId, studentId); 
+    	System.out.println("==== >>>>");
+    	System.out.println(result.getAnswers());
+    	return ResponseEntity.ok(result);
+    }
 
 }
