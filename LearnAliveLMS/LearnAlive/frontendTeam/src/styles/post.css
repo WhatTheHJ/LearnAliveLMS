@@ -1,0 +1,85 @@
+/* 전체 레이아웃 */
+.board-container {
+  display: flex;
+  height: 100vh; /* 화면 전체 높이 */
+}
+
+/* 사이드바 */
+.sidebar {
+  width: 200px;
+  height: 100%;
+  background-color: #2138DF;
+  padding: 20px;
+  display: flex;
+  flex-direction: column; /* 버튼 세로 정렬 */
+  align-items: center; /* 버튼 중앙 정렬 */
+  /* position: fixed; 왼쪽 고정 */
+  left: 0;
+  top: 0;
+  bottom: 0;
+}
+
+/* 버튼 그룹 */
+.button-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.button-group button {
+  background-color: white;
+  color: black;
+  border: none;
+  padding: 10px 15px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.button-group button:hover {
+  background-color: #ddd;
+}
+
+/* 게시글 영역 */
+.content {
+  max-width: 1000px;
+  background: white;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  width: 100%;
+  flex-grow: 1; /* 사이드바 제외한 나머지 영역 차지 */
+  margin-left: 220px; /* 사이드바 너비 + 여백 */
+  display: flex;
+  justify-content: center; /* 중앙 정렬 */
+  
+  padding: 20px;
+}
+/* post.css */
+.post-container {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  /* .post-container:hover {
+    transform: scale(1.02);
+  } */
+  
+  .post-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .post-author {
+    font-size: 14px;
+    color: #555;
+  }
+  

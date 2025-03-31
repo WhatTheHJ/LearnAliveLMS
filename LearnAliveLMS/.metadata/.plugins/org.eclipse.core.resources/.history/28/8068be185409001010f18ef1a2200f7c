@@ -1,0 +1,66 @@
+package com.lms.attendance.repository;
+
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+
+import com.lms.attendance.model.Course;
+
+@Mapper
+public interface CourseMapper {
+
+    // 예비 수강신청 가능한 강의 조회  
+    // ※ class 테이블, registration_period, class_day, professor, course_registration 테이블이 필요합니다.
+    @Select("SELECT c.class_id AS classId, c.class_name AS className, c.course_code AS courseCode, " +
+            "c.credit, p.name AS professor, " +
+            "GROUP_CONCAT(cd.day_of_week SEPARATOR ',') AS dayOfWeek, " +
+            "DATE_FORMAT(rp.registration_start, '%Y-%m-%d %H:%i:%s') AS registrationStart, " +
+            "DATE_FORMAT(rp.registration_end, '%Y-%m-%d %H:%i:%s') AS registrationEnd, " +
+            "c.start_time AS startTime, c.end_time AS endTime, " +
+            "c.capacity, " +
+            "(c.capacity - IFNULL(crCount.count, 0)) AS remainingSeats " +
+            "FROM class c " +
+            "JOIN registration_period rp ON c.class_id = rp.class_id " +
+            "JOIN professor p ON c.prof_id = p.prof_id " +
+            "JOIN class_day cd ON c.class_id = cd.class_id " +
+            "LEFT JOIN ( " +
+            "  SELECT class_id, COUNT(*) AS count " +
+            "  FROM course_registration " +
+            "  WHERE registration_status = '임시확정' " +
+            "  GROUP BY class_id " +
+            ") crCount ON c.class_id = crCount.class_id " +
+            "WHERE rp.registration_type = '예비' " +
+            "AND NOW() BETWEEN rp.registration_start AND rp.registration_end " +
+            "GROUP BY c.class_id")
+    List<Course> findAvailableCourses();
+
+    // 해당 학생이 예비로 신청한 강의 조회
+    @Select("SELECT c.class_id AS classId, c.class_name AS className, c.course_code AS courseCode, " +
+            "c.credit, p.name AS professor, " +
+            "GROUP_CONCAT(cd.day_of_week SEPARATOR ',') AS dayOfWeek, " +
+            "c.start_time AS startTime, c.end_time AS endTime, " +
+            "c.capacity " +
+            "FROM course_registration cr " +
+            "JOIN class c ON cr.class_id = c.class_id " +
+            "JOIN professor p ON c.prof_id = p.prof_id " +
+            "JOIN class_day cd ON c.class_id = cd.class_id " +
+            "WHERE cr.student_id = #{studentId} " +
+            "AND cr.registration_status = '예비' " +
+            "GROUP BY c.class_id")
+    List<Course> findMyPreRegisteredCourses(String studentId);
+
+    // 예비 수강신청 추가
+    @Insert("INSERT INTO course_registration (student_id, class_id, registration_status) " +
+            "VALUES (#{studentId}, #{classId}, '예비')")
+    void insertPreRegistration(@Param("studentId") String studentId, @Param("classId") int classId);
+
+    // 예비 수강신청 삭제
+    @Delete("DELETE FROM course_registration " +
+            "WHERE student_id = #{studentId} AND class_id = #{classId} AND registration_status = '예비'")
+    void deletePreRegistration(@Param("studentId") String studentId, @Param("classId") int classId);
+}

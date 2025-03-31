@@ -1,0 +1,308 @@
+2025-03-17 10:40:25,291 [Worker-2: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is not available. Remote download required.
+2025-03-27 23:51:47,930 [Worker-11: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2025-03-27 23:52:13,018 [Worker-12: Building] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.WarLifecycleMapping lifecycle mapping for MavenProject: com.korea.attendance:KoreaAttendance:0.0.1-SNAPSHOT @ /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/pom.xml.
+2025-03-27 23:52:16,702 [Worker-12: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-27 23:52:16,763 [Worker-12: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 6 resources from src/main/resources to target/classes
+2025-03-27 23:52:16,780 [Worker-12: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-27 23:52:16,798 [Worker-12: Building] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Changed resources require a complete clean of filtered resources of LearnAlive
+2025-03-27 23:52:16,799 [Worker-12: Building] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Executing resource filtering for LearnAlive
+2025-03-27 23:52:33,009 [Worker-29: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-27 23:52:33,054 [Worker-29: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 6 resources from src/main/resources to target/classes
+2025-03-27 23:52:33,074 [Worker-29: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-27 23:53:18,523 [Worker-4: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-27 23:53:18,553 [Worker-4: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src/main/resources to target/classes
+2025-03-27 23:53:18,562 [Worker-4: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-27 23:54:33,691 [Worker-4: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2025-03-28 00:04:06,397 [Worker-17: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-28 00:04:06,809 [Worker-17: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 6 resources from src/main/resources to target/classes
+2025-03-28 00:04:07,166 [Worker-17: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-28 00:20:14,971 [Worker-6: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2025-03-28 00:20:49,148 [Worker-17: Updating Maven Project] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Update started
+2025-03-28 00:20:52,059 [Worker-17: Updating Maven Project] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.WarLifecycleMapping lifecycle mapping for MavenProject: com.korea.attendance:KoreaAttendance:0.0.1-SNAPSHOT @ /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/pom.xml.
+2025-03-28 00:20:54,325 [Worker-17: Updating Maven Project] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /LearnAlive/src/main/java
+2025-03-28 00:20:54,326 [Worker-17: Updating Maven Project] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /LearnAlive/src/main/resources
+2025-03-28 00:20:54,327 [Worker-17: Updating Maven Project] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /LearnAlive/src/main/resources
+2025-03-28 00:20:54,328 [Worker-17: Updating Maven Project] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /LearnAlive/src/test/java
+2025-03-28 00:20:54,331 [Worker-17: Updating Maven Project] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /LearnAlive/src/test/resources
+2025-03-28 00:20:56,972 [Worker-17: Updating Maven Project] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Cleaning filtered folder for LearnAlive
+2025-03-28 00:20:57,710 [Worker-17: Updating Maven Project] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Update completed for 1 poms: local refresh takes 1.00 sec, refresh facades takes 2.00 sec, update config takes 1.00 sec 
+2025-03-28 00:21:08,084 [Worker-64: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-28 00:21:08,119 [Worker-64: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 6 resources from src/main/resources to target/classes
+2025-03-28 00:21:08,139 [Worker-64: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-28 00:21:08,140 [Worker-64: Building] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Changed resources require a complete clean of filtered resources of LearnAlive
+2025-03-28 00:21:08,140 [Worker-64: Building] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Executing resource filtering for LearnAlive
+2025-03-28 00:45:52,321 [Worker-46: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-28 00:45:52,349 [Worker-46: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 6 resources from src/main/resources to target/classes
+2025-03-28 00:45:52,363 [Worker-46: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-28 00:46:04,992 [Worker-8: Updating Maven Project] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Update started
+2025-03-28 00:46:06,616 [Worker-8: Updating Maven Project] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.WarLifecycleMapping lifecycle mapping for MavenProject: com.korea.attendance:KoreaAttendance:0.0.1-SNAPSHOT @ /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/pom.xml.
+2025-03-28 00:46:07,792 [Worker-8: Updating Maven Project] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /LearnAlive/src/main/java
+2025-03-28 00:46:07,794 [Worker-8: Updating Maven Project] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /LearnAlive/src/main/resources
+2025-03-28 00:46:07,794 [Worker-8: Updating Maven Project] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /LearnAlive/src/main/resources
+2025-03-28 00:46:07,794 [Worker-8: Updating Maven Project] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /LearnAlive/src/test/java
+2025-03-28 00:46:07,795 [Worker-8: Updating Maven Project] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /LearnAlive/src/test/resources
+2025-03-28 00:46:08,438 [Worker-8: Updating Maven Project] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Cleaning filtered folder for LearnAlive
+2025-03-28 00:46:09,123 [Worker-8: Updating Maven Project] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Update completed for 1 poms: local refresh takes 0.00 sec, refresh facades takes 1.00 sec, update config takes 0.00 sec 
+2025-03-28 00:46:15,621 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-28 00:46:15,669 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 6 resources from src/main/resources to target/classes
+2025-03-28 00:46:15,695 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-28 00:46:15,699 [Worker-9: Building] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Changed resources require a complete clean of filtered resources of LearnAlive
+2025-03-28 00:46:15,700 [Worker-9: Building] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Executing resource filtering for LearnAlive
+2025-03-28 15:02:10,067 [Worker-46: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-28 15:02:10,122 [Worker-46: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 6 resources from src/main/resources to target/classes
+2025-03-28 15:02:10,139 [Worker-46: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-28 15:02:27,442 [Worker-8: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-28 15:02:27,470 [Worker-8: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 6 resources from src/main/resources to target/classes
+2025-03-28 15:02:27,488 [Worker-8: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-28 15:02:52,839 [Worker-8: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-28 15:02:52,861 [Worker-8: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 6 resources from src/main/resources to target/classes
+2025-03-28 15:02:52,875 [Worker-8: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-28 15:03:09,699 [Worker-25: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-28 15:03:09,726 [Worker-25: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 6 resources from src/main/resources to target/classes
+2025-03-28 15:03:09,742 [Worker-25: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-28 15:03:37,434 [Worker-46: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-28 15:03:37,460 [Worker-46: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 6 resources from src/main/resources to target/classes
+2025-03-28 15:03:37,470 [Worker-46: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-28 15:03:51,466 [Worker-42: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-28 15:03:51,495 [Worker-42: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 6 resources from src/main/resources to target/classes
+2025-03-28 15:03:51,502 [Worker-42: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-28 15:04:49,076 [Worker-42: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-28 15:04:49,096 [Worker-42: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 6 resources from src/main/resources to target/classes
+2025-03-28 15:04:49,105 [Worker-42: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-28 15:07:23,817 [Worker-8: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-28 15:07:23,845 [Worker-8: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 6 resources from src/main/resources to target/classes
+2025-03-28 15:07:23,856 [Worker-8: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-28 15:08:17,906 [Worker-51: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-28 15:08:17,943 [Worker-51: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 6 resources from src/main/resources to target/classes
+2025-03-28 15:08:17,954 [Worker-51: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-28 15:08:35,321 [Worker-8: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-28 15:08:35,357 [Worker-8: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 6 resources from src/main/resources to target/classes
+2025-03-28 15:08:35,365 [Worker-8: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-28 15:19:35,828 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-28 15:19:35,858 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 6 resources from src/main/resources to target/classes
+2025-03-28 15:19:35,867 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-28 15:19:45,220 [Worker-3: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-28 15:19:45,256 [Worker-3: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 6 resources from src/main/resources to target/classes
+2025-03-28 15:19:45,262 [Worker-3: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-28 15:20:21,528 [Worker-79: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-28 15:20:21,543 [Worker-79: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 6 resources from src/main/resources to target/classes
+2025-03-28 15:20:21,552 [Worker-79: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-28 15:21:40,713 [Worker-30: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-28 15:21:40,735 [Worker-30: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 6 resources from src/main/resources to target/classes
+2025-03-28 15:21:40,742 [Worker-30: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-28 15:22:13,215 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-28 15:22:13,232 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 6 resources from src/main/resources to target/classes
+2025-03-28 15:22:13,240 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-28 15:41:21,722 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-28 15:41:21,758 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 6 resources from src/main/resources to target/classes
+2025-03-28 15:41:21,767 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-28 15:42:24,994 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-28 15:42:25,020 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 6 resources from src/main/resources to target/classes
+2025-03-28 15:42:25,030 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-28 17:08:05,045 [Worker-46: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-28 17:08:05,077 [Worker-46: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 6 resources from src/main/resources to target/classes
+2025-03-28 17:08:05,085 [Worker-46: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-28 17:08:37,424 [Worker-8: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-28 17:08:37,451 [Worker-8: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 6 resources from src/main/resources to target/classes
+2025-03-28 17:08:37,457 [Worker-8: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-28 17:09:20,546 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-28 17:09:20,584 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 6 resources from src/main/resources to target/classes
+2025-03-28 17:09:20,600 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-29 13:56:08,513 [Worker-7: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
+2025-03-29 20:41:58,928 [Worker-31: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-29 20:41:59,607 [Worker-31: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 6 resources from src/main/resources to target/classes
+2025-03-29 20:42:00,297 [Worker-31: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-29 20:42:33,849 [Worker-38: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-29 20:42:33,875 [Worker-38: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 6 resources from src/main/resources to target/classes
+2025-03-29 20:42:33,892 [Worker-38: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-29 20:42:54,829 [Worker-32: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-29 20:42:54,849 [Worker-32: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 6 resources from src/main/resources to target/classes
+2025-03-29 20:42:54,856 [Worker-32: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-29 20:45:20,677 [Worker-35: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-29 20:45:20,707 [Worker-35: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 6 resources from src/main/resources to target/classes
+2025-03-29 20:45:20,715 [Worker-35: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-29 20:46:52,430 [Worker-29: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-29 20:46:52,460 [Worker-29: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 6 resources from src/main/resources to target/classes
+2025-03-29 20:46:52,465 [Worker-29: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-29 20:47:01,636 [Worker-31: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-29 20:47:01,659 [Worker-31: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 6 resources from src/main/resources to target/classes
+2025-03-29 20:47:01,667 [Worker-31: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-29 21:01:18,385 [Worker-36: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-29 21:01:18,418 [Worker-36: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 6 resources from src/main/resources to target/classes
+2025-03-29 21:01:18,433 [Worker-36: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-31 13:46:23,532 [Worker-38: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-31 13:46:23,614 [Worker-38: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 6 resources from src/main/resources to target/classes
+2025-03-31 13:46:23,682 [Worker-38: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-31 13:48:19,109 [Worker-36: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-31 13:48:19,141 [Worker-36: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 6 resources from src/main/resources to target/classes
+2025-03-31 13:48:19,160 [Worker-36: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-31 13:50:17,560 [Worker-41: Building] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.WarLifecycleMapping lifecycle mapping for MavenProject: com.korea.attendance:KoreaAttendance:0.0.1-SNAPSHOT @ /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/pom.xml.
+2025-03-31 13:50:19,057 [Worker-41: Building] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/io/jsonwebtoken/jjwt-api/0.11.5/jjwt-api-0.11.5.pom
+2025-03-31 13:50:19,107 [Worker-41: Building] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/io/jsonwebtoken/jjwt-api/0.11.5/jjwt-api-0.11.5.pom
+2025-03-31 13:50:19,134 [Worker-41: Building] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/io/jsonwebtoken/jjwt-root/0.11.5/jjwt-root-0.11.5.pom
+2025-03-31 13:50:19,154 [Worker-41: Building] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/io/jsonwebtoken/jjwt-root/0.11.5/jjwt-root-0.11.5.pom
+2025-03-31 13:50:19,189 [Worker-41: Building] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/io/jsonwebtoken/jjwt-impl/0.11.5/jjwt-impl-0.11.5.pom
+2025-03-31 13:50:19,197 [Worker-41: Building] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/io/jsonwebtoken/jjwt-impl/0.11.5/jjwt-impl-0.11.5.pom
+2025-03-31 13:50:19,220 [Worker-41: Building] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/io/jsonwebtoken/jjwt-jackson/0.11.5/jjwt-jackson-0.11.5.pom
+2025-03-31 13:50:19,223 [Worker-41: Building] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/io/jsonwebtoken/jjwt-jackson/0.11.5/jjwt-jackson-0.11.5.pom
+2025-03-31 13:50:19,274 [Worker-41: Building] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/io/jsonwebtoken/jjwt-api/0.11.5/jjwt-api-0.11.5.jar
+2025-03-31 13:50:19,288 [Worker-41: Building] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/io/jsonwebtoken/jjwt-api/0.11.5/jjwt-api-0.11.5.jar
+2025-03-31 13:50:19,305 [BasicRepositoryConnector-repo.maven.apache.org-0-1] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/io/jsonwebtoken/jjwt-jackson/0.11.5/jjwt-jackson-0.11.5.jar
+2025-03-31 13:50:19,311 [BasicRepositoryConnector-repo.maven.apache.org-0-1] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/io/jsonwebtoken/jjwt-jackson/0.11.5/jjwt-jackson-0.11.5.jar
+2025-03-31 13:50:19,329 [BasicRepositoryConnector-repo.maven.apache.org-0-0] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/io/jsonwebtoken/jjwt-impl/0.11.5/jjwt-impl-0.11.5.jar
+2025-03-31 13:50:19,353 [BasicRepositoryConnector-repo.maven.apache.org-0-0] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/io/jsonwebtoken/jjwt-impl/0.11.5/jjwt-impl-0.11.5.jar
+2025-03-31 13:50:20,243 [Worker-41: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src/main/resources to target/classes
+2025-03-31 13:50:20,245 [Worker-41: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src/main/resources to target/classes
+2025-03-31 13:50:20,262 [Worker-41: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-31 13:50:20,268 [Worker-41: Building] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Changed resources require a complete clean of filtered resources of LearnAlive
+2025-03-31 13:50:20,269 [Worker-41: Building] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Executing resource filtering for LearnAlive
+2025-03-31 13:50:21,196 [Worker-37: Download sources and javadoc] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/io/jsonwebtoken/jjwt-api/0.11.5/jjwt-api-0.11.5-sources.jar
+2025-03-31 13:50:21,241 [Worker-37: Download sources and javadoc] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/io/jsonwebtoken/jjwt-api/0.11.5/jjwt-api-0.11.5-sources.jar
+2025-03-31 13:50:21,251 [Worker-37: Download sources and javadoc] INFO  o.e.m.j.internal.DownloadSourcesJob - Downloaded sources for io.jsonwebtoken:jjwt-api:0.11.5
+2025-03-31 13:50:21,320 [Worker-37: Download sources and javadoc] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/io/jsonwebtoken/jjwt-impl/0.11.5/jjwt-impl-0.11.5-sources.jar
+2025-03-31 13:50:21,360 [Worker-37: Download sources and javadoc] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/io/jsonwebtoken/jjwt-impl/0.11.5/jjwt-impl-0.11.5-sources.jar
+2025-03-31 13:50:21,370 [Worker-37: Download sources and javadoc] INFO  o.e.m.j.internal.DownloadSourcesJob - Downloaded sources for io.jsonwebtoken:jjwt-impl:0.11.5
+2025-03-31 13:50:21,508 [Worker-37: Download sources and javadoc] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/io/jsonwebtoken/jjwt-jackson/0.11.5/jjwt-jackson-0.11.5-sources.jar
+2025-03-31 13:50:21,524 [Worker-37: Download sources and javadoc] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/io/jsonwebtoken/jjwt-jackson/0.11.5/jjwt-jackson-0.11.5-sources.jar
+2025-03-31 13:50:21,530 [Worker-37: Download sources and javadoc] INFO  o.e.m.j.internal.DownloadSourcesJob - Downloaded sources for io.jsonwebtoken:jjwt-jackson:0.11.5
+2025-03-31 13:50:36,624 [Worker-257: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-31 13:50:36,714 [Worker-257: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 6 resources from src/main/resources to target/classes
+2025-03-31 13:50:36,739 [Worker-257: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-31 13:52:33,897 [Worker-68: Building] ERROR o.e.m.c.i.p.r.ProjectRegistryManager - Could not read pom.xml
+org.eclipse.core.runtime.CoreException: Could not read pom.xml
+	at org.eclipse.m2e.core.internal.IMavenToolbox.readModel(IMavenToolbox.java:245)
+	at org.eclipse.m2e.core.internal.project.registry.ProjectRegistryManager.refreshPhase2(ProjectRegistryManager.java:591)
+	at org.eclipse.m2e.core.internal.project.registry.ProjectRegistryManager.refresh(ProjectRegistryManager.java:491)
+	at org.eclipse.m2e.core.internal.project.registry.ProjectRegistryManager.refresh(ProjectRegistryManager.java:370)
+	at org.eclipse.m2e.core.internal.project.registry.ProjectRegistryManager.refresh(ProjectRegistryManager.java:322)
+	at org.eclipse.m2e.core.internal.builder.MavenBuilder$BuildMethod.getProjectFacade(MavenBuilder.java:146)
+	at org.eclipse.m2e.core.internal.builder.MavenBuilder$BuildMethod.lambda$0(MavenBuilder.java:84)
+	at org.eclipse.m2e.core.internal.embedder.MavenExecutionContext.executeBare(MavenExecutionContext.java:458)
+	at org.eclipse.m2e.core.internal.embedder.MavenExecutionContext.execute(MavenExecutionContext.java:339)
+	at org.eclipse.m2e.core.internal.embedder.MavenExecutionContext.execute(MavenExecutionContext.java:278)
+	at org.eclipse.m2e.core.internal.builder.MavenBuilder$BuildMethod.execute(MavenBuilder.java:83)
+	at org.eclipse.m2e.core.internal.builder.MavenBuilder.build(MavenBuilder.java:192)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:1077)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:47)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:296)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:352)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:441)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:47)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:444)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:555)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:503)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:585)
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:207)
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:300)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+Caused by: org.apache.maven.model.io.ModelParseException: end tag name </dependencies> must match start tag name <project> from line 2 (position: TEXT seen ...</dependencies>\n\n</dependencies>... @133:16) 
+	at org.apache.maven.model.io.DefaultModelReader.read(DefaultModelReader.java:96)
+	at org.apache.maven.model.io.DefaultModelReader.read(DefaultModelReader.java:74)
+	at org.eclipse.m2e.core.internal.IMavenToolbox.readModel(IMavenToolbox.java:243)
+	... 24 common frames omitted
+Caused by: org.codehaus.plexus.util.xml.pull.XmlPullParserException: end tag name </dependencies> must match start tag name <project> from line 2 (position: TEXT seen ...</dependencies>\n\n</dependencies>... @133:16) 
+	at org.codehaus.plexus.util.xml.pull.MXParser.parseEndTag(MXParser.java:2151)
+	at org.codehaus.plexus.util.xml.pull.MXParser.nextImpl(MXParser.java:1418)
+	at org.codehaus.plexus.util.xml.pull.MXParser.next(MXParser.java:1375)
+	at org.codehaus.plexus.util.xml.pull.MXParser.nextTag(MXParser.java:1360)
+	at org.apache.maven.model.io.xpp3.MavenXpp3Reader.parseModel(MavenXpp3Reader.java:2155)
+	at org.apache.maven.model.io.xpp3.MavenXpp3Reader.read(MavenXpp3Reader.java:623)
+	at org.apache.maven.model.io.xpp3.MavenXpp3Reader.read(MavenXpp3Reader.java:654)
+	at org.apache.maven.model.io.DefaultModelReader.read(DefaultModelReader.java:93)
+	... 26 common frames omitted
+2025-03-31 13:52:41,376 [Worker-277: Building] ERROR o.e.m.c.i.p.r.ProjectRegistryManager - Could not read pom.xml
+org.eclipse.core.runtime.CoreException: Could not read pom.xml
+	at org.eclipse.m2e.core.internal.IMavenToolbox.readModel(IMavenToolbox.java:245)
+	at org.eclipse.m2e.core.internal.project.registry.ProjectRegistryManager.refreshPhase2(ProjectRegistryManager.java:591)
+	at org.eclipse.m2e.core.internal.project.registry.ProjectRegistryManager.refresh(ProjectRegistryManager.java:491)
+	at org.eclipse.m2e.core.internal.project.registry.ProjectRegistryManager.refresh(ProjectRegistryManager.java:370)
+	at org.eclipse.m2e.core.internal.project.registry.ProjectRegistryManager.refresh(ProjectRegistryManager.java:322)
+	at org.eclipse.m2e.core.internal.builder.MavenBuilder$BuildMethod.getProjectFacade(MavenBuilder.java:146)
+	at org.eclipse.m2e.core.internal.builder.MavenBuilder$BuildMethod.lambda$0(MavenBuilder.java:84)
+	at org.eclipse.m2e.core.internal.embedder.MavenExecutionContext.executeBare(MavenExecutionContext.java:458)
+	at org.eclipse.m2e.core.internal.embedder.MavenExecutionContext.execute(MavenExecutionContext.java:339)
+	at org.eclipse.m2e.core.internal.embedder.MavenExecutionContext.execute(MavenExecutionContext.java:278)
+	at org.eclipse.m2e.core.internal.builder.MavenBuilder$BuildMethod.execute(MavenBuilder.java:83)
+	at org.eclipse.m2e.core.internal.builder.MavenBuilder.build(MavenBuilder.java:192)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:1077)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:47)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:296)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:352)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:441)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:47)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:444)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:555)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:503)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:585)
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:207)
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:300)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+Caused by: org.apache.maven.model.io.ModelParseException: end tag name </dependencies> must match start tag name <project> from line 2 (position: TEXT seen ...</dependencies>\n\n</dependencies>... @133:16) 
+	at org.apache.maven.model.io.DefaultModelReader.read(DefaultModelReader.java:96)
+	at org.apache.maven.model.io.DefaultModelReader.read(DefaultModelReader.java:74)
+	at org.eclipse.m2e.core.internal.IMavenToolbox.readModel(IMavenToolbox.java:243)
+	... 24 common frames omitted
+Caused by: org.codehaus.plexus.util.xml.pull.XmlPullParserException: end tag name </dependencies> must match start tag name <project> from line 2 (position: TEXT seen ...</dependencies>\n\n</dependencies>... @133:16) 
+	at org.codehaus.plexus.util.xml.pull.MXParser.parseEndTag(MXParser.java:2151)
+	at org.codehaus.plexus.util.xml.pull.MXParser.nextImpl(MXParser.java:1418)
+	at org.codehaus.plexus.util.xml.pull.MXParser.next(MXParser.java:1375)
+	at org.codehaus.plexus.util.xml.pull.MXParser.nextTag(MXParser.java:1360)
+	at org.apache.maven.model.io.xpp3.MavenXpp3Reader.parseModel(MavenXpp3Reader.java:2155)
+	at org.apache.maven.model.io.xpp3.MavenXpp3Reader.read(MavenXpp3Reader.java:623)
+	at org.apache.maven.model.io.xpp3.MavenXpp3Reader.read(MavenXpp3Reader.java:654)
+	at org.apache.maven.model.io.DefaultModelReader.read(DefaultModelReader.java:93)
+	... 26 common frames omitted
+2025-03-31 13:53:29,982 [Worker-37: Building] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.WarLifecycleMapping lifecycle mapping for MavenProject: com.korea.attendance:KoreaAttendance:0.0.1-SNAPSHOT @ /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/pom.xml.
+2025-03-31 13:53:31,182 [Worker-37: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src/main/resources to target/classes
+2025-03-31 13:53:31,186 [Worker-37: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src/main/resources to target/classes
+2025-03-31 13:53:31,204 [Worker-37: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-31 13:53:31,206 [Worker-37: Building] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Changed resources require a complete clean of filtered resources of LearnAlive
+2025-03-31 13:53:31,206 [Worker-37: Building] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Executing resource filtering for LearnAlive
+2025-03-31 13:55:30,174 [Worker-99: Updating Maven Project] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Update started
+2025-03-31 13:55:32,592 [Worker-99: Updating Maven Project] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.WarLifecycleMapping lifecycle mapping for MavenProject: com.korea.attendance:KoreaAttendance:0.0.1-SNAPSHOT @ /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/pom.xml.
+2025-03-31 13:55:35,362 [Worker-99: Updating Maven Project] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /LearnAlive/src/main/java
+2025-03-31 13:55:35,368 [Worker-99: Updating Maven Project] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /LearnAlive/src/main/resources
+2025-03-31 13:55:35,369 [Worker-99: Updating Maven Project] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /LearnAlive/src/main/resources
+2025-03-31 13:55:35,370 [Worker-99: Updating Maven Project] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /LearnAlive/src/test/java
+2025-03-31 13:55:35,370 [Worker-99: Updating Maven Project] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /LearnAlive/src/test/resources
+2025-03-31 13:55:37,148 [Worker-99: Updating Maven Project] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Cleaning filtered folder for LearnAlive
+2025-03-31 13:55:37,893 [Worker-99: Updating Maven Project] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Update completed for 1 poms: local refresh takes 1.00 sec, refresh facades takes 2.00 sec, update config takes 2.00 sec 
+2025-03-31 13:55:44,827 [Worker-460: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-31 13:55:44,882 [Worker-460: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 6 resources from src/main/resources to target/classes
+2025-03-31 13:55:44,986 [Worker-460: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-31 13:55:44,994 [Worker-460: Building] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Changed resources require a complete clean of filtered resources of LearnAlive
+2025-03-31 13:55:44,995 [Worker-460: Building] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Executing resource filtering for LearnAlive
+2025-03-31 13:58:12,793 [Worker-1: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
+2025-03-31 14:13:06,042 [Worker-76: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-31 14:13:06,498 [Worker-76: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 6 resources from src/main/resources to target/classes
+2025-03-31 14:13:06,726 [Worker-76: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-31 14:13:17,265 [Worker-52: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-31 14:13:17,287 [Worker-52: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 6 resources from src/main/resources to target/classes
+2025-03-31 14:13:17,294 [Worker-52: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-31 14:14:02,458 [Worker-3: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-31 14:14:02,483 [Worker-3: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 6 resources from src/main/resources to target/classes
+2025-03-31 14:14:02,491 [Worker-3: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-31 14:15:09,408 [Worker-78: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-31 14:15:09,768 [Worker-78: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 6 resources from src/main/resources to target/classes
+2025-03-31 14:15:10,353 [Worker-78: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-31 14:23:52,209 [Worker-30: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-31 14:23:52,242 [Worker-30: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 6 resources from src/main/resources to target/classes
+2025-03-31 14:23:52,251 [Worker-30: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-31 14:25:16,096 [Worker-14: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-31 14:25:16,122 [Worker-14: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 6 resources from src/main/resources to target/classes
+2025-03-31 14:25:16,130 [Worker-14: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-31 14:26:38,022 [Worker-41: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-31 14:26:38,047 [Worker-41: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 6 resources from src/main/resources to target/classes
+2025-03-31 14:26:38,061 [Worker-41: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-31 14:44:40,223 [Worker-52: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-31 14:44:40,360 [Worker-52: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 6 resources from src/main/resources to target/classes
+2025-03-31 14:44:40,850 [Worker-52: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-31 14:46:07,025 [Worker-13: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-31 14:46:07,050 [Worker-13: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 6 resources from src/main/resources to target/classes
+2025-03-31 14:46:07,055 [Worker-13: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-31 14:48:53,054 [Worker-56: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-31 14:48:53,089 [Worker-56: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 6 resources from src/main/resources to target/classes
+2025-03-31 14:48:53,100 [Worker-56: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources
+2025-03-31 14:51:31,457 [Worker-14: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src/main/resources to target/classes
+2025-03-31 14:51:31,471 [Worker-14: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 6 resources from src/main/resources to target/classes
+2025-03-31 14:51:31,488 [Worker-14: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory /Users/baehanbin/Documents/LearnAliveYuns/LearnAliveLMS/LearnAlive/src/test/resources

@@ -1,0 +1,28 @@
+package com.lms.attendance.repository;
+
+import com.lms.attendance.model.TeamClassMilestone;
+import org.apache.ibatis.annotations.*;
+import java.util.List;
+import java.util.Map;
+
+@Mapper
+public interface TeamClassMilestoneMapper {
+
+    @Insert("INSERT INTO class_milestone (class_id, title, due_date) VALUES (#{classId}, #{title}, #{dueDate})")
+    @Options(useGeneratedKeys = true, keyProperty = "milestoneId")
+    void insertClassMilestone(TeamClassMilestone milestone);
+
+    @Select("""
+        SELECT cm.milestone_id,
+               cm.title,
+               cm.due_date,
+               IFNULL(pms.status, 'pending') as status
+        FROM class_milestone cm
+        LEFT JOIN post_milestone_status pms
+            ON cm.milestone_id = pms.milestone_id
+            AND pms.post_id = #{postId}
+        WHERE cm.class_id = #{classId}
+        ORDER BY cm.milestone_id
+        """)
+    List<Map<String, Object>> selectMilestonesForPost(@Param("classId") int classId, @Param("postId") int postId);
+}

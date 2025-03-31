@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item key="hasShownOverlayPopupBefore" value="true"/>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item key="selection" value=""/>
+		<item key="wrap" value="true"/>
+		<item key="casesensitive" value="false"/>
+		<item key="wholeword" value="false"/>
+		<item key="incremental" value="false"/>
+		<item key="isRegEx" value="false"/>
+		<list key="findhistory">
+			<item value="import com.lms.attendance.config.WebSocketConfig"/>
+			<item value="getAllPosts"/>
+			<item value="getAllTeamActivityPosts"/>
+			<item value="getProjectMembersWithStudentInfoByPostId"/>
+			<item value="examResult"/>
+			<item value="fetchexamre"/>
+			<item value="findByClassId"/>
+			<item value="getExamsByClassId"/>
+			<item value="role"/>
+			<item value="maven-com"/>
+			<item value="getattendance"/>
+			<item value="getmonth"/>
+			<item value="find"/>
+			<item value="remarks"/>
+			<item value="create"/>
+		</list>
+		<list key="replacehistory">
+		</list>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="823"/>
+		<item key="DIALOG_Y_ORIGIN" value="150"/>
+		<item key="DIALOG_WIDTH" value="322"/>
+		<item key="DIALOG_HEIGHT" value="391"/>
+		<item key="DIALOG_FONT_NAME" value="1|맑은 고딕|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕"/>
+	</section>
+	<section name="java.lang.Class">
+		<item key="replaceBarOpen" value="false"/>
+		<list key="findhistory">
+			<item value="isAdmin(token)"/>
+		</list>
+	</section>
+</section>

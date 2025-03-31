@@ -1,0 +1,14 @@
+package com.lms.attendance.model;
+
+import lombok.Data;
+
+@Data
+public class Classroom {
+    private Integer classId;
+    private String className;
+    private String profId;
+    private Integer credit;
+    private Integer capacity;
+    private String courseType;
+    private Boolean required;
+}

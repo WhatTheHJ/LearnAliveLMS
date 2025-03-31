@@ -1,0 +1,245 @@
+/* SVG 스타일을 수정하는 CSS */
+.calendar {
+    display: flex; /* Flexbox 레이아웃 사용 */
+    padding: 10px;
+    /* align-items: flex-start; 세로 정렬 - 위쪽에 고정 */
+    flex-direction: column;
+    }
+    .calendar-right {
+      /* box-sizing: border-box; */
+      width: 20%;
+      min-width: 200px;
+      /* height:  110vh;  */
+      height: auto;
+      padding: 10px;
+      background-color: #f4f4f4;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.2); /* 약간의 그림자 */
+      /* margin-top: 0; 부모 요소의 맨 위에 정렬 */
+    }
+  
+    .survey-reminder-vertical {
+      /* padding: 12px;
+      background: #f4f4f4;
+      border-radius: 8px;
+      margin-bottom: 16px; */
+      height: 150px !important;
+      overflow: hidden;
+  }
+    
+    .calendar-top {
+      width: 100%;
+      height: 180px;
+      padding: 10px;
+    }
+  
+    .calendar-body {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+    }
+  
+    .fullcalendar {
+      flex-grow: 1; 
+      padding: 10px;
+    }
+  
+    /* .calendar-left {
+      width: 10%;   /* 네비게이션의 너비 
+      height: 100vh;  /* 전체 화면 높이 
+      padding: 20px;
+      background-color: #f4f4f4;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.2); /* 약간의 그림자
+    } */
+     
+    .fc.fc-media-screen.fc-direction-ltr.fc-theme-standard{
+      box-sizing: border-box; /* 여백까지 크기 계산 */
+    }
+    .fc { 
+      max-width: calc(100% - 20px); /* 20px의 여유 공간 */
+      /* overflow-x: hidden; */
+      padding: 10px;
+      /* height: 800px; */
+      transform: scale(0.98); /* 크기를 98%로 축소 */
+    }
+    
+    .fc-daygrid-day-frame {
+      position: relative;
+    }
+  
+   
+    
+    .modal {
+      width: 300px;
+      background-color: white;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 20px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center; /* 수평 중앙 정렬 */
+      justify-content: center; /* 수직 중앙 정렬 */
+      gap: 10px;
+    }
+  
+    input[type="color"] {
+      width: 40px;
+      height: 40px;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+    }
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .modal input,
+    textarea {
+      display: block;
+      width: 300px;
+      margin-bottom: 10px;
+      padding: 8px;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+      width: 100%; /* 인풋의 너비를 조정할 수 있습니다. */
+      max-width: 250px; /* 인풋의 최대 너비 설정 */
+    }
+    
+    .modal button {
+      /* margin-right: 10px; */
+      float: right;  /* 오른쪽으로 정렬 */
+      padding: 5px ;
+    
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+      margin-left: auto; /* 왼쪽 여백 자동으로 설정하여 오른쪽 끝에 정렬 */
+  
+    }
+  
+  
+    /* .custom-event {
+    height: 40px !important;  /* 일정 바 두께 조정 
+    border-width: 2px !important; 테두리 두께 조정
+  } */
+  
+  /* 벨 아이콘 스타일 */
+  .bell-icon {
+    font-size: 14px;
+    color: #FFB247;
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    z-index: 2;
+    transform: translateX(-20px); /* 좌측으로 5px 이동 */
+  }
+    
+  .todo-list {
+    /* list-style-type: lower-alpha; */
+    padding: 10px;
+    margin: 12px;
+    /* flex: 1 1 0%; */
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 8px;
+    flex-direction: column; /* 세로로 정렬되도록 */
+    justify-content: flex-start; /* 항목들이 위에서부터 아래로 나열되도록 */
+  }
+  
+  .todo-item {
+    margin-left: -40px;
+    display: flex;
+    align-items: center;
+    gap: 5px; /* 체크박스와 텍스트 간격 조정 */
+  }
+  
+  .todo-input {
+    padding: 8px; /* 여백 추가 */
+    display: flex; /* 인풋과 버튼을 가로로 나열 */
+    align-items: center; /* 세로 중앙 정렬 */
+    gap: 10px ; /* 인풋과 버튼 사이에 간격을 추가 */
+    width: 100%; /* 인풋의 너비를 조정할 수 있습니다. */
+    max-width: 250px; /* 인풋의 최대 너비 설정 */
+  }
+  
+  input {
+    width: 100%; /* 인풋의 너비를 조정할 수 있습니다. */
+    max-width: 250px; /* 인풋의 최대 너비 설정 */
+  }
+  
+  .todo-item input[type="checkbox"] {
+    width: 5%;
+    cursor: pointer;
+    
+  }
+  
+  .todo-item span {
+    font-size: 16px;
+  }
+  
+  .todo-item.completed span {
+    text-decoration: line-through; /* 완료된 항목 줄 긋기 */
+    color: gray;
+  }
+  
+  .todo-item input[type="checkbox"]:checked + span {
+    text-decoration: line-through;
+    color: gray;
+  }
+  
+  /* 전체 일정 리스트 스타일 */
+  .event-list {
+    list-style-type: none; /* 기본 점 제거 */
+    padding: 0;
+  }
+  
+  /* 각 일정 항목 스타일 */
+  .event-item {
+    background-color: #f9f9f9; /* 배경색 */
+    font-size: 12px;
+    padding: 2px;
+    margin: 10px 0; /* 항목 사이 간격 */
+    border-radius: 8px; /* 둥근 모서리 */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* 가벼운 그림자 효과 */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* 호버 효과에 부드러운 애니메이션 추가 */
+  }
+  
+  /* hover 효과 */
+  .event-item:hover {
+    transform: translateY(-5px); /* 위로 살짝 띄우기 */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* 그림자 강하게 */
+    cursor: pointer; /* 마우스 커서를 포인터로 변경 */
+  }
+  
+  .survey-reminder-vertical {
+    padding: 12px;
+    background: #f4f4f4;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    height: 180px; /* 고정 높이 */
+    overflow: hidden;
+  }
+  
+  .survey-slide {
+    background: white;
+    padding: 10px;
+    margin: 4px;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    font-size: 14px;
+    text-align: center;
+  }
+  
+  .deadline {
+    font-size: 12px;
+    color: gray;
+  }

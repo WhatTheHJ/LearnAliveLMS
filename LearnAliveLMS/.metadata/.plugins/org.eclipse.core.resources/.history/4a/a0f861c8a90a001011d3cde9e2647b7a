@@ -1,0 +1,5 @@
+package com.lms.attendance.repository;
+
+public interface TeamActivityCommentMapper {
+
+}

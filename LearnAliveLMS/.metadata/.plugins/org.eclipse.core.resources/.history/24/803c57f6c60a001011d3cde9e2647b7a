@@ -1,0 +1,5 @@
+package com.lms.attendance.controller;
+
+public class AlarmListController {
+
+}

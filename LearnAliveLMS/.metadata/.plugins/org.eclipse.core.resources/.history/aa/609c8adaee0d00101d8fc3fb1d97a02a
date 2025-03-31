@@ -1,0 +1,5 @@
+package com.lms.attendance.security;
+
+public class JwtAuthenticationFilter {
+
+}

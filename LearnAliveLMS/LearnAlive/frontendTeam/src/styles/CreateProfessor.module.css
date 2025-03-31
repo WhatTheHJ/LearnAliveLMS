@@ -1,0 +1,71 @@
+/* CreateProfessor.module.css */
+
+.formGroup {
+  margin-bottom: 0.7rem;            /* 간격을 더 줄임 (1rem -> 0.7rem) */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.2rem;                  /* 내부 여백 줄임 (0.3rem -> 0.2rem) */
+  border-radius: 6px;               /* 테두리 둥글기 유지 */
+  background-color: #f2f2f2;        /* 약간 더 밝은 회색으로 수정 */
+}
+
+.formGroup label {
+  display: inline-block;
+  width: 120px;                     /* 라벨 너비 줄임 (130px -> 120px) */
+  font-size: 0.85rem;               /* 글씨 크기 줄임 (0.9rem -> 0.85rem) */
+  font-weight: 600;
+  color: #333;
+}
+
+.form-control {
+  width: 60%;                       /* 입력 필드 너비 줄임 (65% -> 60%) */
+  padding: 0.35rem;                 /* 입력 필드 여백 줄임 (0.4rem -> 0.35rem) */
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.85rem;               /* 글씨 크기 줄임 (0.9rem -> 0.85rem) */
+  transition: border-color 0.2s;
+  background-color: white;
+}
+
+.form-control:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 2px rgba(0, 123, 255, 0.4); /* 그림자 크기 줄임 */
+}
+
+.button-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;                         /* 버튼 간 간격 유지 */
+  margin-top: 0.8rem;               /* 버튼 그룹 위쪽 여백 줄임 (1rem -> 0.8rem) */
+}
+
+button {
+  padding: 0.4rem 0.8rem;           /* 버튼 크기 줄임 (0.5rem 1rem -> 0.4rem 0.8rem) */
+  font-size: 0.8rem;                /* 버튼 글씨 크기 줄임 (0.85rem -> 0.8rem) */
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+button.btn-primary {
+  background-color: #007bff;
+  color: white;
+}
+
+button.btn-primary:hover {
+  background-color: #0056b3;
+  transform: translateY(-1px);
+}
+
+button.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+button.btn-secondary:hover {
+  background-color: #5a6268;
+  transform: translateY(-1px);
+}
